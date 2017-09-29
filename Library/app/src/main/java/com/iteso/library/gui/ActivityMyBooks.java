@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 
+
 import com.iteso.library.R;
 
 import java.util.Locale;
@@ -36,6 +37,7 @@ public class ActivityMyBooks extends ActivityBase {
         viewPager.setAdapter(mSectionsPagerAdapter);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+        onCreateDrawer();
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {

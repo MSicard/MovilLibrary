@@ -3,4 +3,16 @@
     <string name="activity_my_books_mb">My books</string>
     <string name="activity_my_books_statistics">Statistics</string>
     <string name="activity_my_books_notifications">Notifications</string>
+    <string-array name="titles">
+        <item>Search</item>
+        <item>My Books</item>
+        <item>Publication</item>
+        <item>Profile</item>
+        <item>Settings</item>
+    </string-array>
+    <string name="nav_search">Search</string>
+    <string name="nav_my_books">My Books</string>
+    <string name="nav_publication">Publication</string>
+    <string name="nav_profile">Profile</string>
+    <string name="nav_settings">Settings</string>
 </resources>
