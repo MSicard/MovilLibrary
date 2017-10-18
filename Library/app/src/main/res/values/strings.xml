@@ -1,14 +1,19 @@
 <resources>
     <string name="app_name">Library</string>
     <string name="activity_my_books_mb">My books</string>
-    <string name="activity_my_books_statistics">Statistics</string>
-    <string name="activity_my_books_notifications">Notifications</string>
+    <string name="activity_profile_profile">Profile</string>
+    <string name="activity_profile_statistics">Statistics</string>
+    <string name="activity_profile_notifications">Notifications</string>
+    <string name="activity_profile_publications">Publications</string>
+    <string name="activity_profile_friends">Friends</string>
+
     <string-array name="titles">
         <item>Home</item>
         <item>My Books</item>
         <item>Profile</item>
         <item>Settings</item>
     </string-array>
+
     <string name="nav_home">Home</string>
     <string name="nav_my_books">My Books</string>
     <string name="nav_profile">Profile</string>

@@ -33,6 +33,7 @@ public class ActivityProfile extends ActivityBase {
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mTabLayout = (TabLayout) findViewById(R.id.tabs);
         mTabLayout.setupWithViewPager(mViewPager);
+        mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
@@ -47,22 +48,26 @@ public class ActivityProfile extends ActivityBase {
                 case 0: return new FragmentProfile();
                 case 1: return new FragmentStatistics();
                 case 2: return new FragmentNotifications();
+                case 3: return new FragmentPublication();
+                case 4: return new FragmentMyFriends();
             }
             return null;
         }
 
         @Override
         public int getCount() {
-            return 3;
+            return 5;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             Locale l = Locale.getDefault();
             switch (position){
-                case 0: return getString(R.string.activity_my_books_mb);
-                case 1: return getString(R.string.activity_my_books_statistics);
-                case 2: return getString(R.string.activity_my_books_notifications);
+                case 0: return getString(R.string.activity_profile_profile);
+                case 1: return getString(R.string.activity_profile_statistics);
+                case 2: return getString(R.string.activity_profile_notifications);
+                case 3: return getString(R.string.activity_profile_publications);
+                case 4: return getString(R.string.activity_profile_friends);
             }
             return null;
         }

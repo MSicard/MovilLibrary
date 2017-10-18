@@ -3,6 +3,8 @@ package com.iteso.library.gui;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.iteso.library.R;
+import com.iteso.library.common.Utils;
 
 /**
  * Created by Maritza on 04/10/2017.
@@ -30,10 +33,10 @@ public class FragmentProfile extends Fragment implements OnClickListener{
     protected TextView mFavoriteBooks;
     protected TextView mAboutMe;
     protected ImageView mPhoto;
-    protected ImageButton mNameB;
-    protected ImageButton mEmailB;
-    protected ImageButton mFavoriteBooksB;
-    protected ImageButton mAboutMeB;
+    protected ImageView mNameB;
+    protected ImageView mEmailB;
+    protected ImageView mFavoriteBooksB;
+    protected ImageView mAboutMeB;
 
     @Nullable
     @Override
@@ -44,10 +47,14 @@ public class FragmentProfile extends Fragment implements OnClickListener{
         mFavoriteBooks = (TextView)view.findViewById(R.id.fragment_profile_favorite_books);
         mAboutMe = (TextView)view.findViewById(R.id.fragment_profile_about);
         mPhoto = (ImageView) view.findViewById(R.id.fragment_profile_image_profile);
-        mNameB = (ImageButton)view.findViewById(R.id.fragment_profile_change_name);
-        mEmailB = (ImageButton)view.findViewById(R.id.fragment_profile_change_favorite_books);
-        mFavoriteBooksB = (ImageButton)view.findViewById(R.id.fragment_profile_change_favorite_books);
-        mAboutMeB = (ImageButton)view.findViewById(R.id.fragment_profile_change_about);
+        mNameB = (ImageView)view.findViewById(R.id.fragment_profile_change_name);
+        mEmailB = (ImageView)view.findViewById(R.id.fragment_profile_change_email);
+        mFavoriteBooksB = (ImageView) view.findViewById(R.id.fragment_profile_change_favorite_books);
+        mAboutMeB = (ImageView)view.findViewById(R.id.fragment_profile_change_about);
+
+        Bitmap photoA = BitmapFactory.decodeResource(getActivity().getResources(),
+                R.drawable.profile);
+        mPhoto.setImageBitmap(Utils.getRoundedShape(photoA));
 
         mNameB.setOnClickListener(this);
         mEmailB.setOnClickListener(this);
@@ -56,8 +63,8 @@ public class FragmentProfile extends Fragment implements OnClickListener{
         return view;
     }
 
-
-    public void createDialog(String text, final TextView tv){
+    //CREACION DE DIALOGOS
+    public void createDialogEmail(final TextView tv){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
@@ -67,7 +74,7 @@ public class FragmentProfile extends Fragment implements OnClickListener{
         final EditText editText = (EditText)v.findViewById(R.id.dialog_profile_change);
         editText.setHint(tv.getText().toString());
         final TextView textView = (TextView)v.findViewById(R.id.dialog_profile_change_text);
-        textView.setText(text);
+        textView.setText("New Email");
 
         builder.setPositiveButton("CHANGE", new DialogInterface.OnClickListener() {
             @Override
@@ -82,21 +89,95 @@ public class FragmentProfile extends Fragment implements OnClickListener{
         });
         builder.create().show();
     }
+    public void createDialogFavoriteBook( final TextView tv){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = getActivity().getLayoutInflater();
 
+        View v = inflater.inflate(R.layout.dialog_profile_change, null);
+        builder.setView(v);
+
+        final EditText editText = (EditText)v.findViewById(R.id.dialog_profile_change);
+        editText.setHint(tv.getText().toString());
+        final TextView textView = (TextView)v.findViewById(R.id.dialog_profile_change_text);
+        textView.setText("Favorite Books");
+
+        builder.setPositiveButton("CHANGE", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                tv.setText(editText.getText().toString());
+            }
+        }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        builder.create().show();
+    }
+    public void createDialogAbout(final TextView tv){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+
+        View v = inflater.inflate(R.layout.dialog_profile_change, null);
+        builder.setView(v);
+
+        final EditText editText = (EditText)v.findViewById(R.id.dialog_profile_change);
+        editText.setHint(tv.getText().toString());
+        final TextView textView = (TextView)v.findViewById(R.id.dialog_profile_change_text);
+        textView.setText("About You");
+
+        builder.setPositiveButton("CHANGE", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                tv.setText(editText.getText().toString());
+            }
+        }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        builder.create().show();
+    }
+    public void createDialogName(final TextView tv){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+
+        View v = inflater.inflate(R.layout.dialog_profile_change, null);
+        builder.setView(v);
+
+        final EditText editText = (EditText)v.findViewById(R.id.dialog_profile_change);
+        editText.setHint(tv.getText().toString());
+        final TextView textView = (TextView)v.findViewById(R.id.dialog_profile_change_text);
+        textView.setText("New name");
+
+        builder.setPositiveButton("CHANGE", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                tv.setText(editText.getText().toString());
+            }
+        }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        builder.create().show();
+    }
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.fragment_profile_change_name:
-                createDialog("New name", mName);
+                createDialogName(mName);
                 break;
             case R.id.fragment_profile_change_email:
-                createDialog("New Email", mEmail);
+                createDialogEmail(mEmail);
                 break;
             case R.id.fragment_profile_change_favorite_books:
-                createDialog("Favorite Books", mFavoriteBooks);
+                createDialogFavoriteBook(mFavoriteBooks);
                 break;
             case R.id.fragment_profile_change_about:
-                createDialog("About You", mAboutMe);
+                createDialogAbout(mAboutMe);
                 break;
         }
     }
