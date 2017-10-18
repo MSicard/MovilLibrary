@@ -1,4 +1,4 @@
-package com.iteso.library.gui;
+package com.iteso.library.adapters;
 
 import android.content.Context;
 import android.graphics.Bitmap;

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.iteso.library.R;
+import com.iteso.library.adapters.AdapterMyBook;
 import com.iteso.library.beans.Book;
 import com.iteso.library.beans.MyBook;
 
@@ -32,7 +33,7 @@ public class FragmentMyBooks extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_my_books, container, false);
+        View view = inflater.inflate(R.layout.activity_my_books, container, false);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.fragment_my_books_recyclerview);
         recyclerView.setHasFixedSize(true);
         mlayoutManager = new LinearLayoutManager(getActivity());

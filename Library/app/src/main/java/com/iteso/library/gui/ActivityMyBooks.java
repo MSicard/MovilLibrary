@@ -1,75 +1,51 @@
 package com.iteso.library.gui;
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
-
+import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.iteso.library.R;
+import com.iteso.library.adapters.AdapterMyBook;
+import com.iteso.library.beans.Book;
+import com.iteso.library.beans.MyBook;
 
-import java.util.Locale;
+import java.util.ArrayList;
 
 /**
- * Created by Maritza on 22/09/2017.
+ * Created by Maritza on 04/10/2017.
  */
 
 public class ActivityMyBooks extends ActivityBase {
-    private Toolbar mToolbar;
-    private TabLayout mTabLayout;
-    private ViewPager mViewPager;
-    SectionsPagerAdapter mSectionsPagerAdapter;
 
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mlayoutManager;
+    private static int numberOfColumns = 3;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_books);
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        mViewPager = (ViewPager) findViewById(R.id.viewpager);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-        mTabLayout = (TabLayout) findViewById(R.id.tabs);
-        mTabLayout.setupWithViewPager(mViewPager);
         onCreateDrawer();
-    }
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.fragment_my_books_recyclerview);
+        recyclerView.setHasFixedSize(true);
 
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+        recyclerView.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
+        ArrayList<Book> myDataSet = new ArrayList<Book>();
 
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
+        MyBook book = new MyBook("El nombre del viento", "Patrick", "asdfasfd");
+        MyBook book1 = new MyBook("El nombre del viento", "Patrick", "asdfasfd");
+        MyBook book2 = new MyBook("El nombre del viento", "Patrick", "asdfasfd");
+        MyBook book3 = new MyBook("El nombre del viento", "Patrick", "asdfasfd");
+        myDataSet.add(book);
+        myDataSet.add(book1);
+        myDataSet.add(book2);
+        myDataSet.add(book3);
 
-        @Override
-        public Fragment getItem(int position) {
-            switch(position){
-                case 0: return new FragmentMyBooks();
-                case 1: return new FragmentStatistics();
-                case 2: return new FragmentNotifications();
-            }
-            return null;
-        }
+        mAdapter = new AdapterMyBook(this, myDataSet);
+        recyclerView.setAdapter(mAdapter);
 
-        @Override
-        public int getCount() {
-            return 3;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            Locale l = Locale.getDefault();
-            switch (position){
-                case 0: return getString(R.string.activity_my_books_mb);
-                case 1: return getString(R.string.activity_my_books_statistics);
-                case 2: return getString(R.string.activity_my_books_notifications);
-            }
-            return null;
-        }
     }
 }

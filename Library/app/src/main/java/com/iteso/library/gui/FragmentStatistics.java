@@ -25,6 +25,7 @@ public class FragmentStatistics extends Fragment {
     protected TextView tv_reading;
     protected TextView tv_totalRead;
     protected ImageView graphic;
+    protected ImageView photo;
 
     @Nullable
     @Override
@@ -37,6 +38,7 @@ public class FragmentStatistics extends Fragment {
         tv_reading = (TextView)view.findViewById(R.id.fragment_statistics_int_reading);
         tv_totalRead = (TextView)view.findViewById(R.id.fragment_statistics_int_total_read);
         graphic = (ImageView)view.findViewById(R.id.fragment_statistics_graphic);
+        photo = (ImageView)view.findViewById(R.id.fragment_statistics_image_profile);
         return view;
     }
 }
