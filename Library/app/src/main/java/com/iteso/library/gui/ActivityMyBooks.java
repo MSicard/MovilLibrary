@@ -39,10 +39,18 @@ public class ActivityMyBooks extends ActivityBase {
         MyBook book1 = new MyBook("El nombre del viento", "Patrick", "asdfasfd");
         MyBook book2 = new MyBook("El nombre del viento", "Patrick", "asdfasfd");
         MyBook book3 = new MyBook("El nombre del viento", "Patrick", "asdfasfd");
+        MyBook book4 = new MyBook("El nombre del viento", "Patrick", "asdfasfd");
+        MyBook book5 = new MyBook("El nombre del viento", "Patrick", "asdfasfd");
+        MyBook book6 = new MyBook("El nombre del viento", "Patrick", "asdfasfd");
+        MyBook book7 = new MyBook("El nombre del viento", "Patrick", "asdfasfd");
         myDataSet.add(book);
         myDataSet.add(book1);
         myDataSet.add(book2);
         myDataSet.add(book3);
+        myDataSet.add(book4);
+        myDataSet.add(book5);
+        myDataSet.add(book6);
+        myDataSet.add(book7);
 
         mAdapter = new AdapterMyBook(this, myDataSet);
         recyclerView.setAdapter(mAdapter);
