@@ -1,4 +1,4 @@
-package com.iteso.library.gui;
+package com.iteso.library.adapters;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import static com.iteso.library.common.Utils.putTime;
+
 /**
  * Created by Maritza on 29/09/2017.
  */
@@ -42,13 +44,14 @@ public class AdapterNotification extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view;
         switch(viewType){
             case 2:
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_notification_friendship, parent, false);
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_notification_friendship, parent, false);
                 return new NotificationFriendshipViewHolder(view);
             default:
-                View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_notification_comment, parent, false);
-                return new NotificationPublicationViewHolder(view2);
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_notification_comment, parent, false);
+                return new NotificationPublicationViewHolder(view);
         }
     }
 
@@ -56,16 +59,16 @@ public class AdapterNotification extends RecyclerView.Adapter<RecyclerView.ViewH
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (mDataSet.get(position).getNotificationType()){
             case 1:
-                String mess = mDataSet.get(position).getUserName() + Constants.NOTIFICATION_PUBLICATION_MESSAGE;
-                ((NotificationPublicationViewHolder)holder).message.setText(mess);
+                ((NotificationPublicationViewHolder)holder).message.setText(mDataSet.get(position).getUserName()
+                        + Constants.NOTIFICATION_PUBLICATION_MESSAGE);
                 Bitmap photoA = BitmapFactory.decodeResource(context.getResources(),
                         mDataSet.get(position).getImage());
                 ((NotificationPublicationViewHolder)holder).profileImage.setImageBitmap(Utils.getRoundedShape(photoA));
                 ((NotificationPublicationViewHolder)holder).date.setText(putTime(mDataSet.get(position).getDate()));
                 break;
             case 2:
-                String messa = mDataSet.get(position).getUserName() + Constants.NOTIFICATION_FRIENDSHIP_SEND_MESSAGE;
-                ((NotificationFriendshipViewHolder)holder).message.setText(messa);
+                ((NotificationFriendshipViewHolder)holder).message.setText(mDataSet.get(position).getUserName() +
+                        Constants.NOTIFICATION_FRIENDSHIP_SEND_MESSAGE);
 
                 Bitmap photoB = BitmapFactory.decodeResource(context.getResources(),
                         mDataSet.get(position).getImage());
@@ -73,9 +76,8 @@ public class AdapterNotification extends RecyclerView.Adapter<RecyclerView.ViewH
                 ((NotificationFriendshipViewHolder)holder).date.setText(putTime(mDataSet.get(position).getDate()));
                 break;
             case 3:
-
-                String msg = mDataSet.get(position).getUserName() + Constants.NOTIFICATION_PUBLICATION_MESSAGE;
-                ((NotificationPublicationViewHolder)holder).message.setText(msg);
+                ((NotificationPublicationViewHolder)holder).message.setText(mDataSet.get(position).getUserName() +
+                        Constants.NOTIFICATION_PUBLICATION_MESSAGE);
                 Bitmap photo = BitmapFactory.decodeResource(context.getResources(),
                         mDataSet.get(position).getImage());
 
@@ -122,37 +124,4 @@ public class AdapterNotification extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
-    private String putTime(Date date){
-        Calendar c = Calendar.getInstance();
-        c.setTime(date);
-        c.set(date.getYear(), date.getMonth(), date.getDay(), date.getHours(), date.getMinutes());
-        Calendar c2 = Calendar.getInstance();
-        c2.getTime();
-
-        String pattern = "dd MMMMMM HH:MM";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-
-        if(c2.get(Calendar.YEAR) - c.get(Calendar.YEAR) < 1){
-            Log.v("year", Integer.toString(c2.get(Calendar.MONTH) - c.get(Calendar.MONTH)));
-            if(c2.get(Calendar.MONTH) - c.get(Calendar.MONTH) < 1){
-                if(c2.get(Calendar.DAY_OF_MONTH) - c.get(Calendar.DAY_OF_MONTH)< 1){
-                    if(c2.get(Calendar.HOUR) - c.get(Calendar.HOUR) < 1){
-                        String minutos = "Hace " + Integer.toString(c2.get(Calendar.MINUTE) - c.get(Calendar.MINUTE)) + " minutos";
-                        return minutos;
-                    }
-                    else{
-                        String horas = "Hace " + Integer.toString(c.get(Calendar.HOUR)) + " horas";
-                        return horas;
-                    }
-                }else{
-                    return simpleDateFormat.format(date);
-                }
-            }
-            else{
-                return simpleDateFormat.format(date);
-            }
-        }else{
-            return simpleDateFormat.format(date);
-        }
-    }
 }

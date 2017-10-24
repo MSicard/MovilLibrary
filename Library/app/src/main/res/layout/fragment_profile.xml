@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_centerHorizontal="true"
+            android:id="@+id/fragment_profile_image_profile"
+            android:layout_margin="20dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/fragment_profile_image_profile"
+            android:gravity="center"
+            android:textSize="22sp"
+            android:layout_margin="4dp"
+            android:id="@+id/fragment_profile_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name"/>
+        <ImageView
+            android:layout_marginLeft="5dp"
+            android:layout_below="@id/fragment_profile_image_profile"
+            android:layout_toRightOf="@id/fragment_profile_name"
+            android:onClick="onClick"
+            android:id="@+id/fragment_profile_change_name"
+            android:src="@drawable/ic_create_black_24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_below="@id/fragment_profile_name"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:layout_margin="4dp"
+            android:id="@+id/fragment_profile_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"/>
+        <ImageView
+            android:layout_marginLeft="5dp"
+            android:layout_below="@id/fragment_profile_name"
+            android:layout_toRightOf="@id/fragment_profile_email"
+            android:onClick="onClick"
+            android:id="@+id/fragment_profile_change_email"
+            android:src="@drawable/ic_create_black_24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="7dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/fragment_profile_email"
+            android:id="@+id/fragment_profile_favorite_book_text"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Favorite Books!"/>
+        <ImageView
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="5dp"
+            android:layout_below="@id/fragment_profile_email"
+            android:onClick="onClick"
+            android:layout_toEndOf="@id/fragment_profile_favorite_book_text"
+            android:id="@+id/fragment_profile_change_favorite_books"
+            android:src="@drawable/ic_create_black_24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/fragment_profile_favorite_book_text"
+            android:gravity="center"
+            android:maxWidth="200dp"
+            android:layout_gravity="center"
+            android:id="@+id/fragment_profile_favorite_books"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="name \n hola \n como estas?"/>
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/fragment_profile_favorite_books"
+            android:id="@+id/fragment_profile_about_text"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="About Me"/>
+        <ImageView
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/fragment_profile_favorite_books"
+            android:onClick="onClick"
+            android:layout_toEndOf="@id/fragment_profile_about_text"
+            android:id="@+id/fragment_profile_change_about"
+            android:src="@drawable/ic_create_black_24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginTop="7dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/fragment_profile_about_text"
+            android:gravity="center"
+            android:maxWidth="200dp"
+            android:layout_gravity="center"
+            android:id="@+id/fragment_profile_about"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Population of the tabs to display is done through TabLayout.Tab instances. You create tabs via newTab(). From there you can change the tab's label or icon via setText(int) and setIcon(int) respectively. To display the tab, you need to add it to the layout via one of the addTab(Tab) methods. For example:"/>
+    </RelativeLayout>
+</ScrollView>

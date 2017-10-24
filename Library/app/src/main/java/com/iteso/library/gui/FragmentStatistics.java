@@ -1,5 +1,7 @@
 package com.iteso.library.gui;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,31 +14,37 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.iteso.library.R;
+import com.iteso.library.common.Utils;
 
 /**
  * Created by Maritza on 25/09/2017.
  */
 
 public class FragmentStatistics extends Fragment {
-    protected ImageButton lastMonth;
-    protected ImageButton reading;
-    protected ImageButton totalRead;
+    protected ImageView lastMonth;
+    protected ImageView reading;
+    protected ImageView totalRead;
     protected TextView tv_lastMonth;
     protected TextView tv_reading;
     protected TextView tv_totalRead;
     protected ImageView graphic;
+    protected ImageView photo;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_statistics, container, false);
-        lastMonth = (ImageButton)view.findViewById(R.id.fragment_statistics_button_last_month);
-        reading = (ImageButton)view.findViewById(R.id.fragment_statistics_button_reading);
-        totalRead = (ImageButton)view.findViewById(R.id.fragment_statistics_button_total_read);
+        lastMonth = (ImageView)view.findViewById(R.id.fragment_statistics_button_last_month);
+        reading = (ImageView)view.findViewById(R.id.fragment_statistics_button_reading);
+        totalRead = (ImageView)view.findViewById(R.id.fragment_statistics_button_total_read);
         tv_lastMonth = (TextView)view.findViewById(R.id.fragment_statistics_int_last_month);
         tv_reading = (TextView)view.findViewById(R.id.fragment_statistics_int_reading);
         tv_totalRead = (TextView)view.findViewById(R.id.fragment_statistics_int_total_read);
         graphic = (ImageView)view.findViewById(R.id.fragment_statistics_graphic);
+        Bitmap photoA = BitmapFactory.decodeResource(getActivity().getResources(),
+                R.drawable.profile);
+        photo = (ImageView)view.findViewById(R.id.fragment_statistics_image_profile);
+        photo.setImageBitmap(Utils.getRoundedShape(photoA));
         return view;
     }
 }

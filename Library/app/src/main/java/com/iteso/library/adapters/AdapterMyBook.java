@@ -1,6 +1,7 @@
-package com.iteso.library.gui;
+package com.iteso.library.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.iteso.library.R;
 import com.iteso.library.beans.Book;
+import com.iteso.library.gui.ActivityMyBookDetail;
 
 import java.util.ArrayList;
 
@@ -17,7 +19,7 @@ import java.util.ArrayList;
  * Created by Maritza on 22/09/2017.
  */
 
-class AdapterMyBook extends RecyclerView.Adapter<AdapterMyBook.ViewHolder> {
+public class AdapterMyBook extends RecyclerView.Adapter<AdapterMyBook.ViewHolder> implements View.OnClickListener{
 
     private ArrayList<Book> mDataSet;
     private Context context;
@@ -37,14 +39,23 @@ class AdapterMyBook extends RecyclerView.Adapter<AdapterMyBook.ViewHolder> {
 
     @Override
     public void onBindViewHolder(AdapterMyBook.ViewHolder holder, int position) {
+        //metodo longitud de string
+
         holder.title.setText(mDataSet.get(position).getTitle());
         holder.autor.setText(mDataSet.get(position).getAutor());
         holder.image.setImageResource(R.drawable.nombre_del_viento);
+        holder.image.setOnClickListener(this);
     }
 
     @Override
     public int getItemCount() {
         return mDataSet.size();
+    }
+
+    @Override
+    public void onClick(View view) {
+        Intent intent = new Intent(context, ActivityMyBookDetail.class);
+        context.startActivity(intent);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{

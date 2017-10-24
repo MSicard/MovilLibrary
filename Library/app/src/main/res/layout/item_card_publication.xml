@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_margin="@dimen/item_card_publication_card_margin"
+    card_view:cardCornerRadius="@dimen/item_card_publication_corner_radius"
+    card_view:cardElevation="@dimen/item_card_publication_card_elevation"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_margin="@dimen/item_card_publication_margin"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="@dimen/item_card_publication_photo_size"
+                android:layout_height="@dimen/item_card_publication_photo_size"
+                android:id="@+id/item_card_publication_photo"/>
+            <LinearLayout
+                android:layout_margin="@dimen/item_card_publication_margin"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/item_card_publication_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/item_card_publication_time"
+                    android:textSize="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+        <TextView
+            android:layout_margin="@dimen/item_card_publication_comment_margin"
+            android:id="@+id/item_card_publication_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <View
+            android:background="@android:color/darker_gray"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+        <RelativeLayout
+            android:layout_gravity="end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@drawable/ic_favorite_black_24dp"
+                android:layout_centerVertical="true"
+                android:layout_margin="@dimen/item_card_publication_button_margin"
+                android:id="@+id/item_card_publication_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:src="@drawable/ic_comment_black_24dp"
+                android:layout_toRightOf="@id/item_card_publication_like"
+                android:id="@+id/item_card_publication_button_comments"
+                android:layout_margin="@dimen/item_card_publication_button_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>
