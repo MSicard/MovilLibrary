@@ -32,7 +32,7 @@
             android:orientation="vertical">
 
             <RelativeLayout
-                android:paddingTop="20dp"
+                android:paddingTop="@dimen/activity_my_book_detail_padding_top"
                 android:background="@color/cardview_dark_background"
                 android:id="@+id/activity_my_book_detail_rl"
                 android:layout_width="match_parent"
@@ -44,7 +44,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:layout_marginBottom="70dp"
+                    android:layout_marginBottom="@dimen/activity_my_book_detail_marginBottom"
                     android:orientation="vertical">
 
                     <ImageView
@@ -57,14 +57,12 @@
                     <TextView
                         android:id="@+id/activity_my_book_detail_title"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="El nombre del viento" />
+                        android:layout_height="wrap_content" />
 
                     <TextView
                         android:id="@+id/activity_my_book_detail_autor"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Patrick" />
+                        android:layout_height="wrap_content" />
 
                     <RatingBar
                         android:id="@+id/activity_my_book_detail_rating"
@@ -77,41 +75,41 @@
 
                     <Button
                         android:id="@+id/activity_my_book_detail_bibliography"
-                        android:layout_width="150dp"
-                        android:layout_height="30dp"
-                        android:layout_marginTop="5dp"
+                        android:layout_width="@dimen/activity_my_book_detail_bibliography_bttn_width"
+                        android:layout_height="@dimen/activity_my_book_detail_bibliography_bttn_height"
+                        android:layout_marginTop="@dimen/activity_my_book_detail_bibliography_marginTop"
                         android:background="@drawable/button_round"
-                        android:text="  Bibliography  "
+                        android:text="@string/bibliographyactivity_my_book_detail_bibliography"
                         android:textColor="#FFFFFF" />
                 </LinearLayout>
             </RelativeLayout>
 
             <TableLayout
                 android:layout_weight=".3"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginTop="60dp"
+                android:layout_marginLeft="@dimen/activity_my_book_detail_tableLayout_marginLeft"
+                android:layout_marginRight="@dimen/activity_my_book_detail_tableLayout_marginRight"
+                android:layout_marginTop="@dimen/activity_my_book_detail_tableLayout_marginTop"
                 android:layout_width="match_parent"
                 android:layout_height="0dp">
-                <TableRow android:layout_margin="5dp">
+                <TableRow android:layout_margin="@dimen/activity_my_book_detail_tableRow_margin">
                     <TextView
-                        android:text="Read Pages"
+                        android:text="@string/activity_my_book_detail_read_pages"
                         android:layout_weight="1"/>
                     <TextView android:text="100"
                         android:id="@+id/activity_my_book_detail_read_pages"
                         android:layout_weight="1"/>
                 </TableRow>
-                <TableRow android:layout_margin="5dp">
+                <TableRow android:layout_margin="@dimen/activity_my_book_detail_tableRow_margin">
                     <TextView
-                        android:text="Percentage Read"
+                        android:text="@string/activity_my_book_detail_percentage_read"
                         android:layout_weight="1"/>
                     <TextView android:text="54%"
                         android:id="@+id/activity_my_book_detail_percentage"
                         android:layout_weight="1"/>
                 </TableRow>
-                <TableRow android:layout_margin="5dp">
+                <TableRow android:layout_margin="@dimen/activity_my_book_detail_tableRow_margin">
                     <TextView
-                        android:text="Start date"
+                        android:text="@string/activity_my_book_detail_start_date"
                         android:layout_weight="1"/>
                     <TextView android:text="10 Enero del 2017"
                         android:id="@+id/activity_my_book_detail_start_date"
@@ -122,10 +120,10 @@
         <android.support.v7.widget.CardView
             app:layout_anchor="@id/activity_my_book_detail_rl"
             app:layout_anchorGravity="bottom|center"
-            app:cardCornerRadius="4dp"
-            app:cardElevation="4dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
+            app:cardCornerRadius="@dimen/activity_my_book_detail_card_corner"
+            app:cardElevation="@dimen/activity_my_book_detail_card_elevation"
+            android:layout_marginRight="@dimen/activity_my_book_detail_card_margin"
+            android:layout_marginLeft="@dimen/activity_my_book_detail_card_margin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <RelativeLayout
@@ -134,16 +132,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <Button
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="@dimen/activity_my_book_detail_open_margin"
+                    android:layout_marginBottom="@dimen/activity_my_book_detail_open_margin"
                     android:background="@drawable/button_round"
                     android:id="@+id/activity_my_book_detail_open"
-                    android:layout_width="150dp"
-                    android:layout_height="30dp"
+                    android:layout_width="@dimen/activity_my_book_detail_open_bttn_width"
+                    android:layout_height="@dimen/activity_my_book_detail_open_bttn_height"
                     android:text="Open"/>
                 <ImageButton
                     android:src="@drawable/ic_file_download_black_24dp"
-                    android:layout_marginLeft="40dp"
+                    android:layout_marginLeft="@dimen/activity_my_book_detail_download_margin"
                     android:layout_toRightOf="@id/activity_my_book_detail_open"
                     android:id="@+id/activity_my_book_detail_download"
                     android:layout_width="wrap_content"
@@ -152,18 +150,18 @@
                     android:background="@drawable/button_round"
                     android:id="@+id/activity_my_book_detail_update"
                     android:layout_below="@id/activity_my_book_detail_open"
-                    android:layout_width="150dp"
-                    android:layout_height="30dp"
+                    android:layout_width="@dimen/activity_my_book_detail_open_bttn_width"
+                    android:layout_height="@dimen/activity_my_book_detail_open_bttn_height"
                     android:text="Update"/>
                 <LinearLayout
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="@dimen/activity_my_book_detail_linear_margin"
                     android:layout_below="@id/activity_my_book_detail_open"
                     android:layout_toRightOf="@id/activity_my_book_detail_update"
                     android:orientation="vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:text="Actual Reading"
+                        android:text="@string/activity_my_book_detail_actual_reading"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <Switch

@@ -4,8 +4,8 @@
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="3dp"
-        card_view:cardCornerRadius="4dp">
+        android:layout_margin="@dimen/item_card_book_margin"
+        card_view:cardCornerRadius="@dimen/item_card_book_corner_radius">
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -14,10 +14,10 @@
                 android:src="@drawable/nombre_del_viento"
                 android:id="@+id/fragment_my_books_card_book_image"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="@dimen/item_card_book_image_height"
                 android:scaleType="fitXY"/>
             <TextView
-                android:textSize="17sp"
+                android:textSize="@dimen/item_card_book_title_size"
                 android:textColor="@android:color/black"
                 android:gravity="center"
                 android:layout_gravity="center"
