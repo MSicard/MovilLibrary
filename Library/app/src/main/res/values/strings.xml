@@ -31,4 +31,10 @@
     <string name="activity_my_book_detail_actual_reading">Actual Reading</string>
     <string name="fragment_publications_hint">What do you think?</string>
     <string name="publicarfragment_publications_publish">Publish</string>
+
+    <string name="activity_login_hint_username">E-mail o teléfono</string>
+    <string name="activity_login_hint_password">Contraseña</string>
+    <string name="activity_login_button_login">Iniciar sesión con Facebook</string>
+
+    <string name="activity_home_category_science_fiction">Ciencia ficción</string>
 </resources>

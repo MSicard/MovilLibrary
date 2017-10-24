@@ -16,7 +16,7 @@ import java.util.Date;
 
 public class Utils {
 
-    //Método que hace redonda la imagen 
+    //Método que hace redonda la imagen
     public static Bitmap getRoundedShape(Bitmap scaleBitmapImage) {
         int targetWidth = 200;
         int targetHeight = 200;
