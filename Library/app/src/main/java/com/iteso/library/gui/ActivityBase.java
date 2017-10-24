@@ -107,7 +107,9 @@ public abstract class ActivityBase extends AppCompatActivity implements Navigati
         // Handle navigation view item clicks here.
         Intent intent;
         switch (item.getItemId()){
-            case 0:
+            case R.id.nav_home:
+                intent = new Intent(this, ActivityHome.class);
+                startActivity(intent);
                 break;
             case R.id.nav_my_books:
                 intent = new Intent(this, ActivityMyBooks.class);
