@@ -10,16 +10,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".gui.ActivityProfile">
+        </activity>
+        <activity
+            android:name=".gui.ActivityMyBookDetail"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".gui.ActivityMyBooks"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".gui.ActivityLogin"></activity>
+        <activity android:name=".gui.ActivityHome">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".gui.ActivityMyBookDetail"
-            android:theme="@style/AppTheme"/>
-        <activity android:name=".gui.ActivityMyBooks"
-            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>
