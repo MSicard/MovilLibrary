@@ -24,4 +24,11 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="bibliographyactivity_my_book_detail_bibliography">Bibliography</string>
+    <string name="activity_my_book_detail_read_pages">Read Pages</string>
+    <string name="activity_my_book_detail_percentage_read">Percentage Read</string>
+    <string name="activity_my_book_detail_start_date">Start date</string>
+    <string name="activity_my_book_detail_actual_reading">Actual Reading</string>
+    <string name="fragment_publications_hint">What do you think?</string>
+    <string name="publicarfragment_publications_publish">Publish</string>
 </resources>

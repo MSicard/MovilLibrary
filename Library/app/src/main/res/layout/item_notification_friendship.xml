@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    card_view:cardCornerRadius="4dp"
-    card_view:cardElevation="4dp"
-    android:layout_margin="4dp"
+    card_view:cardCornerRadius="@dimen/item_notification_4dp"
+    card_view:cardElevation="@dimen/item_notification_4dp"
+    android:layout_margin="@dimen/item_notification_4dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <LinearLayout
@@ -13,11 +13,11 @@
         <ImageView
             android:id="@+id/fragment_my_books_notification_image"
             android:src="@drawable/profile"
-            android:layout_width="75dp"
+            android:layout_width="@dimen/item_notification_photo_width"
             android:layout_height="match_parent" />
         <TextView
             android:id="@+id/fragment_my_books_notification_message"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/item_notification_notification_text_margin"
             android:text="Esta es un notificación. Alguien comentó un texto."
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -30,9 +30,9 @@
             <TextView
                 android:textSize="10dp"
                 android:id="@+id/fragment_my_books_notification_date"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="3dp"
+                android:layout_marginTop="@dimen/item_notification_time_text_margin"
+                android:layout_marginRight="@dimen/item_notification_time_text_margin"
+                android:layout_marginBottom="@dimen/item_notification_friendship_time_marginBottom"
                 android:text="tiempo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
