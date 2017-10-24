@@ -2,7 +2,10 @@ package com.iteso.library.gui;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SnapHelper;
+import android.view.Gravity;
 
 import com.iteso.library.R;
 import com.iteso.library.adapters.AdapterCategorizedBook;

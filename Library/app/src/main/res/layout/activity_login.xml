@@ -22,7 +22,7 @@
             android:id="@+id/activity_login_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="E-mail o teléfono"
+            android:hint="@string/activity_login_hint_username"
             android:inputType="textEmailAddress"
             android:imeOptions="actionNext"
             android:gravity="center"
