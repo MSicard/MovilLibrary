@@ -8,4 +8,30 @@
     <dimen name="nav_header_vertical_spacing">16dp</dimen>
     <dimen name="nav_header_height">160dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="item_featured_books_cardview_height">200dp</dimen>
+    <dimen name="item_featured_books_cardview_margin">3dp</dimen>
+    <dimen name="item_featured_books_cardview_corner_radius">4dp</dimen>
+    <dimen name="item_featured_books_relative_layout_margin">5dp</dimen>
+    <dimen name="item_featured_books_image_view_width">150dp</dimen>
+    <dimen name="item_featured_books_information_margin_start">10dp</dimen>
+    <dimen name="item_featured_books_title_size">20sp</dimen>
+    <dimen name="item_featured_books_author_size">18sp</dimen>
+    <dimen name="item_featured_books_sinapsys_size">15sp</dimen>
+    <dimen name="item_featured_books_texview_synapsis_margin_top">10dp</dimen>
+
+    <dimen name="item_categorized_books_cardview_width">130dp</dimen>
+    <dimen name="item_categorized_books_cardview_height">130dp</dimen>
+    <dimen name="item_categorized_books_cardview_margin">10dp</dimen>
+    <dimen name="item_categorized_books_cardview_corner_radius">4dp</dimen>
+    <dimen name="item_categorized_books_image_view_height">100dp</dimen>
+    <dimen name="item_categorized_books_image_view_margin">2dp</dimen>
+    <dimen name="item_categorized_books_title_margin">5dp</dimen>
+
+    <dimen name="activity_home_main_linear_layout_margin">10dp</dimen>
+    <dimen name="activity_home_featured_books_margin">2dp</dimen>
+    <dimen name="activity_home_category_marginTop">5dp</dimen>
+    <dimen name="activity_home_text_category_marginTop">5dp</dimen>
+    <dimen name="activity_home_category_textSize">20sp</dimen>
+    <dimen name="activity_home_category_recycler_margin">5dp</dimen>
 </resources>

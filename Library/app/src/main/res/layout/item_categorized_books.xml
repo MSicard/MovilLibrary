@@ -2,10 +2,10 @@
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:layout_width="130dp"
-    android:layout_height="130dp"
-    android:layout_margin="10dp"
-    card_view:cardCornerRadius="4dp">
+    android:layout_width="@dimen/item_categorized_books_cardview_width"
+    android:layout_height="@dimen/item_categorized_books_cardview_height"
+    android:layout_margin="@dimen/item_categorized_books_cardview_margin"
+    card_view:cardCornerRadius="@dimen/item_categorized_books_cardview_corner_radius">
     <RelativeLayout
         android:id="@+id/activity_home_categorized_book_card"
         android:layout_width="match_parent"
@@ -14,17 +14,16 @@
         <ImageView
             android:id="@+id/activity_home_categorized_book_image"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_margin="2dp"
+            android:layout_height="@dimen/item_categorized_books_image_view_height"
+            android:layout_margin="@dimen/item_categorized_books_image_view_margin"
             android:src="@drawable/nombre_del_viento"
             android:scaleType="centerInside"/>
         <TextView
             android:id="@+id/activity_home_categorized_book_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_below="@id/activity_home_categorized_book_image"
-            android:text="Este es un libro"/>
+            android:layout_margin="@dimen/item_categorized_books_title_margin"
+            android:layout_below="@id/activity_home_categorized_book_image"/>
     </RelativeLayout>
 
 
