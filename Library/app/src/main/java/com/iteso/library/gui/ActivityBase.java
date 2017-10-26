@@ -1,5 +1,7 @@
 package com.iteso.library.gui;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -7,11 +9,15 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -141,6 +147,30 @@ public abstract class ActivityBase extends AppCompatActivity implements Navigati
     }
 
     public void createDialogBibliography(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
 
+        View v = inflater.inflate(R.layout.dialog_bibliography, null);
+        builder.setView(v);
+
+        final TextView bibliography = (TextView) v.findViewById(R.id.dialog__bibliography_bibliography);
+        final TextView textView = (TextView)v.findViewById(R.id.dialog_bibliography_title);
+        textView.setText("Bibliography");
+
+        builder.setPositiveButton("ACCEPT", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        builder.create().show();
+    }
+
+
+    //Cierra el teclado
+    public void closeSoftKeyBoard() {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
     }
 }

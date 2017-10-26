@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -64,6 +65,13 @@ public class ActivityMyBookDetail extends ActivityBase {
                 createDialogUpdate(mNumberPages);
             }
         });
+
+        mBibliography.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createDialogBibliography();
+            }
+        });
     }
 
     private void setMyBook(MyBook b){
@@ -80,6 +88,7 @@ public class ActivityMyBookDetail extends ActivityBase {
         builder.setView(v);
 
         final EditText editText = (EditText)v.findViewById(R.id.dialog_profile_change);
+        editText.setInputType(InputType.TYPE_CLASS_NUMBER);
         editText.setHint(tv.getText().toString());
         final TextView textView = (TextView)v.findViewById(R.id.dialog_profile_change_text);
         textView.setText("Update");
