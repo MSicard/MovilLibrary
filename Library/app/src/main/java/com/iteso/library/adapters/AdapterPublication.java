@@ -48,8 +48,8 @@ public class AdapterPublication extends RecyclerView.Adapter<AdapterPublication.
         Bitmap photoA = BitmapFactory.decodeResource(context.getResources(),
                 mDataSet.get(position).getPhotoUser());
         holder.photo.setImageBitmap(getRoundedShape(photoA));
-        holder.countComments.setText(String(mDataSet.get(position).getCountComments()));
-        holder.countLikes.setText(mDataSet.get(position).getCountLikes());
+        holder.countComments.setText(Integer.toString(mDataSet.get(position).getCountComments()));
+        holder.countLikes.setText(Integer.toString(mDataSet.get(position).getCountLikes()));
     }
 
     @Override
