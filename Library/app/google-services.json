@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "869459799980",
+    "firebase_url": "https://booket-b4303.firebaseio.com",
+    "project_id": "booket-b4303",
+    "storage_bucket": "booket-b4303.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:869459799980:android:f407c625b03c0e65",
+        "android_client_info": {
+          "package_name": "com.iteso.library"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "869459799980-vgps8ie1e3nm3iktoa9r8ddh9i5iltra.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeCJ_PSoMsDtFsDLG6dFNnpLDQObOgVg0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

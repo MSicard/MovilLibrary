@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.facebook.AccessToken;
+import com.facebook.Profile;
 import com.iteso.library.R;
 import com.iteso.library.common.Utils;
 
@@ -55,12 +57,22 @@ public abstract class ActivityBase extends AppCompatActivity implements Navigati
     }
 
     private void loadNavHeader() {
-        // name, website
-        Bitmap photo = BitmapFactory.decodeResource(this.getResources(),
-                R.drawable.profile);
+        if(AccessToken.getCurrentAccessToken() == null){
+            Bitmap photo = BitmapFactory.decodeResource(this.getResources(),
+                    R.drawable.profile);
 
-        mPhoto.setImageBitmap(Utils.getRoundedShape(photo));
-        mName.setText("Ravi Tamada");
+            mPhoto.setImageBitmap(Utils.getRoundedShape(photo));
+            mName.setText("Ravi Tamada");
+        }
+        else{
+            Profile profile = Profile.getCurrentProfile();
+            if(profile != null){
+                mName.setText(profile.getName());
+
+            }else{
+                Profile.fetchProfileForCurrentAccessToken();
+            }
+        }
     }
 
     @Override
@@ -107,7 +119,9 @@ public abstract class ActivityBase extends AppCompatActivity implements Navigati
         // Handle navigation view item clicks here.
         Intent intent;
         switch (item.getItemId()){
-            case 0:
+            case R.id.nav_home:
+                intent = new Intent(this, ActivityHome.class);
+                startActivity(intent);
                 break;
             case R.id.nav_my_books:
                 intent = new Intent(this, ActivityMyBooks.class);
@@ -126,4 +140,7 @@ public abstract class ActivityBase extends AppCompatActivity implements Navigati
         return true;
     }
 
+    public void createDialogBibliography(){
+
+    }
 }

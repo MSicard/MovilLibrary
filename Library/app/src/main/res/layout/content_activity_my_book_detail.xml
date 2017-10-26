@@ -79,7 +79,7 @@
                         android:layout_height="@dimen/activity_my_book_detail_bibliography_bttn_height"
                         android:layout_marginTop="@dimen/activity_my_book_detail_bibliography_marginTop"
                         android:background="@drawable/button_round"
-                        android:text="@string/bibliographyactivity_my_book_detail_bibliography"
+                        android:text="@string/activity_my_book_detail_bibliography"
                         android:textColor="#FFFFFF" />
                 </LinearLayout>
             </RelativeLayout>
