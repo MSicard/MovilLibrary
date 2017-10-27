@@ -1,5 +1,6 @@
 package com.iteso.library.gui;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -45,6 +46,31 @@ public class FragmentStatistics extends Fragment {
                 R.drawable.profile);
         photo = (ImageView)view.findViewById(R.id.fragment_statistics_image_profile);
         photo.setImageBitmap(Utils.getRoundedShape(photoA));
+
+        lastMonth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), ActivityStatisticsBooks.class);
+                ((ActivityProfile)view.getContext()).startActivity(intent);
+            }
+        });
+
+        reading.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), ActivityStatisticsBooks.class);
+                ((ActivityProfile)view.getContext()).startActivity(intent);
+            }
+        });
+
+        totalRead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), ActivityStatisticsBooks.class);
+                ((ActivityProfile)view.getContext()).startActivity(intent);
+            }
+        });
+
         return view;
     }
 }
