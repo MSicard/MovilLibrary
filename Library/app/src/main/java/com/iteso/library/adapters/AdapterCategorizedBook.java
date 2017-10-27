@@ -1,6 +1,7 @@
 package com.iteso.library.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 
 import com.iteso.library.R;
 import com.iteso.library.beans.Book;
+import com.iteso.library.gui.ActivityBookDetail;
+import com.iteso.library.gui.ActivityHome;
 
 import java.util.ArrayList;
 
@@ -29,7 +32,7 @@ public class AdapterCategorizedBook extends RecyclerView.Adapter<AdapterCategori
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_categorized_books, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_card_categorized_book, parent, false);
         ViewHolder vh = new ViewHolder(view);
         return vh;
     }
@@ -42,7 +45,8 @@ public class AdapterCategorizedBook extends RecyclerView.Adapter<AdapterCategori
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Enviar a BookDetail
+                Intent intent = new Intent(view.getContext(), ActivityBookDetail.class);
+                ((ActivityHome)view.getContext()).startActivity(intent);
             }
         });
 

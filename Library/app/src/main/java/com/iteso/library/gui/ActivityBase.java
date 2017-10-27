@@ -78,29 +78,6 @@ public abstract class ActivityBase extends AppCompatActivity implements Navigati
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.activity_drawer_example, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-
-        return super.onOptionsItemSelected(item);
-    }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -119,7 +96,9 @@ public abstract class ActivityBase extends AppCompatActivity implements Navigati
                 intent = new Intent(this, ActivityProfile.class);
                 startActivity(intent);
                 break;
-            case 3:
+            case R.id.nav_settings:
+                intent = new Intent(this, ActivitySettings.class);
+                startActivity(intent);
                 break;
         }
 
