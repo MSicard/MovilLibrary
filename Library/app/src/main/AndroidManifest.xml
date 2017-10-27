@@ -11,11 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"/>
-
-
         <activity android:name=".gui.ActivityProfile">
         </activity>
         <activity
@@ -25,7 +22,8 @@
             android:name=".gui.ActivityMyBooks"
             android:theme="@style/AppTheme" />
 
-        <activity android:name=".gui.ActivityLogin">
+        <activity android:name=".gui.ActivityLogin" />
+        <activity android:name=".gui.ActivityHome">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -35,8 +33,12 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".gui.ActivityHome">
-        </activity>
+        <activity android:name=".gui.ActivityBookDetail" />
+        <activity android:name=".gui.ActivitySplashScreen" />
+        <activity android:name=".gui.ActivitySettings" />
+        <activity android:name=".gui.ActivityReview" />
+        <activity android:name=".gui.ActivityComments" />
+        <activity android:name=".gui.ActivityStatisticsBooks"></activity>
     </application>
 
 </manifest>

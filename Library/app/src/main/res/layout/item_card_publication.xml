@@ -8,6 +8,7 @@
     card_view:cardElevation="@dimen/item_card_publication_card_elevation"
     android:layout_height="wrap_content">
     <LinearLayout
+        android:id="@+id/item_card_publication_card"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

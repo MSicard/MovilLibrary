@@ -22,13 +22,14 @@
                     android:layout_margin="@dimen/fragment_publications_margin"
                     android:layout_width="@dimen/fragment_publications_image_width"
                     android:layout_height="@dimen/fragment_publications_image_height" />
+
                 <EditText
                     android:id="@+id/fragment_publication_comment"
-                    android:hint="@string/fragment_publications_hint"
+                    android:layout_width="262dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:inputType="textImeMultiLine"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:hint="@string/fragment_publications_hint"
+                    android:inputType="textImeMultiLine" />
             </LinearLayout>
             <View
                 android:background="@android:color/darker_gray"
