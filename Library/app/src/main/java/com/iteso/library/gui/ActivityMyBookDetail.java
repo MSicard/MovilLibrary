@@ -1,8 +1,14 @@
 package com.iteso.library.gui;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
+import android.text.InputType;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -52,6 +58,20 @@ public class ActivityMyBookDetail extends ActivityBase {
         mCoverPage = (ImageView)findViewById(R.id.activity_my_book_detail_cover_page);
 
         onCreateDrawer();
+
+        mUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createDialogUpdate(mNumberPages);
+            }
+        });
+
+        mBibliography.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createDialogBibliography();
+            }
+        });
     }
 
     private void setMyBook(MyBook b){
@@ -59,4 +79,32 @@ public class ActivityMyBookDetail extends ActivityBase {
         mAutor.setText(b.getAutor());
         mRating.setRating(5);
     }
+
+    public void createDialogUpdate(final TextView tv){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+
+        View v = inflater.inflate(R.layout.dialog_profile_change, null);
+        builder.setView(v);
+
+        final EditText editText = (EditText)v.findViewById(R.id.dialog_profile_change);
+        editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+        editText.setHint(tv.getText().toString());
+        final TextView textView = (TextView)v.findViewById(R.id.dialog_profile_change_text);
+        textView.setText("Update");
+
+        builder.setPositiveButton("ACCEPT", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                tv.setText(editText.getText().toString());
+            }
+        }).setNegativeButton("DECLLINE", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        builder.create().show();
+    }
+
 }

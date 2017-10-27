@@ -1,5 +1,7 @@
 package com.iteso.library.gui;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -7,15 +9,21 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.facebook.AccessToken;
+import com.facebook.Profile;
 import com.iteso.library.R;
 import com.iteso.library.common.Utils;
 
@@ -55,12 +63,22 @@ public abstract class ActivityBase extends AppCompatActivity implements Navigati
     }
 
     private void loadNavHeader() {
-        // name, website
-        Bitmap photo = BitmapFactory.decodeResource(this.getResources(),
-                R.drawable.profile);
+        if(AccessToken.getCurrentAccessToken() == null){
+            Bitmap photo = BitmapFactory.decodeResource(this.getResources(),
+                    R.drawable.profile);
 
-        mPhoto.setImageBitmap(Utils.getRoundedShape(photo));
-        mName.setText("Ravi Tamada");
+            mPhoto.setImageBitmap(Utils.getRoundedShape(photo));
+            mName.setText("Ravi Tamada");
+        }
+        else{
+            Profile profile = Profile.getCurrentProfile();
+            if(profile != null){
+                mName.setText(profile.getName());
+
+            }else{
+                Profile.fetchProfileForCurrentAccessToken();
+            }
+        }
     }
 
     @Override
@@ -107,4 +125,31 @@ public abstract class ActivityBase extends AppCompatActivity implements Navigati
         return true;
     }
 
+    public void createDialogBibliography(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+
+        View v = inflater.inflate(R.layout.dialog_bibliography, null);
+        builder.setView(v);
+
+        final TextView bibliography = (TextView) v.findViewById(R.id.dialog__bibliography_bibliography);
+        final TextView textView = (TextView)v.findViewById(R.id.dialog_bibliography_title);
+        textView.setText("Bibliography");
+
+        builder.setPositiveButton("ACCEPT", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        builder.create().show();
+    }
+
+
+    //Cierra el teclado
+    public void closeSoftKeyBoard() {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
+    }
 }

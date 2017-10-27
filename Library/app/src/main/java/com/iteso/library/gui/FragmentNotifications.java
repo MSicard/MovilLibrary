@@ -43,11 +43,11 @@ public class FragmentNotifications extends Fragment {
                 R.drawable.profile_newton,
                 1));
         mDataSet.add(new NotificationPublication("Newton",
-                Constants.NOTIFICATION_FRIENDSHIP_SEND,
+                Constants.NOTIFICATION_PUBLICATION,
                 new Date(2017, 8, 25, 22, 15, 45),
                 R.drawable.profile_newton, 1));
         mDataSet.add(new NotificationPublication("Leibniz",
-                Constants.NOTIFICATION_FRIENDSHIP_SEND,
+                Constants.NOTIFICATION_PUBLICATION,
                 new Date(2017, 8, 25, 22, 5, 12),
                 R.drawable.profile_leibniz, 3));
 

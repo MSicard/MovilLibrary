@@ -52,6 +52,9 @@ public class AdapterPublication extends RecyclerView.Adapter<AdapterPublication.
         Bitmap photoA = BitmapFactory.decodeResource(context.getResources(),
                 mDataSet.get(position).getPhotoUser());
         holder.photo.setImageBitmap(getRoundedShape(photoA));
+        holder.countComments.setText(Integer.toString(mDataSet.get(position).getCountComments()));
+        holder.countLikes.setText(Integer.toString(mDataSet.get(position).getCountLikes()));
+
 
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +78,8 @@ public class AdapterPublication extends RecyclerView.Adapter<AdapterPublication.
         protected ImageView photo;
         protected ImageView publicationComment;
         protected ImageView like;
+        protected TextView countLikes;
+        protected TextView countComments;
         public ViewHolder(View itemView) {
             super(itemView);
             card = (LinearLayout) itemView.findViewById(R.id.item_card_publication_card);
@@ -84,6 +89,8 @@ public class AdapterPublication extends RecyclerView.Adapter<AdapterPublication.
             photo = (ImageView)itemView.findViewById(R.id.item_card_publication_photo);
             publicationComment = (ImageView)itemView.findViewById(R.id.item_card_publication_button_comments);
             like = (ImageView)itemView.findViewById(R.id.item_card_publication_like);
+            countLikes = (TextView)itemView.findViewById(R.id.item_card_publication_number_likes);
+            countComments = (TextView)itemView.findViewById(R.id.item_card_publication_number_comments);
 
             //poner función de los botones publicationComment y like
         }
