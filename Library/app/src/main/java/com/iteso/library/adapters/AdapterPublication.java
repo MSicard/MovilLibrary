@@ -56,7 +56,7 @@ public class AdapterPublication extends RecyclerView.Adapter<AdapterPublication.
         holder.countLikes.setText(Integer.toString(mDataSet.get(position).getCountLikes()));
 
 
-        holder.card.setOnClickListener(new View.OnClickListener() {
+        holder.publicationComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), ActivityComments.class);
