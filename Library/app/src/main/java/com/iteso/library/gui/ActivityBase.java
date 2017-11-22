@@ -42,7 +42,7 @@ public abstract class ActivityBase extends AppCompatActivity implements Navigati
     protected String[] mActivitiesTitles;
     protected DrawerLayout mDrawerLayout;
     protected NavigationView mNavigationView;
-    protected ImageView mPhoto;
+    protected ProfilePictureView mPhoto;
     protected TextView mName;
     protected View mNavHeader;
     protected ProfilePictureView picture;
@@ -70,7 +70,7 @@ public abstract class ActivityBase extends AppCompatActivity implements Navigati
         mNavHeader = mNavigationView.getHeaderView(0);
 
 
-        mPhoto = (ImageView)mNavHeader.findViewById(R.id.nav_img_profile);
+        mPhoto = (ProfilePictureView)mNavHeader.findViewById(R.id.nav_img_profile);
         mName = (TextView)mNavHeader.findViewById(R.id.nav_name);
 
         loadNavHeader();
@@ -80,14 +80,14 @@ public abstract class ActivityBase extends AppCompatActivity implements Navigati
         if(AccessToken.getCurrentAccessToken() == null){
             Bitmap photo = BitmapFactory.decodeResource(this.getResources(),
                     R.drawable.profile);
-
-            mPhoto.setImageBitmap(Utils.getRoundedShape(photo));
+            //mandar a login :)
             mName.setText("Ravi Tamada");
         }
         else{
             Profile profile = Profile.getCurrentProfile();
             if(profile != null){
                 mName.setText(profile.getName());
+                mPhoto.setProfileId(profile.getId());
 
             }else{
                 Profile.fetchProfileForCurrentAccessToken();

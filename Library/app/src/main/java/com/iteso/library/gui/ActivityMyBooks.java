@@ -20,7 +20,10 @@ import com.iteso.library.adapters.AdapterMyBook;
 import com.iteso.library.beans.Book;
 import com.iteso.library.beans.MyBook;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Maritza on 04/10/2017.
@@ -31,8 +34,6 @@ public class ActivityMyBooks extends ActivityBase {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mlayoutManager;
     private static int numberOfColumns = 3;
-    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference books = mDatabase.child("chapter");
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,60 +66,31 @@ public class ActivityMyBooks extends ActivityBase {
         mAdapter = new AdapterMyBook(this, myDataSet);
         recyclerView.setAdapter(mAdapter);
 
-        //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference books = mDatabase.child("books").child("9786073111607");
 
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("books");
-        Query query = mDatabase.equalTo("9786073111607");
-        Log.v("firebase", "Query: " + query.toString());
-        query.addChildEventListener(new ChildEventListener() {
+
+        books.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Log.v("firebase", "Hijo añadido");
-
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                Log.v("firebase", "Hijo cambiado");
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                Log.v("firebase", "Hijo removido");
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                Log.v("firebase", "Hijo movido");
-
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Book book = dataSnapshot.getValue(Book.class);
+                Toast.makeText(ActivityMyBooks.this, book.toString(), Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.v("firebase", "Hijo cancelado");
+                Toast.makeText(ActivityMyBooks.this, "Oh no!", Toast.LENGTH_LONG).show();
 
             }
         });
+
+
 
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        books.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String value = dataSnapshot.getValue(String.class);
-                Log.v("friends", "Value is: " + value);
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.v("friends", "Failed to read value");
-
-            }
-        });
     }
 }

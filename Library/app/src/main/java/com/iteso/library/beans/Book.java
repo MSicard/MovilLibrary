@@ -3,6 +3,10 @@ package com.iteso.library.beans;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by Maritza on 22/09/2017.
  */
@@ -12,20 +16,21 @@ public class Book implements Parcelable{
     protected String author;
     protected String synopsis;
     protected String editorial;
-    protected String edicion;
+    protected String edition;
     protected String year;
-    protected int pages;
+    protected long pages;
     protected String ISBN;
-    protected int rating;
+    protected long rating;
     protected String url;
+    protected HashMap<String, String> category = new HashMap<String, String>();
 
     public Book(String title, String author, String synopsis, String editorial,
-                String edicion, String year, int pages, String ISBN, int rating, String url) {
+                String edition, String year, long pages, String ISBN, long rating, String url) {
         this.title = title;
         this.author = author;
         this.synopsis = synopsis;
         this.editorial = editorial;
-        this.edicion = edicion;
+        this.edition = edition;
         this.year = year;
         this.pages = pages;
         this.ISBN = ISBN;
@@ -50,13 +55,27 @@ public class Book implements Parcelable{
                 ", author='" + author + '\'' +
                 ", synopsis='" + synopsis + '\'' +
                 ", editorial='" + editorial + '\'' +
-                ", edicion='" + edicion + '\'' +
+                ", edition='" + edition + '\'' +
                 ", year='" + year + '\'' +
                 ", pages=" + pages +
                 ", ISBN='" + ISBN + '\'' +
                 ", rating=" + rating +
                 ", url='" + url + '\'' +
-                '}';
+                '}' + category.get("one");
+    }
+
+    public Book(String title, String author, String synopsis, String editorial, String edition, String year, long pages, String ISBN, long rating, String url, HashMap<String, String> category) {
+        this.title = title;
+        this.author = author;
+        this.synopsis = synopsis;
+        this.editorial = editorial;
+        this.edition = edition;
+        this.year = year;
+        this.pages = pages;
+        this.ISBN = ISBN;
+        this.rating = rating;
+        this.url = url;
+        this.category = category;
     }
 
     protected Book(Parcel in) {
@@ -64,11 +83,11 @@ public class Book implements Parcelable{
         author = in.readString();
         synopsis = in.readString();
         editorial = in.readString();
-        edicion = in.readString();
+        edition = in.readString();
         year = in.readString();
-        pages = in.readInt();
+        pages = in.readLong();
         ISBN = in.readString();
-        rating = in.readInt();
+        rating = in.readLong();
         url = in.readString();
     }
 
@@ -92,12 +111,12 @@ public class Book implements Parcelable{
         this.editorial = editorial;
     }
 
-    public String getEdicion() {
-        return edicion;
+    public String getEdition() {
+        return edition;
     }
 
-    public void setEdicion(String edicion) {
-        this.edicion = edicion;
+    public void setEdition(String edition) {
+        this.edition = edition;
     }
 
     public String getYear() {
@@ -108,7 +127,7 @@ public class Book implements Parcelable{
         this.year = year;
     }
 
-    public int getPages() {
+    public long getPages() {
         return pages;
     }
 
@@ -124,7 +143,7 @@ public class Book implements Parcelable{
         this.ISBN = ISBN;
     }
 
-    public int getRating() {
+    public long getRating() {
         return rating;
     }
 
@@ -175,11 +194,11 @@ public class Book implements Parcelable{
         dest.writeString(author);
         dest.writeString(synopsis);
         dest.writeString(editorial);
-        dest.writeString(edicion);
+        dest.writeString(edition);
         dest.writeString(year);
-        dest.writeInt(pages);
+        dest.writeLong(pages);
         dest.writeString(ISBN);
-        dest.writeInt(rating);
+        dest.writeLong(rating);
         dest.writeString(url);
     }
 }

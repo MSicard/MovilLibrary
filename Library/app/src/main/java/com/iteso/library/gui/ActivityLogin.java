@@ -39,14 +39,12 @@ public class ActivityLogin extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
-        login = (LoginButton) findViewById(R.id.activity_login_sign_in);
-        progressbar = (ProgressBar)findViewById(R.id.activity_login_progress_bar);
-
-        login.setReadPermissions("email");
-        FacebookSdk.sdkInitialize(getApplicationContext());
+        FacebookSdk.sdkInitialize(this);
         callbackManager = CallbackManager.Factory.create();
+
+        setContentView(R.layout.activity_login);
+        progressbar = (ProgressBar)findViewById(R.id.activity_login_progress_bar);
+        login = (LoginButton) findViewById(R.id.activity_login_sign_in);
 
         login.setReadPermissions(Arrays.asList("email"));
         login.setReadPermissions(Arrays.asList("user_friends"));
@@ -57,9 +55,6 @@ public class ActivityLogin extends AppCompatActivity {
             public void onSuccess(LoginResult loginResult) {
                 //Se tiene que mandar el token a Firebase para la auth
                 firebaseSendAuth(loginResult.getAccessToken());
-                User user = new User();
-                Log.v("User", "UserID:" + loginResult.getAccessToken().getUserId());
-                Log.v("User", "Token:" + loginResult.getAccessToken().getToken());
 
                 goActivityHome();
             }
