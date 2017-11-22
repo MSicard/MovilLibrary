@@ -22,6 +22,7 @@
             android:name=".gui.ActivityMyBooks"
             android:theme="@style/AppTheme" />
 
+
         <activity android:name=".gui.ActivityLogin"/>
         <activity android:name=".gui.ActivityHome"/>
         <activity android:name=".gui.ActivityBookDetail" />
@@ -34,11 +35,12 @@
             <category android:name="android.intent.category.BROWSABLE" />
             <data android:scheme="@string/fb_login_protocol_scheme" />
         </intent-filter>
+
         </activity>
         <activity android:name=".gui.ActivitySettings" />
         <activity android:name=".gui.ActivityReview" />
         <activity android:name=".gui.ActivityComments" />
-        <activity android:name=".gui.ActivityStatisticsBooks"></activity>
+        <activity android:name=".gui.ActivityStatisticsBooks" />
     </application>
 
 </manifest>
