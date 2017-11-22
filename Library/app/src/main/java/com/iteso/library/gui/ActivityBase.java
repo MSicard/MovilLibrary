@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,9 +24,14 @@ import android.widget.TextView;
 
 
 import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
+import com.facebook.CallbackManager;
 import com.facebook.Profile;
+import com.facebook.login.widget.ProfilePictureView;
 import com.iteso.library.R;
 import com.iteso.library.common.Utils;
+
+import org.json.JSONObject;
 
 /**
  * Created by Maritza on 22/09/2017.
@@ -36,9 +42,17 @@ public abstract class ActivityBase extends AppCompatActivity implements Navigati
     protected String[] mActivitiesTitles;
     protected DrawerLayout mDrawerLayout;
     protected NavigationView mNavigationView;
-    protected ImageView mPhoto;
+    protected ProfilePictureView mPhoto;
     protected TextView mName;
     protected View mNavHeader;
+    protected ProfilePictureView picture;
+
+    CallbackManager callbackManager;
+    AccessTokenTracker accessTokenTracker;
+    JSONObject user;
+    String FIELDS = "friends";
+    private String REQUEST_FRIENDS = TextUtils.join(",",
+            new String[]{"name", "id", "picture"});
 
 
     protected void onCreateDrawer(){
@@ -56,7 +70,7 @@ public abstract class ActivityBase extends AppCompatActivity implements Navigati
         mNavHeader = mNavigationView.getHeaderView(0);
 
 
-        mPhoto = (ImageView)mNavHeader.findViewById(R.id.nav_img_profile);
+        mPhoto = (ProfilePictureView)mNavHeader.findViewById(R.id.nav_img_profile);
         mName = (TextView)mNavHeader.findViewById(R.id.nav_name);
 
         loadNavHeader();
@@ -66,14 +80,14 @@ public abstract class ActivityBase extends AppCompatActivity implements Navigati
         if(AccessToken.getCurrentAccessToken() == null){
             Bitmap photo = BitmapFactory.decodeResource(this.getResources(),
                     R.drawable.profile);
-
-            mPhoto.setImageBitmap(Utils.getRoundedShape(photo));
+            //mandar a login :)
             mName.setText("Ravi Tamada");
         }
         else{
             Profile profile = Profile.getCurrentProfile();
             if(profile != null){
                 mName.setText(profile.getName());
+                mPhoto.setProfileId(profile.getId());
 
             }else{
                 Profile.fetchProfileForCurrentAccessToken();

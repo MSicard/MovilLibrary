@@ -22,6 +22,7 @@
         <activity
             android:name=".gui.ActivityMyBooks"
             android:theme="@style/AppTheme" />
+<<<<<<< HEAD
         <activity android:name=".gui.ActivityLogin" />
         <activity android:name=".gui.ActivityHome" />
         <activity android:name=".gui.ActivityBookDetail" />
@@ -38,6 +39,23 @@
 
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
+=======
+
+
+        <activity android:name=".gui.ActivityLogin"/>
+        <activity android:name=".gui.ActivityHome"/>
+        <activity android:name=".gui.ActivityBookDetail" />
+        <activity android:name=".gui.ActivitySplashScreen">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="@string/fb_login_protocol_scheme" />
+        </intent-filter>
+
+>>>>>>> aba1e8e5bae9abec236bc90e14416e92858cd493
         </activity>
         <activity android:name=".gui.ActivitySettings" />
         <activity android:name=".gui.ActivityReview" />
