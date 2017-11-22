@@ -26,14 +26,17 @@
     <dimen name="activity_my_book_detail_open_bttn_height">30dp</dimen>
     <dimen name="activity_my_book_detail_download_margin">40dp</dimen>
     <dimen name="activity_my_book_detail_linear_margin">20dp</dimen>
+
     <dimen name="fragment_publications_margin">10dp</dimen>
     <dimen name="fragment_publications_image_width">40dp</dimen>
     <dimen name="fragment_publications_image_height">40dp</dimen>
     <dimen name="fragment_publications_publish_margin">5dp</dimen>
+
     <dimen name="item_card_book_image_height">150dp</dimen>
     <dimen name="item_card_book_title_size">17sp</dimen>
     <dimen name="item_card_book_corner_radius">4dp</dimen>
     <dimen name="item_card_book_margin">4dp</dimen>
+
     <dimen name="item_card_publication_corner_radius">4dp</dimen>
     <dimen name="item_card_publication_card_elevation">4dp</dimen>
     <dimen name="item_card_publication_card_margin">4dp</dimen>
@@ -41,6 +44,7 @@
     <dimen name="item_card_publication_margin">4dp</dimen>
     <dimen name="item_card_publication_comment_margin">20dp</dimen>
     <dimen name="item_card_publication_button_margin">10dp</dimen>
+
     <dimen name="item_notification_4dp">4dp</dimen>
     <dimen name="item_notification_photo_width">75dp</dimen>
     <dimen name="item_notification_notification_text_margin">10dp</dimen>
@@ -72,4 +76,90 @@
     <dimen name="activity_home_text_category_marginTop">5dp</dimen>
     <dimen name="activity_home_category_textSize">20sp</dimen>
     <dimen name="activity_home_category_recycler_margin">5dp</dimen>
+
+    <dimen name="activity_splash_screen_logo_size_width">250dp</dimen>
+    <dimen name="activity_splash_screen_logo_size_height">250dp</dimen>
+    <dimen name="activity_splash_screen_logo_margin_bottom">100dp</dimen>
+    <dimen name="activity_splash_screen_progressbar_size_width">80dp</dimen>
+    <dimen name="activity_splash_screen_progressbar_size_height">80dp</dimen>
+
+    <dimen name="activity_book_detail_basic_info_margin">10dp</dimen>
+    <dimen name="activity_book_detail_basic_info_margin_bottom">30dp</dimen>
+    <dimen name="activity_book_detail_basic_info_margin_top">20dp</dimen>
+    <dimen name="activity_book_detail_basic_info_image_size_width">150dp</dimen>
+    <dimen name="activity_book_detail_basic_info_image_size_height">150dp</dimen>
+    <dimen name="activity_book_detail_linearlayout_synopsis_marginTop">1dp</dimen>
+    <dimen name="activity_book_detail_linearlayout_synopsis_marginEnd">30dp</dimen>
+    <dimen name="activity_book_detail_linearlayout_synopsis_marginStart">30dp</dimen>
+    <dimen name="activity_book_detail_textview_synopsis_marginTop">30dp</dimen>
+    <dimen name="activity_book_detail_textview_synopsis_marginStart">10dp</dimen>
+    <dimen name="activity_book_detail_textview_synopsis_marginEnd">10dp</dimen>
+    <dimen name="activity_book_detail_textview_synopsis_marginBottom">10dp</dimen>
+    <dimen name="activity_book_detail_reviews_marginTop">10dp</dimen>
+    <dimen name="activity_book_detail_reviews_marginStart">30dp</dimen>
+    <dimen name="activity_book_detail_reviews_textsize">22sp</dimen>
+    <dimen name="activity_book_detail_fab_margin">10dp</dimen>
+    <dimen name="activity_book_detail_fab_translationZ">12dp</dimen>
+
+    <dimen name="activity_settings_image_marginTop">10dp</dimen>
+    <dimen name="activity_settings_image_size_width">100dp</dimen>
+    <dimen name="activity_settings_image_size_height">100dp</dimen>
+    <dimen name="activity_settings_username_marginBottom">10dp</dimen>
+    <dimen name="activity_settings_username_textsize">28sp</dimen>
+    <dimen name="activity_settings_separator_line">1dp</dimen>
+    <dimen name="activity_settings_option_title_marginTop">20dp</dimen>
+    <dimen name="activity_settings_option_title_marginStart">10dp</dimen>
+    <dimen name="activity_settings_option_title_marginBottom">10dp</dimen>
+    <dimen name="activity_settings_option_title_textsize">19sp</dimen>
+    <dimen name="activity_settings_option_margin">20dp</dimen>
+    <dimen name="activity_settings_option_textsize">19sp</dimen>
+    <dimen name="activity_settings_option_switch_margin">20dp</dimen>
+
+    <dimen name="activity_review_parent_margin">10dp</dimen>
+    <dimen name="activity_review_book_info_marginTop">10dp</dimen>
+    <dimen name="activity_review_book_image_size_width">150dp</dimen>
+    <dimen name="activity_review_book_image_size_height">150dp</dimen>
+    <dimen name="activity_review_commentbar_marginTop">5dp</dimen>
+    <dimen name="activity_review_recycler_margin">10dp</dimen>
+
+    <dimen name="item_card_review_margin">4dp</dimen>
+    <dimen name="item_card_review_corner_radius">4dp</dimen>
+    <dimen name="item_card_review_info_margin">4dp</dimen>
+    <dimen name="item_card_review_info_image_size_width">40dp</dimen>
+    <dimen name="item_card_review_info_image_size_height">40dp</dimen>
+    <dimen name="item_card_review_info_user_time_margin">4dp</dimen>
+    <dimen name="item_card_review_info_date_textsize">10sp</dimen>
+    <dimen name="item_card_review_user_review_margin">20dp</dimen>
+
+    <dimen name="activity_comments_parent_margin">10dp</dimen>
+    <dimen name="activity_comments_info_margin">4dp</dimen>
+    <dimen name="activity_comments_info_image_size_width">40dp</dimen>
+    <dimen name="activity_comments_info_image_size_height">40dp</dimen>
+    <dimen name="activity_comments_info_user_date_margin">4dp</dimen>
+    <dimen name="activity_comments_info_date_textsize">10sp</dimen>
+    <dimen name="activity_comments_publication_margin">20dp</dimen>
+    <dimen name="activity_comments_publicationbar_marginTop">5dp</dimen>
+    <dimen name="activity_comments_recycler_margin">10dp</dimen>
+
+    <dimen name="item_card_comment_margin">4dp</dimen>
+    <dimen name="item_card_comment_corner_radius">4dp</dimen>
+    <dimen name="item_card_comment_info_margin">4dp</dimen>
+    <dimen name="item_card_comment_info_image_size_width">40dp</dimen>
+    <dimen name="item_card_comment_info_image_size_height">40dp</dimen>
+    <dimen name="item_card_comment_info_user_date_margin">4dp</dimen>
+    <dimen name="item_card_comment_info_date_textsize">10sp</dimen>
+    <dimen name="item_card_comment_user_comment_margin">20dp</dimen>
+
+    <dimen name="item_card_statistics_book_height">200dp</dimen>
+    <dimen name="item_card_statistics_book_margin">3dp</dimen>
+    <dimen name="item_card_statistics_book_corner_radius">4dp</dimen>
+    <dimen name="item_card_statistics_book_content_margin">5dp</dimen>
+    <dimen name="item_card_statistics_book_image_size_width">150dp</dimen>
+    <dimen name="item_card_statistics_book_info_marginStart">10dp</dimen>
+    <dimen name="item_card_statistics_book_info_title_textsize">20sp</dimen>
+    <dimen name="item_card_statistics_book_info_author_textsize">18sp</dimen>
+    <dimen name="item_card_statistics_book_info_synapsis_marginTop">10dp</dimen>
+    <dimen name="item_card_statistics_book_info_synapsis_textsize">15sp</dimen>
+
+
 </resources>

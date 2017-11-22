@@ -5,8 +5,8 @@
 
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
-    card_view:cardCornerRadius="4dp">
+    android:layout_margin="@dimen/item_card_review_margin"
+    card_view:cardCornerRadius="@dimen/item_card_review_corner_radius">
 
     <LinearLayout
         android:orientation="vertical"
@@ -16,18 +16,18 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp">
+            android:layout_margin="@dimen/item_card_review_info_margin">
 
             <ImageView
                 android:id="@+id/item_card_review_photo"
-                android:layout_width="40dp"
-                android:layout_height="40dp"/>
+                android:layout_width="@dimen/item_card_review_info_image_size_width"
+                android:layout_height="@dimen/item_card_review_info_image_size_height"/>
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/item_card_review_photo"
-                android:layout_margin="4dp">
+                android:layout_toEndOf="@id/item_card_review_photo"
+                android:layout_margin="@dimen/item_card_review_info_user_time_margin">
 
                 <TextView
                     android:id="@+id/item_card_review_user_name"
@@ -38,7 +38,7 @@
                     android:id="@+id/item_card_review_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="10sp"/>
+                    android:textSize="@dimen/item_card_review_info_date_textsize"/>
             </LinearLayout>
 
             <RatingBar
@@ -56,6 +56,6 @@
             android:id="@+id/item_card_review_user_review"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp" />
+            android:layout_margin="@dimen/item_card_review_user_review_margin" />
     </LinearLayout>
 </android.support.v7.widget.CardView>

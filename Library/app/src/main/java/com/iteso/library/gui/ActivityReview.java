@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.WindowManager;
 
 import com.iteso.library.R;
 import com.iteso.library.adapters.AdapterReview;
@@ -23,6 +24,7 @@ public class ActivityReview extends ActivityBase {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review);
         onCreateDrawer();
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.activity_review_recycler);
         mRecyclerView.setHasFixedSize(true);

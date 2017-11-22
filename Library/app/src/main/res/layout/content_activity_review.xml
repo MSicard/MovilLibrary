@@ -22,7 +22,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="10dp">
+        android:layout_margin="@dimen/activity_review_parent_margin">
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
@@ -36,18 +36,18 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="@dimen/activity_review_book_info_marginTop">
 
                     <ImageView
                         android:id="@+id/activity_review_book_image"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
+                        android:layout_width="@dimen/activity_review_book_image_size_width"
+                        android:layout_height="@dimen/activity_review_book_image_size_height"
                         android:layout_centerInParent="true"
                         android:scaleType="centerInside"
                         android:src="@drawable/nombre_del_viento"/>
 
                     <LinearLayout
-                        android:layout_width="150dp"
+                        android:layout_width="@dimen/activity_review_book_image_size_width"
                         android:layout_height="wrap_content"
                         android:layout_alignBottom="@id/activity_review_book_image"
                         android:layout_centerHorizontal="true"
@@ -58,7 +58,6 @@
                             android:id="@+id/activity_review_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Title"
                             android:textColor="@android:color/white"/>
                     </LinearLayout>
                 </RelativeLayout>
@@ -67,7 +66,7 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp">
+                    android:layout_marginTop="@dimen/activity_review_commentbar_marginTop">
                     <EditText
                         android:id="@+id/activity_review_user_review"
                         android:layout_width="0dp"
@@ -89,7 +88,7 @@
             android:id="@+id/activity_review_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="10dp">
+            android:layout_margin="@dimen/activity_review_recycler_margin">
         </android.support.v7.widget.RecyclerView>
 
     </LinearLayout>
