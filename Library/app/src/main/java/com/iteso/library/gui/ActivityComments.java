@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.iteso.library.R;
@@ -29,6 +30,7 @@ public class ActivityComments extends ActivityBase {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comments);
         onCreateDrawer();
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         userPhoto = (ImageView) findViewById(R.id.activity_comments_user_photo);
         userPhoto.setImageBitmap(getRoundedShape(BitmapFactory.decodeResource(this.getResources(), R.drawable.profile)));

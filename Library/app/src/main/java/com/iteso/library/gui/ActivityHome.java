@@ -1,11 +1,16 @@
 package com.iteso.library.gui;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.SnapHelper;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.iteso.library.R;
 import com.iteso.library.adapters.AdapterCategorizedBook;
@@ -14,7 +19,7 @@ import com.iteso.library.beans.Book;
 
 import java.util.ArrayList;
 
-public class ActivityHome extends ActivityBase {
+public class ActivityHome extends ActivityBase implements SearchView.OnQueryTextListener{
     private RecyclerView.Adapter featuredBooksAdapter;
     private RecyclerView.LayoutManager featuredBooksLayoutManager;
     private ArrayList<Book> featuredBooksDataSet;
@@ -68,5 +73,27 @@ public class ActivityHome extends ActivityBase {
 
         categorizedBooksAdapter = new AdapterCategorizedBook(this, categorizedBooksDataSet);
         categorizedBooksRecyclerView.setAdapter(categorizedBooksAdapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_search, menu);
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+        searchView.setOnQueryTextListener(this);
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        Intent intent = new Intent(this, ActivitySearchResults.class);
+        intent.putExtra("searchString", query);
+        startActivity(intent);
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
     }
 }
