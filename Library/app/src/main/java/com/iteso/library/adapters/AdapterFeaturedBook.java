@@ -42,9 +42,9 @@ public class AdapterFeaturedBook extends RecyclerView.Adapter<AdapterFeaturedBoo
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.image.setImageResource(R.drawable.yorobot);  // Cambiar por imagen de BD
         holder.title.setText(mDataSet.get(position).getTitle());
-        holder.author.setText(mDataSet.get(position).getAutor());
+        holder.author.setText(mDataSet.get(position).getAuthor());
         holder.rating.setRating((float) 4.5);               // Cambiar por el de la BD
-        holder.synapsis.setText(mDataSet.get(position).getSynapsis());
+        holder.synapsis.setText(mDataSet.get(position).getSynopsis());
 
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
