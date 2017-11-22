@@ -60,9 +60,7 @@ public class ActivityLogin extends AppCompatActivity {
                 User user = new User();
                 Log.v("User", "UserID:" + loginResult.getAccessToken().getUserId());
                 Log.v("User", "Token:" + loginResult.getAccessToken().getToken());
-                /*user.setUsername(username.getText().toString());
-                user.setPassword(password.getText().toString());
-                user.savePreferences(this);*/
+
                 goActivityHome();
             }
 

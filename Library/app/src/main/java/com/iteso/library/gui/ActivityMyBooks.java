@@ -5,7 +5,16 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.widget.Toast;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.iteso.library.R;
 import com.iteso.library.adapters.AdapterMyBook;
 import com.iteso.library.beans.Book;
@@ -22,7 +31,8 @@ public class ActivityMyBooks extends ActivityBase {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mlayoutManager;
     private static int numberOfColumns = 3;
-
+    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference books = mDatabase.child("chapter");
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,5 +65,60 @@ public class ActivityMyBooks extends ActivityBase {
         mAdapter = new AdapterMyBook(this, myDataSet);
         recyclerView.setAdapter(mAdapter);
 
+        //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("books");
+        Query query = mDatabase.equalTo("9786073111607");
+        Log.v("firebase", "Query: " + query.toString());
+        query.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Log.v("firebase", "Hijo añadido");
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                Log.v("firebase", "Hijo cambiado");
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                Log.v("firebase", "Hijo removido");
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                Log.v("firebase", "Hijo movido");
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.v("firebase", "Hijo cancelado");
+
+            }
+        });
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        books.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String value = dataSnapshot.getValue(String.class);
+                Log.v("friends", "Value is: " + value);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.v("friends", "Failed to read value");
+
+            }
+        });
     }
 }

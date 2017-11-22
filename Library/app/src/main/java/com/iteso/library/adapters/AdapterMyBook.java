@@ -42,7 +42,7 @@ public class AdapterMyBook extends RecyclerView.Adapter<AdapterMyBook.ViewHolder
         //metodo longitud de string
 
         holder.title.setText(mDataSet.get(position).getTitle());
-        holder.autor.setText(mDataSet.get(position).getAutor());
+        holder.autor.setText(mDataSet.get(position).getAuthor());
         holder.image.setImageResource(R.drawable.nombre_del_viento);
         holder.image.setOnClickListener(this);
     }
