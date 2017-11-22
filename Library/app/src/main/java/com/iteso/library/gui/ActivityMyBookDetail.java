@@ -18,8 +18,6 @@ import android.widget.TextView;
 import com.iteso.library.R;
 import com.iteso.library.beans.MyBook;
 
-import org.w3c.dom.Text;
-
 /**
  * Created by Maritza on 01/10/2017.
  */
@@ -76,7 +74,7 @@ public class ActivityMyBookDetail extends ActivityBase {
 
     private void setMyBook(MyBook b){
         mTitle.setText(b.getTitle());
-        mAutor.setText(b.getAutor());
+        mAutor.setText(b.getAuthor());
         mRating.setRating(5);
     }
 
