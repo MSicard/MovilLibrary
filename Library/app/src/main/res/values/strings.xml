@@ -41,7 +41,7 @@
     <string name="activity_login_hint_password">Contraseña</string>
     <string name="activity_login_button_login">Iniciar sesión con Facebook</string>
 
-    <string name="activity_home_category_science_fiction">Science Fiction</string>
+    <string name="activity_home_category_computing">Computing</string>
 
     <string name="activity_book_detail_basic_info_title">Title</string>
     <string name="activity_book_detail_basic_info_author">Author</string>

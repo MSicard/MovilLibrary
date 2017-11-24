@@ -56,7 +56,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/activity_home_text_category_marginTop"
-                    android:text="@string/activity_home_category_science_fiction"
+                    android:text="@string/activity_home_category_computing"
                     android:textSize="@dimen/activity_home_category_textSize"
                     android:textStyle="bold"/>
 
