@@ -6,6 +6,12 @@ import android.graphics.Path;
 import android.graphics.Rect;
 import android.util.Log;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -78,4 +84,22 @@ public class Utils {
         }
     }
 
+    public static String name;
+    public static String getUserName(String id){
+        name = "";
+        DatabaseReference data = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
+                .child(id).child(Constants.FIREBASE_USER_INFO).child(Constants.FIREBASE_USER_NICKNAME);
+        data.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                name = dataSnapshot.getValue(String.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.v("Error", "Error al encontrar el nombre de usuario por id");
+            }
+        });
+        return name;
+    }
 }

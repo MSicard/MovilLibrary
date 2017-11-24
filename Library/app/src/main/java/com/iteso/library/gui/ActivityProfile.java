@@ -19,7 +19,9 @@ import java.util.Locale;
 public class ActivityProfile extends ActivityBase {
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
+    protected Bundle bundle;
     SectionsPagerAdapter mSectionsPagerAdapter;
+    String id;
 
 
     @Override

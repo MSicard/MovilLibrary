@@ -9,72 +9,74 @@ import java.util.Date;
  */
 
 public class Publication implements Comparable{
-    private String userName;
-    private String comment;
-    private int photoUser;
-    private Date date;
-    private int countComments;
-    private int countLikes;
+    String id;
+    long comments;
+    long likes;
+    String message;
+    long time;
 
-    public Publication(String userName, String comment, int photoUser, Date date, int countComments, int countLikes) {
-        this.userName = userName;
-        this.comment = comment;
-        this.photoUser = photoUser;
-        this.date = date;
-        this.countComments = countComments;
-        this.countLikes = countLikes;
+    public Publication() {
     }
 
-    public int getCountComments() {
-        return countComments;
+    public String getId() {
+        return id;
     }
 
-    public void setCountComments(int countComments) {
-        this.countComments = countComments;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public int getCountLikes() {
-        return countLikes;
+    public Publication(String id, long comments, long likes, String message, long time) {
+        this.id = id;
+        this.comments = comments;
+        this.likes = likes;
+        this.message = message;
+        this.time = time;
     }
 
-    public void setCountLikes(int countLikes) {
-        this.countLikes = countLikes;
+    public Publication(long comments, long likes, String message, long time) {
+        this.comments = comments;
+        this.likes = likes;
+        this.message = message;
+        this.time = time;
     }
 
-    public Date getDate() {
-        return date;
+    public long getComments() {
+        return comments;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setComments(long comments) {
+        this.comments = comments;
     }
 
-    public String getUserName() {
-        return userName;
+    public long getLikes() {
+        return likes;
     }
 
-    public void setUserName(String nameUser) {
-        this.userName = nameUser;
+    public void setLikes(long likes) {
+        this.likes = likes;
     }
 
-    public String getComment() {
-        return comment;
+    public String getMessage() {
+        return message;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public int getPhotoUser() {
-        return photoUser;
+    public long getTime() {
+        return time;
     }
 
-    public void setPhotoUser(int photoUser) {
-        this.photoUser = photoUser;
+    public void setTime(long time) {
+        this.time = time;
     }
 
+    //Comparación de tiempo
     @Override
     public int compareTo(@NonNull Object o) {
-        return this.getDate().compareTo(((Publication)o).getDate());
+        if(time > ((Publication)o).getTime()) return 1;
+        else return 0;
     }
 }
