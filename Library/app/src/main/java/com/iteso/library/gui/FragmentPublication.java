@@ -16,11 +16,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.facebook.login.widget.ProfilePictureView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.iteso.library.R;
 import com.iteso.library.adapters.AdapterPublication;
 import com.iteso.library.beans.Publication;
+import com.iteso.library.common.Constants;
 import com.iteso.library.common.Utils;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -34,12 +42,13 @@ import java.util.Date;
 
 public class FragmentPublication extends Fragment {
 
-    private RecyclerView.Adapter mAdapter;
+    private AdapterPublication mAdapter;
     private RecyclerView.LayoutManager mlayoutManager;
     private Button publish;
     private EditText comment;
-    private ImageView photo;
+    private ProfilePictureView photo;
     private  ArrayList mDataSet;
+    private String id;
 
 
     @Override
@@ -47,25 +56,21 @@ public class FragmentPublication extends Fragment {
         View view = inflater.inflate(R.layout.fragment_publications, container, false);
         publish = (Button)view.findViewById(R.id.fragment_publication_publish);
         comment = (EditText)view.findViewById(R.id.fragment_publication_comment);
-        photo = (ImageView)view.findViewById(R.id.fragment_publication_photo);
+        photo = (ProfilePictureView) view.findViewById(R.id.fragment_publication_photo);
 
         publish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((ActivityBase)getActivity()).closeSoftKeyBoard();
-                if(!comment.getText().toString().equals("")){
-                    mDataSet.add(new Publication("Einstein", comment.getText().toString(),
-                            R.drawable.profile, new Date(), 0, 0));
-                    Collections.sort(mDataSet);
-                    mAdapter.notifyDataSetChanged();
-                    comment.setText("");
+               if(!comment.getText().toString().equals("")){
+                   Publication publication = new Publication(0, 0, comment.getText().toString(), new Timestamp(System.currentTimeMillis()).getTime());
+                   DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
+                           .child(id).child(Constants.FIREBASE_USER_PUBLICATION).child(Constants.FIREBASE_USER_PUBLICATION_INFO);
+                   mDatabaseReference.child(mDatabaseReference.push().getKey()).setValue(publication);
+                   comment.setText("");
                 }
             }
         });
-
-        Bitmap photoA = BitmapFactory.decodeResource(getActivity().getResources(),
-                R.drawable.profile);
-        photo.setImageBitmap(Utils.getRoundedShape(photoA));
 
         RecyclerView mRecyclerView = (RecyclerView)view.findViewById(R.id.fragment_publications_recycler_view);
         mRecyclerView.setHasFixedSize(true);
@@ -74,7 +79,7 @@ public class FragmentPublication extends Fragment {
 
         mDataSet = new ArrayList();
 
-        mDataSet.add(new Publication("Einstein",
+        /*mDataSet.add(new Publication("Einstein",
                 "Existen dos formas de ver la vida: una es creyendo que no existen los milagros, " +
                         "la otra es creyendo que todo es un milagro",
                 R.drawable.profile,
@@ -89,11 +94,41 @@ public class FragmentPublication extends Fragment {
                 "Todos somos muy ignorantes, lo que ocurre es que no todos ignoramos las mismas cosas",
                 R.drawable.profile,
                 new Date(2017, 10, 10), 2, 4));
-        Collections.sort(mDataSet);
+        Collections.sort(mDataSet);*/
         mAdapter = new AdapterPublication(getActivity(), mDataSet);
         mRecyclerView.setAdapter(mAdapter);
 
         return view;
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        id = getActivity().getIntent().getStringExtra("ID");
+        photo.setProfileId(id);
+        mAdapter.setId(id);
+        getData();
+    }
+
+    public void getData(){
+        DatabaseReference mDataReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
+                .child(id).child(Constants.FIREBASE_USER_PUBLICATION).child(Constants.FIREBASE_USER_PUBLICATION_INFO);
+        mDataReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot != null) mDataSet.clear();
+                for(DataSnapshot data : dataSnapshot.getChildren()){
+                    Publication publication = data.getValue(Publication.class);
+                    mDataSet.add(publication);
+                }
+                Collections.sort(mDataSet);
+                mAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 }

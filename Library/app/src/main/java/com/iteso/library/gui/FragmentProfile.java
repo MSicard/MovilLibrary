@@ -21,15 +21,29 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.Profile;
+import com.facebook.login.widget.ProfilePictureView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
 import com.iteso.library.R;
 import com.iteso.library.adapters.AdapterListDialog;
+import com.iteso.library.beans.User;
+import com.iteso.library.common.Constants;
 import com.iteso.library.common.Utils;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Maritza on 04/10/2017.
@@ -38,66 +52,45 @@ import java.util.Arrays;
 public class FragmentProfile extends Fragment implements OnClickListener{
 
     protected TextView mName;
-    protected TextView mEmail;
     protected TextView mFavoriteBooks;
     protected TextView mAboutMe;
-    protected ImageView mPhoto;
+    protected ProfilePictureView mPhoto;
     protected ImageView mNameB;
-    protected ImageView mEmailB;
     protected ImageView mFavoriteBooksB;
     protected ImageView mAboutMeB;
+    protected String id;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         mName = (TextView)view.findViewById(R.id.fragment_profile_name);
-        mEmail = (TextView)view.findViewById(R.id.fragment_profile_email);
         mFavoriteBooks = (TextView)view.findViewById(R.id.fragment_profile_favorite_books);
         mAboutMe = (TextView)view.findViewById(R.id.fragment_profile_about);
-        mPhoto = (ImageView) view.findViewById(R.id.fragment_profile_image_profile);
+        mPhoto = (ProfilePictureView) view.findViewById(R.id.fragment_profile_image_profile);
         mNameB = (ImageView)view.findViewById(R.id.fragment_profile_change_name);
-        mEmailB = (ImageView)view.findViewById(R.id.fragment_profile_change_email);
         mFavoriteBooksB = (ImageView) view.findViewById(R.id.fragment_profile_change_favorite_books);
         mAboutMeB = (ImageView)view.findViewById(R.id.fragment_profile_change_about);
 
-        Bitmap photoA = BitmapFactory.decodeResource(getActivity().getResources(),
-                R.drawable.profile);
-        mPhoto.setImageBitmap(Utils.getRoundedShape(photoA));
-
         mNameB.setOnClickListener(this);
-        mEmailB.setOnClickListener(this);
         mFavoriteBooksB.setOnClickListener(this);
         mAboutMeB.setOnClickListener(this);
         return view;
     }
 
-    //CREACION DE DIALOGOS
-    public void createDialogEmail(final TextView tv){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-
-        View v = inflater.inflate(R.layout.dialog_profile_change, null);
-        builder.setView(v);
-
-        final EditText editText = (EditText)v.findViewById(R.id.dialog_profile_change);
-        editText.setHint(tv.getText().toString());
-        final TextView textView = (TextView)v.findViewById(R.id.dialog_profile_change_text);
-        textView.setText("New Email");
-
-        builder.setPositiveButton("CHANGE", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                tv.setText(editText.getText().toString());
-            }
-        }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });
-        builder.create().show();
+    public void updateProfile(User user){
+        mPhoto.setProfileId(user.getImage());
+        mName.setText(user.getNickname());
+        mAboutMe.setText(user.getAbout_me());
+        String favorite = "";
+        for(int i = 0; i < user.getFavoriteBooks().size(); i++){
+            favorite += user.getFavoriteBooks().get(i) + "\n";
+        }
+        mFavoriteBooks.setText(favorite);
+        Toast.makeText(getActivity(), user.toString(), Toast.LENGTH_LONG);
     }
+
+    //CREACION DE DIALOGOS
 
     public static class FavoriteBooksDialog extends DialogFragment{
         private Context context;
@@ -205,9 +198,6 @@ public class FragmentProfile extends Fragment implements OnClickListener{
         switch (view.getId()){
             case R.id.fragment_profile_change_name:
                 createDialogName(mName);
-                break;
-            case R.id.fragment_profile_change_email:
-                createDialogEmail(mEmail);
                 break;
             case R.id.fragment_profile_change_favorite_books:
                 ArrayList array = new ArrayList();
@@ -323,4 +313,34 @@ public class FragmentProfile extends Fragment implements OnClickListener{
         }
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        id = getActivity().getIntent().getStringExtra("ID");
+
+        getData();
+    }
+
+    public void getData(){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
+                .child(id).child(Constants.FIREBASE_USER_INFO);
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //Map<String, String>
+                GenericTypeIndicator<Map<String,Object>> t = new GenericTypeIndicator<Map<String,Object>>(){};
+                Map<String, Object> value = dataSnapshot.getValue(t);
+                User user = new User((String)value.get(Constants.FIREBASE_USER_ABOUT),
+                        (List)value.get(Constants.FIREBASE_USER_FAVORITE_BOOKS),
+                        (String)value.get(Constants.FIREBASE_USER_IMAGE),
+                        (String)value.get(Constants.FIREBASE_USER_NICKNAME));
+                updateProfile(user);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 }

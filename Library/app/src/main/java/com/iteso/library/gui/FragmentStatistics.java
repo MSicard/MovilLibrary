@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.provider.Telephony;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,7 +15,16 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.Profile;
+import com.facebook.login.widget.ProfilePictureView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.iteso.library.R;
+import com.iteso.library.beans.UserState;
+import com.iteso.library.common.Constants;
 import com.iteso.library.common.Utils;
 
 /**
@@ -29,7 +39,7 @@ public class FragmentStatistics extends Fragment {
     protected TextView tv_reading;
     protected TextView tv_totalRead;
     protected ImageView graphic;
-    protected ImageView photo;
+    protected ProfilePictureView photo;
 
     @Nullable
     @Override
@@ -42,10 +52,9 @@ public class FragmentStatistics extends Fragment {
         tv_reading = (TextView)view.findViewById(R.id.fragment_statistics_int_reading);
         tv_totalRead = (TextView)view.findViewById(R.id.fragment_statistics_int_total_read);
         graphic = (ImageView)view.findViewById(R.id.fragment_statistics_graphic);
-        Bitmap photoA = BitmapFactory.decodeResource(getActivity().getResources(),
-                R.drawable.profile);
-        photo = (ImageView)view.findViewById(R.id.fragment_statistics_image_profile);
-        photo.setImageBitmap(Utils.getRoundedShape(photoA));
+        photo = (ProfilePictureView)view.findViewById(R.id.fragment_statistics_image_profile);
+
+        photo.setProfileId(Profile.getCurrentProfile().getId());
 
         lastMonth.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +77,23 @@ public class FragmentStatistics extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), ActivityStatisticsBooks.class);
                 ((ActivityProfile)view.getContext()).startActivity(intent);
+            }
+        });
+
+        DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
+                .child(Profile.getCurrentProfile().getId()).child(Constants.FIREBASE_USER_STATE);
+        mDatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                UserState state = dataSnapshot.getValue(UserState.class);
+                tv_lastMonth.setText(String.valueOf(state.getLast_month()));
+                tv_reading.setText(String.valueOf(state.getReading()));
+                tv_totalRead.setText(String.valueOf(state.getTotal()));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
 

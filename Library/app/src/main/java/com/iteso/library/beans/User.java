@@ -1,6 +1,7 @@
 package com.iteso.library.beans;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Maritza on 24/10/2017.
@@ -8,22 +9,26 @@ import java.util.ArrayList;
 
 public class User {
     private String about_me;
-    private ArrayList books;
-    private String[] favoriteBooks;
+    private List favoriteBooks;
     private String image;
     private String nickname;
-    private boolean visible_p;
-    private boolean visible_st;
-    private String email;
 
-    public User(String image, String nickname, boolean visible_p, boolean visible_st) {
+    public User(String about_me, List favoriteBooks, String image, String nickname) {
+        this.about_me = about_me;
+        this.favoriteBooks = favoriteBooks;
         this.image = image;
         this.nickname = nickname;
-        this.visible_p = visible_p;
-        this.visible_st = visible_st;
     }
-    public User(){
 
+    public User(String image, String nickname) {
+        this.image = image;
+        this.nickname = nickname;
+        this.about_me = "¿Quien eres?";
+        this.favoriteBooks = new ArrayList();
+        favoriteBooks.add("Agrega libros!");
+    }
+
+    public User(){
     }
 
     public String getAbout_me() {
@@ -32,22 +37,6 @@ public class User {
 
     public void setAbout_me(String about_me) {
         this.about_me = about_me;
-    }
-
-    public ArrayList getBooks() {
-        return books;
-    }
-
-    public void setBooks(ArrayList books) {
-        this.books = books;
-    }
-
-    public String[] getFavoriteBooks() {
-        return favoriteBooks;
-    }
-
-    public void setFavoriteBooks(String[] favoriteBooks) {
-        this.favoriteBooks = favoriteBooks;
     }
 
     public String getImage() {
@@ -66,27 +55,11 @@ public class User {
         this.nickname = nickname;
     }
 
-    public boolean isVisible_p() {
-        return visible_p;
+    public List getFavoriteBooks() {
+        return favoriteBooks;
     }
 
-    public void setVisible_p(boolean visible_p) {
-        this.visible_p = visible_p;
-    }
-
-    public boolean isVisible_st() {
-        return visible_st;
-    }
-
-    public void setVisible_st(boolean visible_st) {
-        this.visible_st = visible_st;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setFavoriteBooks(ArrayList favoriteBooks) {
+        this.favoriteBooks = favoriteBooks;
     }
 }
