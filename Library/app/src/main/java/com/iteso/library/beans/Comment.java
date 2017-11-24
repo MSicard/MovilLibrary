@@ -7,47 +7,59 @@ import java.util.Date;
  */
 
 public class Comment {
-    private int image;
-    private String userName;
-    private Date date;
-    private String userComment;
+   private String id;
+   private String message;
+   private String nickname;
+   private long time;
+   private String idComment;
 
-    public Comment(int image, String userName, Date date, String userComment) {
-        this.image = image;
-        this.userName = userName;
-        this.date = date;
-        this.userComment = userComment;
+    public String getIdComment() {
+        return idComment;
     }
 
-    public int getImage() {
-        return image;
+    public void setIdComment(String idComment) {
+        this.idComment = idComment;
     }
 
-    public void setImage(int image) {
-        this.image = image;
+    public Comment() {
     }
 
-    public String getUserName() {
-        return userName;
+    public Comment(String id, String message, String nickname, long time) {
+        this.id = id;
+        this.message = message;
+        this.nickname = nickname;
+        this.time = time;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public String getId() {
+        return id;
     }
 
-    public Date getDate() {
-        return date;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public String getMessage() {
+        return message;
     }
 
-    public String getUserComment() {
-        return userComment;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public void setUserComment(String userComment) {
-        this.userComment = userComment;
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
     }
 }

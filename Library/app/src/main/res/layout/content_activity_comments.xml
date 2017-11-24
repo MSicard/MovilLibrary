@@ -43,7 +43,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/activity_comments_info_margin">
 
-                        <ImageView
+                        <com.facebook.login.widget.ProfilePictureView
                             android:id="@+id/activity_comments_user_photo"
                             android:layout_width="@dimen/activity_comments_info_image_size_width"
                             android:layout_height="@dimen/activity_comments_info_image_size_height"/>
@@ -55,23 +55,13 @@
                             android:layout_margin="@dimen/activity_comments_info_user_date_margin">
 
                             <TextView
+                                android:text="asdfasdfasdf"
                                 android:id="@+id/activity_comments_user_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
-
-                            <TextView
-                                android:id="@+id/activity_comments_time"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="@dimen/activity_comments_info_date_textsize"/>
                         </LinearLayout>
                     </RelativeLayout>
 
-                    <TextView
-                        android:id="@+id/activity_comments_publication"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/activity_comments_publication_margin" />
                 </LinearLayout>
 
                 <LinearLayout
