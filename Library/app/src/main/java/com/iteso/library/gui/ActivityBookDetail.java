@@ -1,6 +1,7 @@
 package com.iteso.library.gui;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,7 +9,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.facebook.Profile;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,6 +31,7 @@ public class ActivityBookDetail extends ActivityBase {
     private TextView reviews;
     private Button bibliography;
     private Book book;
+    private FloatingActionButton addBook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,7 @@ public class ActivityBookDetail extends ActivityBase {
         synopsis = (TextView) findViewById(R.id.activity_book_detail_synopsis);
         reviews = (TextView) findViewById(R.id.activity_book_detail_reviews);
         bibliography = (Button) findViewById(R.id.activity_book_detail_btn_bibliografhy);
+        addBook = (FloatingActionButton)  findViewById(R.id.activity_book_detail_add_book);
 
         Intent intent = getIntent();
         String isbn = intent.getStringExtra("book");
@@ -80,6 +85,19 @@ public class ActivityBookDetail extends ActivityBase {
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), ActivityReview.class);
                 startActivity(intent);
+            }
+        });
+
+        addBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
+                        .child(Profile.getCurrentProfile().getId())
+                        .child(Constants.FIREBASE_USER_BOOKS)
+                        .child(book.getIsbn());
+
+                databaseReference.setValue(book);
+                Toast.makeText(ActivityBookDetail.this, "'" + book.getTitle() + "' has been add to your books", Toast.LENGTH_LONG).show();
             }
         });
     }
