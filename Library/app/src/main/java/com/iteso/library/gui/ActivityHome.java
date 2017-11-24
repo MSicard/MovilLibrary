@@ -4,18 +4,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.support.v7.widget.SnapHelper;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.iteso.library.R;
 import com.iteso.library.adapters.AdapterCategorizedBook;
 import com.iteso.library.adapters.AdapterFeaturedBook;
 import com.iteso.library.beans.Book;
+import com.iteso.library.common.Constants;
 
 import java.util.ArrayList;
 
@@ -25,10 +28,10 @@ public class ActivityHome extends ActivityBase implements SearchView.OnQueryText
     private ArrayList<Book> featuredBooksDataSet;
     private RecyclerView featuredBooksRecyclerView;
 
-    private RecyclerView.Adapter categorizedBooksAdapter;
-    private RecyclerView.LayoutManager categorizedBooksLayoutManager;
-    private ArrayList<Book> categorizedBooksDataSet;
-    private RecyclerView categorizedBooksRecyclerView;
+    private RecyclerView.Adapter computingBooksAdapter;
+    private RecyclerView.LayoutManager computingBooksLayoutManager;
+    private ArrayList<Book> computingBooksDataSet;
+    private RecyclerView computingBooksRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +45,26 @@ public class ActivityHome extends ActivityBase implements SearchView.OnQueryText
 
         // Para propósito de pruebas
         featuredBooksDataSet = new ArrayList<>();
-        featuredBooksDataSet.add(new Book("Cronicas de Narnia", "C.S. Lewis", "Esta es la sinapsis del libro, Esta es la sinapsis del libro, Esta es la sinapsis del libro, Esta es la sinapsis del libro, Esta es la sinapsis del libro, Esta es la sinapsis del libro, Esta es la sinapsis del libro,"));
-        featuredBooksDataSet.add(new Book("Cronicas de Narnia", "C.S. Lewis", "Esta es la sinapsis del libro, Esta es la sinapsis del libro, Esta es la sinapsis del libro, Esta es la sinapsis del libro, Esta es la sinapsis del libro, Esta es la sinapsis del libro, Esta es la sinapsis del libro,"));
-        featuredBooksDataSet.add(new Book("Cronicas de Narnia", "C.S. Lewis", "Esta es la sinapsis del libro, Esta es la sinapsis del libro, Esta es la sinapsis del libro, Esta es la sinapsis del libro, Esta es la sinapsis del libro, Esta es la sinapsis del libro, Esta es la sinapsis del libro,"));
-        featuredBooksDataSet.add(new Book("Cronicas de Narnia", "C.S. Lewis", "Esta es la sinapsis del libro, Esta es la sinapsis del libro, Esta es la sinapsis del libro, Esta es la sinapsis del libro, Esta es la sinapsis del libro, Esta es la sinapsis del libro, Esta es la sinapsis del libro,"));
-        featuredBooksDataSet.add(new Book("Cronicas de Narnia", "C.S. Lewis", "Esta es la sinapsis del libro, Esta es la sinapsis del libro, Esta es la sinapsis del libro, Esta es la sinapsis del libro, Esta es la sinapsis del libro, Esta es la sinapsis del libro, Esta es la sinapsis del libro,"));
 
+        DatabaseReference featuredReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_BOOKS_CATEGORY)
+                .child(Constants.FIREBASE_BOOKS_CATEGORY_FEATURED);
+
+        featuredReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot != null) featuredBooksDataSet.clear();
+                for(DataSnapshot data : dataSnapshot.getChildren()){
+                    Book book = data.getValue(Book.class);
+                    featuredBooksDataSet.add(book);
+                }
+                featuredBooksAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         featuredBooksLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         featuredBooksRecyclerView.setLayoutManager(featuredBooksLayoutManager);
@@ -55,24 +72,37 @@ public class ActivityHome extends ActivityBase implements SearchView.OnQueryText
         featuredBooksAdapter = new AdapterFeaturedBook(this, featuredBooksDataSet);
         featuredBooksRecyclerView.setAdapter(featuredBooksAdapter);
 
+
+
         // ------------------------ Libros categoria -------------------------- //
-        categorizedBooksRecyclerView = (RecyclerView) findViewById(R.id.activity_home_recycler_categorized_books);
-        categorizedBooksRecyclerView.setHasFixedSize(true);
+        computingBooksRecyclerView = (RecyclerView) findViewById(R.id.activity_home_recycler_categorized_books);
+        computingBooksRecyclerView.setHasFixedSize(true);
+        computingBooksDataSet = new ArrayList<>();
 
-        // Para propósito de pruebas
-        categorizedBooksDataSet = new ArrayList<>();
-        categorizedBooksDataSet.add(new Book("Star Wars", "Timothy Zahn", "Sinapsis"));
-        categorizedBooksDataSet.add(new Book("Star Wars", "Timothy Zahn", "Sinapsis"));
-        categorizedBooksDataSet.add(new Book("Star Wars", "Timothy Zahn", "Sinapsis"));
-        categorizedBooksDataSet.add(new Book("Star Wars", "Timothy Zahn", "Sinapsis"));
-        categorizedBooksDataSet.add(new Book("Star Wars", "Timothy Zahn", "Sinapsis"));
+        DatabaseReference computingReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_BOOKS_CATEGORY)
+                .child(Constants.FIREBASE_BOOKS_CATEGORY_COMPUTING);
+        computingReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot != null) computingBooksDataSet.clear();
+                for(DataSnapshot data : dataSnapshot.getChildren()){
+                    Book book = data.getValue(Book.class);
+                    computingBooksDataSet.add(book);
+                }
+                computingBooksAdapter.notifyDataSetChanged();
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-        categorizedBooksLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        categorizedBooksRecyclerView.setLayoutManager(categorizedBooksLayoutManager);
+            }
+        });
 
-        categorizedBooksAdapter = new AdapterCategorizedBook(this, categorizedBooksDataSet);
-        categorizedBooksRecyclerView.setAdapter(categorizedBooksAdapter);
+        computingBooksLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        computingBooksRecyclerView.setLayoutManager(computingBooksLayoutManager);
+
+        computingBooksAdapter = new AdapterCategorizedBook(this, computingBooksDataSet);
+        computingBooksRecyclerView.setAdapter(computingBooksAdapter);
     }
 
     @Override

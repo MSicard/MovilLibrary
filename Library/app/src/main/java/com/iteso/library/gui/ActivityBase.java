@@ -140,7 +140,7 @@ public abstract class ActivityBase extends AppCompatActivity implements Navigati
         return true;
     }
 
-    public void createDialogBibliography(){
+    public void createDialogBibliography(String msg){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
 
@@ -148,8 +148,9 @@ public abstract class ActivityBase extends AppCompatActivity implements Navigati
         builder.setView(v);
 
         final TextView bibliography = (TextView) v.findViewById(R.id.dialog__bibliography_bibliography);
-        final TextView textView = (TextView)v.findViewById(R.id.dialog_bibliography_title);
-        textView.setText("Bibliography");
+        final TextView title = (TextView)v.findViewById(R.id.dialog_bibliography_title);
+        title.setText("Bibliography");
+        bibliography.setText(msg);
 
         builder.setPositiveButton("ACCEPT", new DialogInterface.OnClickListener() {
             @Override

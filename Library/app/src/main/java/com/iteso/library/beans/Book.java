@@ -4,8 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Maritza on 22/09/2017.
@@ -19,13 +17,13 @@ public class Book implements Parcelable{
     protected String edition;
     protected String year;
     protected long pages;
-    protected String ISBN;
+    protected String isbn;
+    protected String image;
     protected long rating;
     protected String url;
-    protected String image;
 
     public Book(String title, String author, String synopsis, String editorial,
-                String edition, String year, long pages, String ISBN, long rating, String url) {
+                String edition, String year, long pages, String isbn, long rating, String url) {
         this.title = title;
         this.author = author;
         this.synopsis = synopsis;
@@ -33,7 +31,7 @@ public class Book implements Parcelable{
         this.edition = edition;
         this.year = year;
         this.pages = pages;
-        this.ISBN = ISBN;
+        this.isbn = isbn;
         this.rating = rating;
         this.url = url;
     }
@@ -48,6 +46,29 @@ public class Book implements Parcelable{
 
     }
 
+    @Override
+    public String toString() {
+        return "Title: " + title + "\n" +
+                "Author: " + author + "\n" +
+                "Editorial: " + editorial + "\n" +
+                "Edition: " + edition + "\n" +
+                "Year: " + year + "\n" +
+                "Pages: " + pages + "\n" +
+                "ISBN: " + isbn;
+    }
+
+    public Book(String title, String author, String synopsis, String editorial, String edition, String year, long pages, String isbn, long rating, String url, HashMap<String, String> category) {
+        this.title = title;
+        this.author = author;
+        this.synopsis = synopsis;
+        this.editorial = editorial;
+        this.edition = edition;
+        this.year = year;
+        this.pages = pages;
+        this.isbn = isbn;
+        this.rating = rating;
+        this.url = url;
+    }
 
     protected Book(Parcel in) {
         title = in.readString();
@@ -57,9 +78,10 @@ public class Book implements Parcelable{
         edition = in.readString();
         year = in.readString();
         pages = in.readLong();
-        ISBN = in.readString();
+        isbn = in.readString();
         rating = in.readLong();
         url = in.readString();
+        image = in.readString();
     }
 
     public static final Creator<Book> CREATOR = new Creator<Book>() {
@@ -106,12 +128,12 @@ public class Book implements Parcelable{
         this.pages = pages;
     }
 
-    public String getISBN() {
-        return ISBN;
+    public String getIsbn() {
+        return isbn;
     }
 
-    public void setISBN(String ISBN) {
-        this.ISBN = ISBN;
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
     public long getRating() {
@@ -154,6 +176,14 @@ public class Book implements Parcelable{
         this.synopsis = synopsis;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -168,8 +198,9 @@ public class Book implements Parcelable{
         dest.writeString(edition);
         dest.writeString(year);
         dest.writeLong(pages);
-        dest.writeString(ISBN);
+        dest.writeString(isbn);
         dest.writeLong(rating);
         dest.writeString(url);
+        dest.writeString(image);
     }
 }

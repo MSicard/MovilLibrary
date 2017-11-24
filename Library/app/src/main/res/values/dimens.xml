@@ -63,7 +63,7 @@
     <dimen name="item_featured_books_texview_synapsis_margin_top">10dp</dimen>
 
     <dimen name="item_categorized_books_cardview_width">130dp</dimen>
-    <dimen name="item_categorized_books_cardview_height">130dp</dimen>
+    <dimen name="item_categorized_books_cardview_height">150dp</dimen>
     <dimen name="item_categorized_books_cardview_margin">10dp</dimen>
     <dimen name="item_categorized_books_cardview_corner_radius">4dp</dimen>
     <dimen name="item_categorized_books_image_view_height">100dp</dimen>

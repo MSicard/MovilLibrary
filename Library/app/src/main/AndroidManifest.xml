@@ -22,8 +22,9 @@
         <activity
             android:name=".gui.ActivityMyBooks"
             android:theme="@style/AppTheme" />
-        <activity android:name=".gui.ActivityLogin"/>
-        <activity android:name=".gui.ActivityHome"/>
+
+        <activity android:name=".gui.ActivityLogin" />
+        <activity android:name=".gui.ActivityHome" />
         <activity android:name=".gui.ActivityBookDetail" />
         <activity android:name=".gui.ActivitySplashScreen">
         <intent-filter>
