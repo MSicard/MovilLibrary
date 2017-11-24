@@ -122,6 +122,7 @@ public abstract class ActivityBase extends AppCompatActivity implements Navigati
                 break;
             case R.id.nav_my_books:
                 intent = new Intent(this, ActivityMyBooks.class);
+                intent.putExtra("ID", Profile.getCurrentProfile().getId());
                 startActivity(intent);
                 break;
             case R.id.nav_profile:
