@@ -156,6 +156,9 @@ public class FragmentProfile extends Fragment implements OnClickListener{
         builder.setPositiveButton("CHANGE", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER).child(id)
+                        .child(Constants.FIREBASE_USER_INFO).child(Constants.FIREBASE_USER_ABOUT);
+                ref.setValue(editText.getText().toString());
                 tv.setText(editText.getText().toString());
             }
         }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
@@ -182,6 +185,9 @@ public class FragmentProfile extends Fragment implements OnClickListener{
         builder.setPositiveButton("CHANGE", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER).child(id)
+                        .child(Constants.FIREBASE_USER_INFO).child(Constants.FIREBASE_USER_NICKNAME);
+                ref.setValue(editText.getText().toString());
                 tv.setText(editText.getText().toString());
             }
         }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
@@ -327,7 +333,6 @@ public class FragmentProfile extends Fragment implements OnClickListener{
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                //Map<String, String>
                 GenericTypeIndicator<Map<String,Object>> t = new GenericTypeIndicator<Map<String,Object>>(){};
                 Map<String, Object> value = dataSnapshot.getValue(t);
                 User user = new User((String)value.get(Constants.FIREBASE_USER_ABOUT),
