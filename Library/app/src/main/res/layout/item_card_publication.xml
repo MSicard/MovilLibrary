@@ -17,7 +17,7 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <ImageView
+            <com.facebook.login.widget.ProfilePictureView
                 android:layout_width="@dimen/item_card_publication_photo_size"
                 android:layout_height="@dimen/item_card_publication_photo_size"
                 android:id="@+id/item_card_publication_photo"/>
@@ -61,7 +61,6 @@
             <TextView
                 android:layout_toRightOf="@id/item_card_publication_like"
                 android:layout_centerVertical="true"
-                android:text="10"
                 android:id="@+id/item_card_publication_number_likes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -76,7 +75,6 @@
             <TextView
                 android:layout_toRightOf="@id/item_card_publication_button_comments"
                 android:layout_centerVertical="true"
-                android:text="10"
                 android:id="@+id/item_card_publication_number_comments"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

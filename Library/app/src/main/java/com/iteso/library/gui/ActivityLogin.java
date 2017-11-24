@@ -15,6 +15,7 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.Profile;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,8 +25,15 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.iteso.library.R;
 import com.iteso.library.beans.User;
+import com.iteso.library.beans.UserState;
+import com.iteso.library.common.Constants;
 
 import java.util.Arrays;
 
@@ -55,7 +63,6 @@ public class ActivityLogin extends AppCompatActivity {
             public void onSuccess(LoginResult loginResult) {
                 //Se tiene que mandar el token a Firebase para la auth
                 firebaseSendAuth(loginResult.getAccessToken());
-
                 goActivityHome();
             }
 
@@ -77,7 +84,33 @@ public class ActivityLogin extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if(user != null){
-                    goActivityHome();
+                    //Encontrar si ya existe un usuario en la base de datos
+                    DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance()
+                            .getReference(Constants.FIREBASE_USER);
+                    DatabaseReference userExits = mDatabaseReference.child(AccessToken.getCurrentAccessToken().getUserId());
+                    userExits.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            User value = dataSnapshot.getValue(User.class);
+                            if(value == null){
+                                DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER);
+                                Profile profile = Profile.getCurrentProfile();
+                                value = new User(profile.getId(), profile.getName());
+                                mDatabaseReference.child(AccessToken.getCurrentAccessToken().getUserId())
+                                        .child(Constants.FIREBASE_USER_INFO).setValue(value);
+                                UserState state = new UserState(true, true, 0, 0, 0);
+                                mDatabaseReference.child(AccessToken.getCurrentAccessToken().getUserId())
+                                        .child(Constants.FIREBASE_USER_STATE).setValue(state);
+                            }
+                            goActivityHome();
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
                 }
             }
         };
