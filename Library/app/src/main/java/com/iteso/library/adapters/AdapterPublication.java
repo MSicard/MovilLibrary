@@ -2,6 +2,7 @@ package com.iteso.library.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v4.content.ContextCompat;
@@ -48,10 +49,7 @@ public class AdapterPublication extends RecyclerView.Adapter<AdapterPublication.
     private String id;
     String name;
     String idPub;
-    boolean likeButton;
-
-    private DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
-            .child(id);
+    private DatabaseReference mDatabaseReference  = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER);
 
     public AdapterPublication(Context context, ArrayList mDataSet){
         this.context = context;
@@ -71,16 +69,20 @@ public class AdapterPublication extends RecyclerView.Adapter<AdapterPublication.
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
+        idPub = mDataSet.get(position).getId();
+        holder.getColorLikeButton(id, idPub);
         holder.name.setText(name);
         holder.comment.setText(mDataSet.get(position).getMessage());
         holder.countComments.setText(String.valueOf(mDataSet.get(position).getComments()));
         holder.countLikes.setText(String.valueOf(mDataSet.get(position).getLikes()));
         holder.photo.setProfileId(id);
-        idPub = mDataSet.get(position).getId();
         holder.idPublication.setText(idPub);
-        getColorLikeButton();
-        if(likeButton) holder.like.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPurple));
-        else holder.like.setBackgroundColor(ContextCompat.getColor(context, R.color.colorGray));
+        if(holder.likeButton){
+            holder.like.setBackgroundColor(ContextCompat.getColor(context,R.color.colorGray   ));
+        }
+        else {
+            holder.like.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPurple));
+        }
         //Falta poner el tiempo :)
         //holder.time.setText(putTime(mDataSet.get(position).getDate()));
 
@@ -88,6 +90,8 @@ public class AdapterPublication extends RecyclerView.Adapter<AdapterPublication.
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), ActivityComments.class);
+                intent.putExtra("ID", id);
+                intent.putExtra("publication", mDataSet.get(position));
                 ((ActivityProfile)view.getContext()).startActivity(intent);
             }
         });
@@ -95,18 +99,30 @@ public class AdapterPublication extends RecyclerView.Adapter<AdapterPublication.
         holder.like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getColorLikeButton();
-                DatabaseReference mRef = mDatabaseReference.child(Constants.FIREBASE_USER_PUBLICATION_LIKE)
-                        .child(idPub).child(id);
-                if(likeButton){
+                DatabaseReference mRef = mDatabaseReference
+                        .child(id)
+                        .child(Constants.FIREBASE_USER_PUBLICATION)
+                        .child(Constants.FIREBASE_USER_PUBLICATION_LIKE)
+                        .child(idPub)
+                        .child(id);
+                DatabaseReference mRefLike = mDatabaseReference
+                        .child(id)
+                        .child(Constants.FIREBASE_USER_PUBLICATION)
+                        .child(Constants.FIREBASE_USER_PUBLICATION_INFO)
+                        .child(idPub)
+                        .child(Constants.FIREBASE_USER_PUBLICATION_COUNT_LIKES);
+                if(holder.likeButton){
                     mRef.removeValue();
-                    holder.like.setBackgroundColor(ContextCompat.getColor(context, R.color.colorGray));
+                    mDataSet.get(position).setLikes(mDataSet.get(position).getLikes() - 1);
+                    holder.like.setBackgroundTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.colorGray)));
                 }
                 else{
                     mRef.setValue(true);
-                    holder.like.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPurple));
+                    mDataSet.get(position).setLikes(mDataSet.get(position).getLikes() + 1);
+                    holder.like.setBackgroundTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.colorPurple)));
                 }
-
+                mRefLike.setValue(mDataSet.get(position).getLikes());
+                holder.getColorLikeButton(id, idPub);
             }
         });
     }
@@ -127,6 +143,7 @@ public class AdapterPublication extends RecyclerView.Adapter<AdapterPublication.
         protected TextView countLikes;
         protected TextView countComments;
         protected TextView idPublication;
+        protected boolean likeButton;
         public ViewHolder(View itemView) {
             super(itemView);
             idPublication = (TextView)itemView.findViewById(R.id.item_card_publication_card_id);
@@ -141,10 +158,36 @@ public class AdapterPublication extends RecyclerView.Adapter<AdapterPublication.
             countComments = (TextView)itemView.findViewById(R.id.item_card_publication_number_comments);
             //poner función de los botones publicationComment y like
         }
+
+        public void getColorLikeButton(String id, String idPub){
+            DatabaseReference dataRef = mDatabaseReference
+                    .child(id)
+                    .child(Constants.FIREBASE_USER_PUBLICATION)
+                    .child(Constants.FIREBASE_USER_PUBLICATION_LIKE)
+                    .child(idPub).child(id);
+            dataRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.getValue() == null){
+                        likeButton = false;
+                    }
+                    else{
+                        likeButton = true;
+                    }
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
     }
 
     public void getUserName(){
-        DatabaseReference data = mDatabaseReference.child(Constants.FIREBASE_USER_INFO).child(Constants.FIREBASE_USER_NICKNAME);
+        DatabaseReference data = mDatabaseReference
+                .child(id)
+                .child(Constants.FIREBASE_USER_INFO)
+                .child(Constants.FIREBASE_USER_NICKNAME);
         data.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -158,26 +201,6 @@ public class AdapterPublication extends RecyclerView.Adapter<AdapterPublication.
         });
     }
 
-    public void getColorLikeButton(){
-        Query dataRef = mDatabaseReference.child(Constants.FIREBASE_USER_PUBLICATION_LIKE)
-                .child(idPub).equalTo(id);
-        dataRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot == null){
-                    likeButton = false;
-                }
-                else{
-                    likeButton = true;
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
 
 
 }

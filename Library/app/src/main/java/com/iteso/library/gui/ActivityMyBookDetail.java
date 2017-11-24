@@ -73,8 +73,8 @@ public class ActivityMyBookDetail extends ActivityBase {
     }
 
     private void setMyBook(MyBookDetail b){
-        mTitle.setText(b.getTitle());
-        mAutor.setText(b.getAuthor());
+        /*mTitle.setText(b.getTitle());
+        mAutor.setText(b.getAuthor());*/
         mRating.setRating(5);
     }
 

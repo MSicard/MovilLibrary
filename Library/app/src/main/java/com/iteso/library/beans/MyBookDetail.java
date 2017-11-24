@@ -8,42 +8,51 @@ import android.os.Parcelable;
  * Created by Maritza on 25/09/2017.
  */
 
-public class MyBookDetail extends Book implements Parcelable {
+public class MyBookDetail {
     protected boolean reading;
     protected String pagesRead;
+    protected boolean download;
+    protected long startDate;
 
-    public MyBookDetail(String title, String autor, String synapsis, boolean reading, String pagesRead) {
-        super(title, autor, synapsis);
+    public MyBookDetail() {
+    }
+
+    public MyBookDetail(boolean reading, String pagesRead, boolean download, long startDate) {
         this.reading = reading;
+        this.pagesRead = pagesRead;
+        this.download = download;
+        this.startDate = startDate;
+    }
+
+    public boolean isReading() {
+        return reading;
+    }
+
+    public void setReading(boolean reading) {
+        this.reading = reading;
+    }
+
+    public String getPagesRead() {
+        return pagesRead;
+    }
+
+    public void setPagesRead(String pagesRead) {
         this.pagesRead = pagesRead;
     }
 
-    public MyBookDetail(String title, String autor, String synapsis){
-        super(title, autor, synapsis);
+    public boolean isDownload() {
+        return download;
     }
 
-    protected MyBookDetail(Parcel in) {
-        super(in);
-        reading = in.readByte() != 0;
-        pagesRead = in.readString();
+    public void setDownload(boolean download) {
+        this.download = download;
     }
 
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        super.writeToParcel(parcel, i);
-        parcel.writeByte((byte) (reading ? 1: 0));
-        parcel.writeString(pagesRead);
+    public long getStartDate() {
+        return startDate;
     }
 
-    public static final Creator<MyBookDetail> CREATOR = new Creator<MyBookDetail>() {
-        @Override
-        public MyBookDetail createFromParcel(Parcel in) {
-            return new MyBookDetail(in);
-        }
-
-        @Override
-        public MyBookDetail[] newArray(int size) {
-            return new MyBookDetail[size];
-        }
-    };
+    public void setStartDate(long startDate) {
+        this.startDate = startDate;
+    }
 }

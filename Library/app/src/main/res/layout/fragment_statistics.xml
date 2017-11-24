@@ -20,6 +20,7 @@
                 android:layout_height="100dp"
                 android:id="@+id/fragment_statistics_image_profile"/>
             <TextView
+                android:id="@+id/fragment_statistics_name"
                 android:textSize="28sp"
                 android:layout_marginBottom="10dp"
                 android:text="name"
