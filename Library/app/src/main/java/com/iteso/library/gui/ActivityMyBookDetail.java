@@ -16,7 +16,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.iteso.library.R;
-import com.iteso.library.beans.MyBook;
+import com.iteso.library.beans.MyBookDetail;
 
 /**
  * Created by Maritza on 01/10/2017.
@@ -72,7 +72,7 @@ public class ActivityMyBookDetail extends ActivityBase {
         });
     }
 
-    private void setMyBook(MyBook b){
+    private void setMyBook(MyBookDetail b){
         mTitle.setText(b.getTitle());
         mAutor.setText(b.getAuthor());
         mRating.setRating(5);
