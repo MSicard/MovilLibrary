@@ -28,5 +28,8 @@ public class Constants {
     public static String FIREBASE_USER_LAST_MONTH = "last_month";
     public static String FIREBASE_USER_READING = "reading";
     public static String FIREBASE_USER_TOTAL = "total";
+    public static String FIREBASE_USER_PUBLICATION = "publication";
+    public static String FIREBASE_USER_PUBLICATION_INFO = "information";
+    public static String FIREBASE_USER_PUBLICATION_COMMENT = "comments";
 
 }

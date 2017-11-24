@@ -58,6 +58,7 @@ public class FragmentProfile extends Fragment implements OnClickListener{
     protected ImageView mNameB;
     protected ImageView mFavoriteBooksB;
     protected ImageView mAboutMeB;
+    protected String id;
 
     @Nullable
     @Override
@@ -71,28 +72,6 @@ public class FragmentProfile extends Fragment implements OnClickListener{
         mFavoriteBooksB = (ImageView) view.findViewById(R.id.fragment_profile_change_favorite_books);
         mAboutMeB = (ImageView)view.findViewById(R.id.fragment_profile_change_about);
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
-                .child(Profile.getCurrentProfile().getId()).child(Constants.FIREBASE_USER_INFO);
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                //Map<String, String>
-                GenericTypeIndicator<Map<String,Object>> t = new GenericTypeIndicator<Map<String,Object>>(){};
-                Map<String, Object> value = dataSnapshot.getValue(t);
-                User user = new User((String)value.get(Constants.FIREBASE_USER_ABOUT),
-                        (List)value.get(Constants.FIREBASE_USER_FAVORITE_BOOKS),
-                        (String)value.get(Constants.FIREBASE_USER_IMAGE),
-                        (String)value.get(Constants.FIREBASE_USER_NICKNAME));
-                updateProfile(user);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        Bitmap photoA =  BitmapFactory.decodeResource(getActivity().getResources(),
-                R.drawable.profile);
         mNameB.setOnClickListener(this);
         mFavoriteBooksB.setOnClickListener(this);
         mAboutMeB.setOnClickListener(this);
@@ -334,4 +313,34 @@ public class FragmentProfile extends Fragment implements OnClickListener{
         }
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        id = getActivity().getIntent().getStringExtra("ID");
+
+        getData();
+    }
+
+    public void getData(){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
+                .child(id).child(Constants.FIREBASE_USER_INFO);
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //Map<String, String>
+                GenericTypeIndicator<Map<String,Object>> t = new GenericTypeIndicator<Map<String,Object>>(){};
+                Map<String, Object> value = dataSnapshot.getValue(t);
+                User user = new User((String)value.get(Constants.FIREBASE_USER_ABOUT),
+                        (List)value.get(Constants.FIREBASE_USER_FAVORITE_BOOKS),
+                        (String)value.get(Constants.FIREBASE_USER_IMAGE),
+                        (String)value.get(Constants.FIREBASE_USER_NICKNAME));
+                updateProfile(user);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 }

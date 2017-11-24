@@ -4,6 +4,13 @@
     android:layout_margin="@dimen/fragment_publications_margin"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <android.support.v7.widget.RecyclerView
+        android:layout_margin="@dimen/fragment_publications_margin"
+        android:id="@+id/fragment_publications_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+    </android.support.v7.widget.RecyclerView>
     <android.support.v7.widget.CardView
         android:layout_margin="@dimen/fragment_publications_margin"
         android:layout_width="match_parent"
@@ -17,7 +24,7 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <ImageView
+                <com.facebook.login.widget.ProfilePictureView
                     android:id="@+id/fragment_publication_photo"
                     android:layout_margin="@dimen/fragment_publications_margin"
                     android:layout_width="@dimen/fragment_publications_image_width"
@@ -44,10 +51,4 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
-    <android.support.v7.widget.RecyclerView
-        android:layout_margin="@dimen/fragment_publications_margin"
-        android:id="@+id/fragment_publications_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </android.support.v7.widget.RecyclerView>
 </LinearLayout>
