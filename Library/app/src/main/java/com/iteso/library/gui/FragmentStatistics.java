@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -40,6 +41,8 @@ public class FragmentStatistics extends Fragment {
     protected TextView tv_totalRead;
     protected ImageView graphic;
     protected ProfilePictureView photo;
+    protected TextView nickname;
+    private String id;
 
     @Nullable
     @Override
@@ -53,7 +56,9 @@ public class FragmentStatistics extends Fragment {
         tv_totalRead = (TextView)view.findViewById(R.id.fragment_statistics_int_total_read);
         graphic = (ImageView)view.findViewById(R.id.fragment_statistics_graphic);
         photo = (ProfilePictureView)view.findViewById(R.id.fragment_statistics_image_profile);
+        nickname = (TextView)view.findViewById(R.id.fragment_statistics_name);
 
+        //id =
         photo.setProfileId(Profile.getCurrentProfile().getId());
 
         lastMonth.setOnClickListener(new View.OnClickListener() {
@@ -98,5 +103,21 @@ public class FragmentStatistics extends Fragment {
         });
 
         return view;
+    }
+
+    private void getNickname(){
+        DatabaseReference mDataReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
+                .child(id).child(Constants.FIREBASE_USER_INFO).child(Constants.FIREBASE_USER_NICKNAME);
+        mDataReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -32,11 +33,11 @@ public class ActivityMyBooks extends ActivityBase {
     private static int numberOfColumns = 3;
     ArrayList<Book> mDataSet;
     private String id ;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_books);
-
         onCreateDrawer();
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.fragment_my_books_recyclerview);
         recyclerView.setHasFixedSize(true);
@@ -56,6 +57,8 @@ public class ActivityMyBooks extends ActivityBase {
     protected void onStart() {
         super.onStart();
     }
+
+
 
     private void getBooks(){
         DatabaseReference mDataReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
