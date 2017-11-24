@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.iteso.library.R;
 import com.iteso.library.beans.Book;
+import com.iteso.library.common.DownloadImage;
 import com.iteso.library.gui.ActivityMyBookDetail;
 
 import java.util.ArrayList;
@@ -39,11 +40,9 @@ public class AdapterMyBook extends RecyclerView.Adapter<AdapterMyBook.ViewHolder
 
     @Override
     public void onBindViewHolder(AdapterMyBook.ViewHolder holder, int position) {
-        //metodo longitud de string
-
         holder.title.setText(mDataSet.get(position).getTitle());
         holder.autor.setText(mDataSet.get(position).getAuthor());
-        holder.image.setImageResource(R.drawable.nombre_del_viento);
+        new DownloadImage(holder.image, mDataSet.get(position).getImage()).execute();
         holder.image.setOnClickListener(this);
     }
 

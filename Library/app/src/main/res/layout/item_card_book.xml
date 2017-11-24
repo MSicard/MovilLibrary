@@ -20,12 +20,16 @@
                 android:textSize="@dimen/item_card_book_title_size"
                 android:textColor="@android:color/black"
                 android:gravity="center"
+                android:singleLine="false"
+                android:maxLines="2"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/fragment_my_books_card_book_title"/>
             <TextView
                 android:layout_gravity="center"
+                android:singleLine="false"
+                android:maxLines="2"
                 android:id="@+id/fragment_my_books_card_book_autor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

@@ -15,8 +15,22 @@ import android.widget.RatingBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.facebook.Profile;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
 import com.iteso.library.R;
+import com.iteso.library.beans.Book;
 import com.iteso.library.beans.MyBookDetail;
+import com.iteso.library.beans.User;
+import com.iteso.library.common.Constants;
+import com.iteso.library.common.DownloadImage;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Maritza on 01/10/2017.
@@ -37,6 +51,7 @@ public class ActivityMyBookDetail extends ActivityBase {
     protected TextView mAutor;
     protected RatingBar mRating;
     protected ImageView mCoverPage;
+    protected MyBookDetail book;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,7 +70,10 @@ public class ActivityMyBookDetail extends ActivityBase {
         mRating = (RatingBar)findViewById(R.id.activity_my_book_detail_rating);
         mCoverPage = (ImageView)findViewById(R.id.activity_my_book_detail_cover_page);
 
+        Book b = getIntent().getExtras().getParcelable("book");
+        setMyBook(b);
         onCreateDrawer();
+        getState(b.getIsbn());
 
         mUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,12 +90,30 @@ public class ActivityMyBookDetail extends ActivityBase {
         });
     }
 
-    private void setMyBook(MyBookDetail b){
-        /*mTitle.setText(b.getTitle());
-        mAutor.setText(b.getAuthor());*/
-        mRating.setRating(5);
+    private void setMyBook(Book b){
+        mTitle.setText(b.getTitle());
+        mAutor.setText(b.getAuthor());
+        mRating.setRating(b.getRating());
+        new DownloadImage(mCoverPage, b.getUrl()).execute();
+
     }
 
+    private void getState(String id){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
+                .child(Profile.getCurrentProfile().getId()).child(Constants.FIREBASE_USER_BOOK_STATE).child(id);
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                book = dataSnapshot.getValue(MyBookDetail.class);
+                updateGUI();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
     public void createDialogUpdate(final TextView tv){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
@@ -105,4 +141,11 @@ public class ActivityMyBookDetail extends ActivityBase {
         builder.create().show();
     }
 
+    public void updateGUI(){
+        mNumberPages.setText(book.getPagesRead());
+        mStartDate.setText(String.valueOf(book.getStartDate()));
+        mActualReading.setChecked(book.isReading());
+        if(book.isDownload()) mDownload.setActivated(false);
+        else mDownload.setActivated(true);
+    }
 }
