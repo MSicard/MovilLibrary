@@ -22,7 +22,7 @@ public class Book implements Parcelable{
     protected String ISBN;
     protected long rating;
     protected String url;
-    protected HashMap<String, String> category = new HashMap<String, String>();
+    protected String image;
 
     public Book(String title, String author, String synopsis, String editorial,
                 String edition, String year, long pages, String ISBN, long rating, String url) {
@@ -48,35 +48,6 @@ public class Book implements Parcelable{
 
     }
 
-    @Override
-    public String toString() {
-        return "Book{" +
-                "title='" + title + '\'' +
-                ", author='" + author + '\'' +
-                ", synopsis='" + synopsis + '\'' +
-                ", editorial='" + editorial + '\'' +
-                ", edition='" + edition + '\'' +
-                ", year='" + year + '\'' +
-                ", pages=" + pages +
-                ", ISBN='" + ISBN + '\'' +
-                ", rating=" + rating +
-                ", url='" + url + '\'' +
-                '}' + category.get("one");
-    }
-
-    public Book(String title, String author, String synopsis, String editorial, String edition, String year, long pages, String ISBN, long rating, String url, HashMap<String, String> category) {
-        this.title = title;
-        this.author = author;
-        this.synopsis = synopsis;
-        this.editorial = editorial;
-        this.edition = edition;
-        this.year = year;
-        this.pages = pages;
-        this.ISBN = ISBN;
-        this.rating = rating;
-        this.url = url;
-        this.category = category;
-    }
 
     protected Book(Parcel in) {
         title = in.readString();

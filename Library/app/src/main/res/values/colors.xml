@@ -6,4 +6,10 @@
 
     <color name="activity_settings_background">#EEEEEE</color>
     <color name="activity_settings_option_title">#74b5b1</color>
+
+    <color name="colorPurple">#480250</color>
+    <color name="colorLila">#816C99</color>
+    <color name="colorGray">#B1C1C0</color>
+    <color name="colorBlue">#73A6AD</color>
+    <color name="colorSky">#BBEFD4</color>
 </resources>

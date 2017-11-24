@@ -84,22 +84,4 @@ public class Utils {
         }
     }
 
-    public static String name;
-    public static String getUserName(String id){
-        name = "";
-        DatabaseReference data = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
-                .child(id).child(Constants.FIREBASE_USER_INFO).child(Constants.FIREBASE_USER_NICKNAME);
-        data.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                name = dataSnapshot.getValue(String.class);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.v("Error", "Error al encontrar el nombre de usuario por id");
-            }
-        });
-        return name;
-    }
 }

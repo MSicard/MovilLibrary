@@ -66,7 +66,8 @@ public class FragmentPublication extends Fragment {
                    Publication publication = new Publication(0, 0, comment.getText().toString(), new Timestamp(System.currentTimeMillis()).getTime());
                    DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
                            .child(id).child(Constants.FIREBASE_USER_PUBLICATION).child(Constants.FIREBASE_USER_PUBLICATION_INFO);
-                   mDatabaseReference.child(mDatabaseReference.push().getKey()).setValue(publication);
+                   publication.setId(mDatabaseReference.push().getKey());
+                   mDatabaseReference.child(publication.getId()).setValue(publication);
                    comment.setText("");
                 }
             }
@@ -78,23 +79,6 @@ public class FragmentPublication extends Fragment {
         mRecyclerView.setLayoutManager(mlayoutManager);
 
         mDataSet = new ArrayList();
-
-        /*mDataSet.add(new Publication("Einstein",
-                "Existen dos formas de ver la vida: una es creyendo que no existen los milagros, " +
-                        "la otra es creyendo que todo es un milagro",
-                R.drawable.profile,
-                new Date(2017, 10, 18, 10, 52, 00), 3, 1));
-
-        mDataSet.add(new Publication("Einstein",
-                "Somos arquitectos de nuestro propio destino",
-                R.drawable.profile,
-                new Date(2017, 10, 14), 1, 10));
-
-        mDataSet.add(new Publication("Einstein",
-                "Todos somos muy ignorantes, lo que ocurre es que no todos ignoramos las mismas cosas",
-                R.drawable.profile,
-                new Date(2017, 10, 10), 2, 4));
-        Collections.sort(mDataSet);*/
         mAdapter = new AdapterPublication(getActivity(), mDataSet);
         mRecyclerView.setAdapter(mAdapter);
 
@@ -124,7 +108,6 @@ public class FragmentPublication extends Fragment {
                 Collections.sort(mDataSet);
                 mAdapter.notifyDataSetChanged();
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 

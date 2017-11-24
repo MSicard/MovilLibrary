@@ -31,5 +31,7 @@ public class Constants {
     public static String FIREBASE_USER_PUBLICATION = "publication";
     public static String FIREBASE_USER_PUBLICATION_INFO = "information";
     public static String FIREBASE_USER_PUBLICATION_COMMENT = "comments";
+    public static String FIREBASE_USER_PUBLICATION_COUNT_LIKES = "likes";
+    public static String FIREBASE_USER_PUBLICATION_LIKE = "like";
 
 }
