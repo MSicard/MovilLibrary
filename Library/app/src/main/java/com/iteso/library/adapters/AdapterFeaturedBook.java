@@ -11,8 +11,15 @@ import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.iteso.library.R;
 import com.iteso.library.beans.Book;
+import com.iteso.library.common.Constants;
+import com.iteso.library.common.DownloadImage;
 import com.iteso.library.gui.ActivityBookDetail;
 import com.iteso.library.gui.ActivityHome;
 
@@ -39,17 +46,37 @@ public class AdapterFeaturedBook extends RecyclerView.Adapter<AdapterFeaturedBoo
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.image.setImageResource(R.drawable.yorobot);  // Cambiar por imagen de BD
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
+        DatabaseReference mDataReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_BOOKS)
+                .child(mDataSet.get(position).getIsbn());
+
+        mDataReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Book book = dataSnapshot.getValue(Book.class);
+                holder.rating.setRating(book.getRating());
+                holder.synapsis.setText(book.getSynopsis());
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+        DownloadImage downloadImage = new DownloadImage(holder.image, mDataSet.get(position).getImage());
+        downloadImage.execute();
         holder.title.setText(mDataSet.get(position).getTitle());
         holder.author.setText(mDataSet.get(position).getAuthor());
-        holder.rating.setRating((float) 4.5);               // Cambiar por el de la BD
-        holder.synapsis.setText(mDataSet.get(position).getSynopsis());
+
 
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), ActivityBookDetail.class);
+                intent.putExtra("book", mDataSet.get(position).getIsbn());
                 ((ActivityHome) view.getContext()).startActivity(intent);
             }
         });

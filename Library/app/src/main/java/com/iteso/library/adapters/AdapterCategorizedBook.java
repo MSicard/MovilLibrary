@@ -14,6 +14,7 @@ import com.iteso.library.R;
 import com.iteso.library.beans.Book;
 import com.iteso.library.gui.ActivityBookDetail;
 import com.iteso.library.gui.ActivityHome;
+import com.iteso.library.common.DownloadImage;
 
 import java.util.ArrayList;
 
@@ -38,14 +39,16 @@ public class AdapterCategorizedBook extends RecyclerView.Adapter<AdapterCategori
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.image.setImageResource(R.drawable.nombre_del_viento);    // Cambiar por el de BD
+    public void onBindViewHolder(ViewHolder holder, final int position) {
+        DownloadImage downloadImage = new DownloadImage(holder.image, mDataSet.get(position).getImage());
+        downloadImage.execute();
         holder.title.setText(mDataSet.get(position).getTitle());
 
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), ActivityBookDetail.class);
+                intent.putExtra("book", mDataSet.get(position).getIsbn());
                 ((ActivityHome)view.getContext()).startActivity(intent);
             }
         });

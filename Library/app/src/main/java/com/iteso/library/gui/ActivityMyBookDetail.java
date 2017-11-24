@@ -67,7 +67,7 @@ public class ActivityMyBookDetail extends ActivityBase {
         mBibliography.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createDialogBibliography();
+                createDialogBibliography("Un mensaje Hardcodeado");
             }
         });
     }
