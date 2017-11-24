@@ -7,13 +7,20 @@
     card_view:cardCornerRadius="@dimen/item_card_publication_corner_radius"
     card_view:cardElevation="@dimen/item_card_publication_card_elevation"
     android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:id="@+id/item_card_publication_card_id"/>
     <LinearLayout
         android:id="@+id/item_card_publication_card"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
-            android:layout_margin="@dimen/item_card_publication_margin"
+            android:layout_marginTop="@dimen/fragment_publications_margin"
+            android:layout_marginRight="@dimen/fragment_publications_margin"
+            android:layout_marginLeft="@dimen/fragment_publications_margin"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -27,6 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:textSize="20sp"
                     android:id="@+id/item_card_publication_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />

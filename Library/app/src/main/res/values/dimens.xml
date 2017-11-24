@@ -42,7 +42,7 @@
     <dimen name="item_card_publication_card_margin">4dp</dimen>
     <dimen name="item_card_publication_photo_size">40dp</dimen>
     <dimen name="item_card_publication_margin">4dp</dimen>
-    <dimen name="item_card_publication_comment_margin">20dp</dimen>
+    <dimen name="item_card_publication_comment_margin">10dp</dimen>
     <dimen name="item_card_publication_button_margin">10dp</dimen>
 
     <dimen name="item_notification_4dp">4dp</dimen>
