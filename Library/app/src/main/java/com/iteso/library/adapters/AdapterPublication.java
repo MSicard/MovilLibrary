@@ -90,8 +90,8 @@ public class AdapterPublication extends RecyclerView.Adapter<AdapterPublication.
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), ActivityComments.class);
-                intent.putExtra("IDP", idPub);
                 intent.putExtra("ID", id);
+                intent.putExtra("publication", mDataSet.get(position));
                 ((ActivityProfile)view.getContext()).startActivity(intent);
             }
         });

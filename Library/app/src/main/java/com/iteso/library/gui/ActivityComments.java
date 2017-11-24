@@ -27,6 +27,8 @@ import com.iteso.library.beans.Publication;
 import com.iteso.library.beans.User;
 import com.iteso.library.common.Constants;
 
+import org.w3c.dom.Text;
+
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -43,12 +45,14 @@ public class ActivityComments extends ActivityBase {
     private RecyclerView mRecyclerView;
 
     private String id;
-    private String idPub;
+    private Publication pub;
 
     private ProfilePictureView userPhoto;
     private TextView nickname;
     private ImageButton send;
     private EditText comment;
+    private TextView time;
+    private TextView publication;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,16 +61,21 @@ public class ActivityComments extends ActivityBase {
         onCreateDrawer();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
+        id = getIntent().getExtras().getString("ID");
+        pub = getIntent().getExtras().getParcelable("publication");
+
         userPhoto = (ProfilePictureView) findViewById(R.id.activity_comments_user_photo);
         nickname = (TextView)findViewById(R.id.activity_comments_user_name);
         send = (ImageButton)findViewById(R.id.activity_comments_send_comment);
         comment = (EditText)findViewById(R.id.activity_comments_comment);
+        publication = (TextView)findViewById(R.id.activity_comments_publication);
+        time = (TextView) findViewById(R.id.activity_comments_time);
 
+        publication.setText(pub.getMessage());
+        //Agregar el tiempo
         mRecyclerView = (RecyclerView) findViewById(R.id.activity_comments_recycler);
         mRecyclerView.setHasFixedSize(true);
 
-        id = getIntent().getExtras().getString("ID");
-        idPub = getIntent().getExtras().getString("IDP");
         getDataProfile();
         mDataSet = new ArrayList<>();
         getData();
@@ -86,10 +95,18 @@ public class ActivityComments extends ActivityBase {
                             nickname.getText().toString(),
                             new Timestamp(System.currentTimeMillis()).getTime());
                     DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
-                            .child(id).child(Constants.FIREBASE_USER_PUBLICATION).child(Constants.FIREBASE_USER_PUBLICATION_COMMENTS).child(idPub);
+                            .child(id).child(Constants.FIREBASE_USER_PUBLICATION);
                     msg.setIdComment(mDatabaseReference.push().getKey());
-                    mDatabaseReference.child(msg.getIdComment()).setValue(msg);
+                    DatabaseReference mCommentReference = mDatabaseReference
+                            .child(Constants.FIREBASE_USER_PUBLICATION_COMMENTS)
+                            .child(pub.getId())
+                            .child(msg.getIdComment());
+                    mCommentReference.setValue(msg);
                     comment.setText("");
+                    DatabaseReference mPublicationReference = mDatabaseReference.child(Constants.FIREBASE_USER_PUBLICATION_INFO)
+                            .child(pub.getId()).child(Constants.FIREBASE_USER_PUBLICATION_COUNT_COMMENT);
+                    pub.setComments(pub.getComments() + 1);
+                    mPublicationReference.setValue(pub.getComments());
                 }
             }
         });
@@ -97,7 +114,7 @@ public class ActivityComments extends ActivityBase {
 
     public void getData(){
        DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER).child(id)
-               .child(Constants.FIREBASE_USER_PUBLICATION).child(Constants.FIREBASE_USER_PUBLICATION_COMMENTS).child(idPub);
+               .child(Constants.FIREBASE_USER_PUBLICATION).child(Constants.FIREBASE_USER_PUBLICATION_COMMENTS).child(pub.getId());
        mDatabaseReference.addValueEventListener(new ValueEventListener() {
            @Override
            public void onDataChange(DataSnapshot dataSnapshot) {
