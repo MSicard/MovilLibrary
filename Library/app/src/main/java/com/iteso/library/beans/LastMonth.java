@@ -4,14 +4,22 @@ package com.iteso.library.beans;
  * Created by Maritza on 24/11/2017.
  */
 
-public class LasthMonth {
+public class LastMonth {
     private String isbn;
     private long time;
 
-    public LasthMonth() {
+    @Override
+    public String toString() {
+        return "LastMonth{" +
+                "isbn='" + isbn + '\'' +
+                ", time=" + time +
+                '}';
     }
 
-    public LasthMonth(String isbn, long time) {
+    public LastMonth() {
+    }
+
+    public LastMonth(String isbn, long time) {
         this.isbn = isbn;
         this.time = time;
     }

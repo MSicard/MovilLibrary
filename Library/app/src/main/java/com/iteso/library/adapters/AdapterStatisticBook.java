@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.iteso.library.R;
 import com.iteso.library.beans.Book;
+import com.iteso.library.common.DownloadImage;
 
 import java.util.ArrayList;
 
@@ -37,10 +38,10 @@ public class AdapterStatisticBook extends RecyclerView.Adapter<AdapterStatisticB
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.image.setImageResource(R.drawable.yorobot);  // Cambiar por imagen de BD
         holder.title.setText(mDataSet.get(position).getTitle());
         holder.author.setText(mDataSet.get(position).getAuthor());
-        holder.rating.setRating((float) 4.5);               // Cambiar por el de la BD
+        new DownloadImage(holder.image, mDataSet.get(position).getImage()).execute();
+        holder.rating.setRating(mDataSet.get(position).getRating());               // Cambiar por el de la BD
         holder.synapsis.setText(mDataSet.get(position).getSynopsis());
     }
 

@@ -25,7 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.iteso.library.R;
 import com.iteso.library.beans.Book;
-import com.iteso.library.beans.LasthMonth;
+import com.iteso.library.beans.LastMonth;
 import com.iteso.library.beans.MyBookDetail;
 import com.iteso.library.beans.UserState;
 import com.iteso.library.common.Constants;
@@ -111,15 +111,14 @@ public class ActivityMyBookDetail extends ActivityBase {
                     DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
                             .child(Profile.getCurrentProfile().getId()).child(Constants.FIREBASE_USER_STATISTICS)
                             .child(Constants.FIREBASE_USER_LAST_MONTH).child(b.getIsbn());
-                    LasthMonth month = new LasthMonth(b.getIsbn(), book.getStartDate());
+                    LastMonth month = new LastMonth(b.getIsbn(), book.getStartDate());
                     ref.setValue(month);
 
 
                     DatabaseReference refReading = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
                             .child(Profile.getCurrentProfile().getId()).child(Constants.FIREBASE_USER_STATISTICS)
-                            .child(Constants.FIREBASE_USER_BOOK_READING).child(b.getIsbn());
-                    refReading.setValue(b.getIsbn());
-
+                            .child(Constants.FIREBASE_USER_BOOK_READING);
+                    //refReading.add
 
                     DatabaseReference refAddMonth = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
                             .child(Profile.getCurrentProfile().getId()).child(Constants.FIREBASE_USER_STATE)
@@ -262,4 +261,5 @@ public class ActivityMyBookDetail extends ActivityBase {
             }
         });
     }
+    
 }

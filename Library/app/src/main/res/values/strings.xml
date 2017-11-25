@@ -53,4 +53,8 @@
     <string name="activity_settings_show_statistics">Show Statistics</string>
     <string name="activity_settings_show_notifications">Show Notifications</string>
     <string name="menu_search_books">Search books</string>
+
+    <string name="type_month">month</string>
+    <string name="type_reading">reading</string>;
+    <string name="type_total">total</string>
 </resources>
