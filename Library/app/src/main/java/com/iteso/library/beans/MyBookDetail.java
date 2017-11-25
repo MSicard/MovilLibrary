@@ -10,14 +10,14 @@ import android.os.Parcelable;
 
 public class MyBookDetail {
     protected boolean reading;
-    protected String pagesRead;
+    protected long pagesRead;
     protected boolean download;
     protected long startDate;
 
     public MyBookDetail() {
     }
 
-    public MyBookDetail(boolean reading, String pagesRead, boolean download, long startDate) {
+    public MyBookDetail(boolean reading, long pagesRead, boolean download, long startDate) {
         this.reading = reading;
         this.pagesRead = pagesRead;
         this.download = download;
@@ -32,11 +32,11 @@ public class MyBookDetail {
         this.reading = reading;
     }
 
-    public String getPagesRead() {
+    public long getPagesRead() {
         return pagesRead;
     }
 
-    public void setPagesRead(String pagesRead) {
+    public void setPagesRead(long pagesRead) {
         this.pagesRead = pagesRead;
     }
 

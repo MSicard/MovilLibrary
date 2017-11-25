@@ -43,4 +43,8 @@ public class Constants {
     public static String FIREBASE_BOOKS_CATEGORY_FHILOSOPHY = "philosofhy";
     public static String FIREBASE_BOOKS_CATEGORY_MATH = "math";
 
+
+    public static String FIREBASE_USER_BOOK_STATE = "book_state";
+    public static String FIREBASE_USER_BOOK_READING = "reading";
+
 }

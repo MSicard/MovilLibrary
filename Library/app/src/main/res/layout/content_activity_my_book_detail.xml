@@ -49,11 +49,10 @@
 
                     <ImageView
                         android:id="@+id/activity_my_book_detail_cover_page"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
                         android:layout_gravity="center"
                         android:src="@drawable/nombre_del_viento" />
-
                     <TextView
                         android:id="@+id/activity_my_book_detail_title"
                         android:layout_width="wrap_content"

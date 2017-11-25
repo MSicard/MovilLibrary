@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.iteso.library.R;
 import com.iteso.library.beans.Book;
+import com.iteso.library.common.DownloadImage;
 import com.iteso.library.gui.ActivityMyBookDetail;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
  * Created by Maritza on 22/09/2017.
  */
 
-public class AdapterMyBook extends RecyclerView.Adapter<AdapterMyBook.ViewHolder> implements View.OnClickListener{
+public class AdapterMyBook extends RecyclerView.Adapter<AdapterMyBook.ViewHolder> {
 
     private ArrayList<Book> mDataSet;
     private Context context;
@@ -38,13 +39,18 @@ public class AdapterMyBook extends RecyclerView.Adapter<AdapterMyBook.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(AdapterMyBook.ViewHolder holder, int position) {
-        //metodo longitud de string
-
+    public void onBindViewHolder(AdapterMyBook.ViewHolder holder, final int position) {
         holder.title.setText(mDataSet.get(position).getTitle());
         holder.autor.setText(mDataSet.get(position).getAuthor());
-        holder.image.setImageResource(R.drawable.nombre_del_viento);
-        holder.image.setOnClickListener(this);
+        new DownloadImage(holder.image, mDataSet.get(position).getImage()).execute();
+        holder.image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ActivityMyBookDetail.class);
+                intent.putExtra("book", mDataSet.get(position));
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -52,11 +58,6 @@ public class AdapterMyBook extends RecyclerView.Adapter<AdapterMyBook.ViewHolder
         return mDataSet.size();
     }
 
-    @Override
-    public void onClick(View view) {
-        Intent intent = new Intent(context, ActivityMyBookDetail.class);
-        context.startActivity(intent);
-    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
