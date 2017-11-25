@@ -22,18 +22,16 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 import com.iteso.library.R;
 import com.iteso.library.beans.Book;
+import com.iteso.library.beans.LasthMonth;
 import com.iteso.library.beans.MyBookDetail;
-import com.iteso.library.beans.User;
+import com.iteso.library.beans.UserState;
 import com.iteso.library.common.Constants;
 import com.iteso.library.common.DownloadImage;
 
 import java.sql.Timestamp;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Maritza on 01/10/2017.
@@ -59,11 +57,23 @@ public class ActivityMyBookDetail extends ActivityBase {
     protected MyBookDetail book;
 
     DatabaseReference reference;
+    DatabaseReference referenceState;
+    private UserState state;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_book_detail);
+
+        referenceState = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
+                .child(Profile.getCurrentProfile().getId()).child(Constants.FIREBASE_USER_STATE);
+
+        b = getIntent().getExtras().getParcelable("book");
+
+        reference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
+                .child(Profile.getCurrentProfile().getId()).child(Constants.FIREBASE_USER_BOOK_STATE).child(b.getIsbn());
+
+
         mDownload = (ImageButton)findViewById(R.id.activity_my_book_detail_download);
         mNumberPages = (TextView)findViewById(R.id.activity_my_book_detail_read_pages);
         mPercentage = (TextView)findViewById(R.id.activity_my_book_detail_percentage);
@@ -77,13 +87,13 @@ public class ActivityMyBookDetail extends ActivityBase {
         mRating = (RatingBar)findViewById(R.id.activity_my_book_detail_rating);
         mCoverPage = (ImageView)findViewById(R.id.activity_my_book_detail_cover_page);
 
-        b = getIntent().getExtras().getParcelable("book");
-        reference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
-                .child(Profile.getCurrentProfile().getId()).child(Constants.FIREBASE_USER_BOOK_STATE).child(b.getIsbn());
         mTitle.setText(b.getTitle());
         mAutor.setText(b.getAuthor());
         mRating.setRating(b.getRating());
         new DownloadImage(mCoverPage, b.getUrl()).execute();
+
+        getUserState();
+
 
         mDownload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,9 +106,42 @@ public class ActivityMyBookDetail extends ActivityBase {
         mActualReading.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) book.setStartDate( new Timestamp(System.currentTimeMillis()).getTime());
+                if(isChecked){
+                    book.setStartDate( new Timestamp(System.currentTimeMillis()).getTime());
+                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
+                            .child(Profile.getCurrentProfile().getId()).child(Constants.FIREBASE_USER_STATISTICS)
+                            .child(Constants.FIREBASE_USER_LAST_MONTH).child(b.getIsbn());
+                    LasthMonth month = new LasthMonth(b.getIsbn(), book.getStartDate());
+                    ref.setValue(month);
+
+
+                    DatabaseReference refReading = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
+                            .child(Profile.getCurrentProfile().getId()).child(Constants.FIREBASE_USER_STATISTICS)
+                            .child(Constants.FIREBASE_USER_BOOK_READING).child(b.getIsbn());
+                    refReading.setValue(b.getIsbn());
+
+
+                    DatabaseReference refAddMonth = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
+                            .child(Profile.getCurrentProfile().getId()).child(Constants.FIREBASE_USER_STATE)
+                            .child(Constants.FIREBASE_USER_LAST_MONTH);
+                    refAddMonth.setValue(state.getLast_month() + 1);
+
+                    state.setReading(state.getReading() + 1);
+                }
+                else{
+                    DatabaseReference refReading = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
+                            .child(Profile.getCurrentProfile().getId()).child(Constants.FIREBASE_USER_STATISTICS)
+                            .child(Constants.FIREBASE_USER_BOOK_READING).child(b.getIsbn());
+                    refReading.removeValue();
+                    state.setReading(state.getReading() - 1);
+                }
                 book.setReading(isChecked);
                 reference.setValue(book);
+
+                DatabaseReference refAddReading = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
+                        .child(Profile.getCurrentProfile().getId()).child(Constants.FIREBASE_USER_STATE)
+                        .child(Constants.FIREBASE_USER_READING);
+                refAddReading.setValue(state.getReading());
             }
         });
         onCreateDrawer();
@@ -168,6 +211,23 @@ public class ActivityMyBookDetail extends ActivityBase {
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
             }
+        }).setNeutralButton("FINISHED", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                book.setReading(false);
+                book.setStartDate(0);
+                book.setPagesRead(0);
+                reference.setValue(book);
+
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
+                        .child(Profile.getCurrentProfile().getId()).child(Constants.FIREBASE_USER_STATISTICS)
+                        .child(Constants.FIREBASE_USER_TOTAL).child(b.getIsbn());
+                ref.setValue(b.getIsbn());
+
+                DatabaseReference refAddTotal = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
+                        .child(Profile.getCurrentProfile().getId()).child(Constants.FIREBASE_USER_STATE).child(Constants.FIREBASE_USER_TOTAL);
+                refAddTotal.setValue(state.getTotal() + 1);
+            }
         });
         builder.create().show();
     }
@@ -187,5 +247,19 @@ public class ActivityMyBookDetail extends ActivityBase {
             mDownload.setActivated(true);
             mDownload.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorGray)));
         }
+    }
+
+    public void getUserState(){
+        referenceState.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                state = dataSnapshot.getValue(UserState.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }

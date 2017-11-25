@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center">
-            <ImageView
+            <com.facebook.login.widget.ProfilePictureView
                 android:id="@+id/activity_settings_profile_image"
                 android:layout_marginTop="@dimen/activity_settings_image_marginTop"
                 android:src="@drawable/profile"
@@ -45,6 +45,13 @@
                 android:textColor="@android:color/black"/>
         </LinearLayout>
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/activity_settings_separator_line"
@@ -153,6 +160,15 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/activity_settings_separator_line"
             android:background="@android:color/darker_gray"/>
-
+        <com.facebook.login.widget.LoginButton
+            android:layout_margin="10dp"
+            android:id="@+id/activity_settings_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_centerInParent="true"
+            />
+        </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 </LinearLayout>

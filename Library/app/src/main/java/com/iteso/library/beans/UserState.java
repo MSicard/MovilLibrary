@@ -10,16 +10,26 @@ public class UserState {
     long last_month;
     long reading;
     long total;
+    boolean notification;
 
     public UserState() {
     }
 
-    public UserState(boolean visible_p, boolean visible_st, long last_month, long reading, long total) {
+    public UserState(boolean visible_p, boolean visible_st, long last_month, long reading, long total, boolean notification) {
         this.visible_p = visible_p;
         this.visible_st = visible_st;
         this.last_month = last_month;
         this.reading = reading;
         this.total = total;
+        this.notification = notification;
+    }
+
+    public boolean isNotification() {
+        return notification;
+    }
+
+    public void setNotification(boolean notification) {
+        this.notification = notification;
     }
 
     public boolean isVisible_p() {
