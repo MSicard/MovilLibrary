@@ -14,6 +14,7 @@ import com.iteso.library.R;
 import com.iteso.library.beans.Comment;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import static com.iteso.library.common.Utils.getRoundedShape;
 import static com.iteso.library.common.Utils.putTime;
@@ -42,7 +43,7 @@ public class AdapterComment extends RecyclerView.Adapter<AdapterComment.ViewHold
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.image.setProfileId(mDataSet.get(position).getId());
         holder.userName.setText(mDataSet.get(position).getNickname());
-        //holder.date.setText(putTime(mDataSet.get(position).getDate()));
+        holder.date.setText(putTime(new Date(mDataSet.get(position).getTime())));
         holder.userComment.setText(mDataSet.get(position).getMessage());
     }
 

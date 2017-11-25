@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.Profile;
 import com.facebook.login.widget.ProfilePictureView;
@@ -46,7 +47,7 @@ public class FragmentStatistics extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_statistics, container, false);
         lastMonth = (ImageView)view.findViewById(R.id.fragment_statistics_button_last_month);
         reading = (ImageView)view.findViewById(R.id.fragment_statistics_button_reading);
@@ -58,30 +59,51 @@ public class FragmentStatistics extends Fragment {
         photo = (ProfilePictureView)view.findViewById(R.id.fragment_statistics_image_profile);
         nickname = (TextView)view.findViewById(R.id.fragment_statistics_name);
 
-        //id =
+        id = getActivity().getIntent().getExtras().getString("ID");
         photo.setProfileId(Profile.getCurrentProfile().getId());
 
         lastMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), ActivityStatisticsBooks.class);
-                ((ActivityProfile)view.getContext()).startActivity(intent);
+                if(tv_reading.getText().equals("0")){
+                    Toast.makeText(getActivity(), "No tienes nuevos libros en el mes", Toast.LENGTH_LONG);
+                }
+                else {
+                    Intent intent = new Intent(view.getContext(), ActivityStatisticsBooks.class);
+                    intent.putExtra("TYPE", R.string.type_month);
+                    intent.putExtra("ID", id);
+                    ((ActivityProfile) view.getContext()).startActivity(intent);
+                }
             }
         });
 
         reading.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), ActivityStatisticsBooks.class);
-                ((ActivityProfile)view.getContext()).startActivity(intent);
+                if(tv_reading.getText().equals("0")){
+                    Toast.makeText(getActivity(), "No tienes libros leyendo", Toast.LENGTH_LONG);
+                }
+                else{
+                    Intent intent = new Intent(view.getContext(), ActivityStatisticsBooks.class);
+                    intent.putExtra("TYPE", R.string.type_reading);
+                    intent.putExtra("ID", id);
+                    ((ActivityProfile)view.getContext()).startActivity(intent);
+                }
             }
         });
 
         totalRead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), ActivityStatisticsBooks.class);
-                ((ActivityProfile)view.getContext()).startActivity(intent);
+                if(tv_reading.getText().equals("0")){
+                    Toast.makeText(getActivity(), "No tienes libros terminados", Toast.LENGTH_LONG);
+                }
+                else {
+                    Intent intent = new Intent(view.getContext(), ActivityStatisticsBooks.class);
+                    intent.putExtra("TYPE", R.string.type_total);
+                    intent.putExtra("ID", id);
+                    ((ActivityProfile) view.getContext()).startActivity(intent);
+                }
             }
         });
 

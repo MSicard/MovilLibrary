@@ -35,6 +35,7 @@ import org.w3c.dom.Text;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 
 import static com.iteso.library.common.Utils.getRoundedShape;
 import static com.iteso.library.common.Utils.putTime;
@@ -83,8 +84,8 @@ public class AdapterPublication extends RecyclerView.Adapter<AdapterPublication.
         else {
             holder.like.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPurple));
         }
-        //Falta poner el tiempo :)
-        //holder.time.setText(putTime(mDataSet.get(position).getDate()));
+
+        holder.time.setText(putTime(new Date(mDataSet.get(position).getTime())));
 
         holder.publicationComment.setOnClickListener(new View.OnClickListener() {
             @Override

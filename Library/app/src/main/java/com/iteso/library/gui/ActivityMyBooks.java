@@ -1,9 +1,12 @@
 package com.iteso.library.gui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +36,7 @@ public class ActivityMyBooks extends ActivityBase {
     private static int numberOfColumns = 3;
     ArrayList<Book> mDataSet;
     private String id ;
+    private Button add;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,6 +45,7 @@ public class ActivityMyBooks extends ActivityBase {
         onCreateDrawer();
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.fragment_my_books_recyclerview);
         recyclerView.setHasFixedSize(true);
+        add = (Button)findViewById(R.id.activity_my_book_addbook);
 
         recyclerView.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
         mDataSet = new ArrayList<Book>();
@@ -72,6 +77,19 @@ public class ActivityMyBooks extends ActivityBase {
                     mDataSet.add(book);
                 }
                 mAdapter.notifyDataSetChanged();
+                if(mDataSet.isEmpty()){
+                    add.setVisibility(View.VISIBLE);
+                    add.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(ActivityMyBooks.this, ActivityHome.class);
+                            startActivity(intent);
+                        }
+                    });
+                }
+                else{
+                    add.setVisibility(View.GONE);
+                }
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

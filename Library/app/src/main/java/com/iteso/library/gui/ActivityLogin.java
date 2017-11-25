@@ -87,7 +87,7 @@ public class ActivityLogin extends AppCompatActivity {
                     //Encontrar si ya existe un usuario en la base de datos
                     DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance()
                             .getReference(Constants.FIREBASE_USER);
-                    DatabaseReference userExits = mDatabaseReference.child(AccessToken.getCurrentAccessToken().getUserId());
+                    DatabaseReference userExits = mDatabaseReference.child(Profile.getCurrentProfile().getId());
                     userExits.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -98,7 +98,7 @@ public class ActivityLogin extends AppCompatActivity {
                                 value = new User(profile.getId(), profile.getName());
                                 mDatabaseReference.child(AccessToken.getCurrentAccessToken().getUserId())
                                         .child(Constants.FIREBASE_USER_INFO).setValue(value);
-                                UserState state = new UserState(true, true, 0, 0, 0);
+                                UserState state = new UserState(true, true, 0, 0, 0, true);
                                 mDatabaseReference.child(AccessToken.getCurrentAccessToken().getUserId())
                                         .child(Constants.FIREBASE_USER_STATE).setValue(state);
                             }
@@ -139,7 +139,6 @@ public class ActivityLogin extends AppCompatActivity {
 
     private void goActivityHome(){
         Intent intent = new Intent(this, ActivityHome.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
     @Override
