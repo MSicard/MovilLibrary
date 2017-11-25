@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+    </android.support.design.widget.AppBarLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:paddingTop="@dimen/activity_my_book_detail_padding_top"
+                android:background="@color/cardview_dark_background"
+                android:id="@+id/activity_my_book_detail_rl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginBottom="@dimen/activity_my_book_detail_marginBottom"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/activity_my_book_detail_cover_page"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/nombre_del_viento" />
+                    <TextView
+                        android:id="@+id/activity_my_book_detail_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/activity_my_book_detail_autor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <RatingBar
+                        android:id="@+id/activity_my_book_detail_rating"
+                        style="?android:attr/ratingBarStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:numStars="5"
+                        android:rating="3"
+                        android:stepSize="1.0" />
+
+                    <Button
+                        android:id="@+id/activity_my_book_detail_bibliography"
+                        android:layout_width="@dimen/activity_my_book_detail_bibliography_bttn_width"
+                        android:layout_height="@dimen/activity_my_book_detail_bibliography_bttn_height"
+                        android:layout_marginTop="@dimen/activity_my_book_detail_bibliography_marginTop"
+                        android:background="@drawable/button_round"
+                        android:text="@string/activity_my_book_detail_bibliography"
+                        android:textColor="#FFFFFF" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <TableLayout
+                android:layout_weight=".3"
+                android:layout_marginLeft="@dimen/activity_my_book_detail_tableLayout_marginLeft"
+                android:layout_marginRight="@dimen/activity_my_book_detail_tableLayout_marginRight"
+                android:layout_marginTop="@dimen/activity_my_book_detail_tableLayout_marginTop"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+                <TableRow android:layout_margin="@dimen/activity_my_book_detail_tableRow_margin">
+                    <TextView
+                        android:text="@string/activity_my_book_detail_read_pages"
+                        android:layout_weight="1"/>
+                    <TextView android:text="100"
+                        android:id="@+id/activity_my_book_detail_read_pages"
+                        android:layout_weight="1"/>
+                </TableRow>
+                <TableRow android:layout_margin="@dimen/activity_my_book_detail_tableRow_margin">
+                    <TextView
+                        android:text="@string/activity_my_book_detail_percentage_read"
+                        android:layout_weight="1"/>
+                    <TextView android:text="54%"
+                        android:id="@+id/activity_my_book_detail_percentage"
+                        android:layout_weight="1"/>
+                </TableRow>
+                <TableRow android:layout_margin="@dimen/activity_my_book_detail_tableRow_margin">
+                    <TextView
+                        android:text="@string/activity_my_book_detail_start_date"
+                        android:layout_weight="1"/>
+                    <TextView android:text="10 Enero del 2017"
+                        android:id="@+id/activity_my_book_detail_start_date"
+                        android:layout_weight="1"/>
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+        <android.support.v7.widget.CardView
+            app:layout_anchor="@id/activity_my_book_detail_rl"
+            app:layout_anchorGravity="bottom|center"
+            app:cardCornerRadius="@dimen/activity_my_book_detail_card_corner"
+            app:cardElevation="@dimen/activity_my_book_detail_card_elevation"
+            android:layout_marginRight="@dimen/activity_my_book_detail_card_margin"
+            android:layout_marginLeft="@dimen/activity_my_book_detail_card_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:layout_marginTop="@dimen/activity_my_book_detail_open_margin"
+                    android:layout_marginBottom="@dimen/activity_my_book_detail_open_margin"
+                    android:background="@drawable/button_round"
+                    android:id="@+id/activity_my_book_detail_open"
+                    android:layout_width="@dimen/activity_my_book_detail_open_bttn_width"
+                    android:layout_height="@dimen/activity_my_book_detail_open_bttn_height"
+                    android:text="Open"/>
+                <ImageButton
+                    android:src="@drawable/ic_file_download_black_24dp"
+                    android:layout_marginLeft="@dimen/activity_my_book_detail_download_margin"
+                    android:layout_toRightOf="@id/activity_my_book_detail_open"
+                    android:id="@+id/activity_my_book_detail_download"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <Button
+                    android:background="@drawable/button_round"
+                    android:id="@+id/activity_my_book_detail_update"
+                    android:layout_below="@id/activity_my_book_detail_open"
+                    android:layout_width="@dimen/activity_my_book_detail_open_bttn_width"
+                    android:layout_height="@dimen/activity_my_book_detail_open_bttn_height"
+                    android:text="Update"/>
+                <LinearLayout
+                    android:layout_marginLeft="@dimen/activity_my_book_detail_linear_margin"
+                    android:layout_below="@id/activity_my_book_detail_open"
+                    android:layout_toRightOf="@id/activity_my_book_detail_update"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="@string/activity_my_book_detail_actual_reading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <Switch
+                        android:layout_gravity="center"
+                        android:id="@+id/activity_my_book_detail_reading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+    </android.support.design.widget.CoordinatorLayout>
+    </ScrollView>
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/activity_settings_background">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/activity_settings_profile_image"
+                android:layout_marginTop="@dimen/activity_settings_image_marginTop"
+                android:src="@drawable/profile"
+                android:layout_width="@dimen/activity_settings_image_size_width"
+                android:layout_height="@dimen/activity_settings_image_size_height" />
+            <TextView
+                android:id="@+id/activity_settings_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_settings_username_marginBottom"
+                android:textSize="@dimen/activity_settings_username_textsize"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_settings_separator_line"
+            android:background="@android:color/darker_gray"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_settings_option_title_marginTop"
+            android:layout_marginStart="@dimen/activity_settings_option_title_marginStart"
+            android:layout_marginBottom="@dimen/activity_settings_option_title_marginBottom"
+            android:text="@string/activity_settings_privacy"
+            android:textSize="@dimen/activity_settings_option_title_textsize"
+            android:textColor="@color/activity_settings_option_title"
+            android:textStyle="bold"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_settings_separator_line"
+            android:background="@android:color/darker_gray"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_margin="@dimen/activity_settings_option_margin"
+                android:text="@string/activity_settings_show_profile"
+                android:textSize="@dimen/activity_settings_option_textsize"
+                android:textColor="@android:color/black"/>
+            <Switch
+                android:id="@+id/activity_settings_switch_show_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="@dimen/activity_settings_option_switch_margin"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_settings_separator_line"
+            android:background="@android:color/darker_gray"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_margin="@dimen/activity_settings_option_margin"
+                android:text="@string/activity_settings_show_statistics"
+                android:textSize="@dimen/activity_settings_option_textsize"
+                android:textColor="@android:color/black"/>
+            <Switch
+                android:id="@+id/activity_settings_switch_show_statistics"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="@dimen/activity_settings_option_switch_margin"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_settings_separator_line"
+            android:background="@android:color/darker_gray"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_settings_option_title_marginTop"
+            android:layout_marginStart="@dimen/activity_settings_option_title_marginStart"
+            android:layout_marginBottom="@dimen/activity_settings_option_title_marginBottom"
+            android:text="Notifications"
+            android:textSize="@dimen/activity_settings_option_title_textsize"
+            android:textColor="@color/activity_settings_option_title"
+            android:textStyle="bold"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_settings_separator_line"
+            android:background="@android:color/darker_gray"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_margin="@dimen/activity_settings_option_margin"
+                android:text="@string/activity_settings_show_notifications"
+                android:textSize="@dimen/activity_settings_option_textsize"
+                android:textColor="@android:color/black"/>
+            <Switch
+                android:id="@+id/activity_settings_switch_show_notifications"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="@dimen/activity_settings_option_switch_margin"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_settings_separator_line"
+            android:background="@android:color/darker_gray"/>
+
+    </LinearLayout>
+</LinearLayout>

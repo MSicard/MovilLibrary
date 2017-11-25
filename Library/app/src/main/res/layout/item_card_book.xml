@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/item_card_book_margin"
+        card_view:cardCornerRadius="@dimen/item_card_book_corner_radius">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@drawable/nombre_del_viento"
+                android:id="@+id/fragment_my_books_card_book_image"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_card_book_image_height"
+                android:scaleType="fitXY"/>
+            <TextView
+                android:textSize="@dimen/item_card_book_title_size"
+                android:textColor="@android:color/black"
+                android:gravity="center"
+                android:singleLine="false"
+                android:maxLines="2"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fragment_my_books_card_book_title"/>
+            <TextView
+                android:layout_gravity="center"
+                android:singleLine="false"
+                android:maxLines="2"
+                android:id="@+id/fragment_my_books_card_book_autor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>

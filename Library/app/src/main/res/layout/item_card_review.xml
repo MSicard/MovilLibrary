@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/item_card_review_margin"
+    card_view:cardCornerRadius="@dimen/item_card_review_corner_radius">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/item_card_review_info_margin">
+
+            <ImageView
+                android:id="@+id/item_card_review_photo"
+                android:layout_width="@dimen/item_card_review_info_image_size_width"
+                android:layout_height="@dimen/item_card_review_info_image_size_height"/>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/item_card_review_photo"
+                android:layout_margin="@dimen/item_card_review_info_user_time_margin">
+
+                <TextView
+                    android:id="@+id/item_card_review_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/item_card_review_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/item_card_review_info_date_textsize"/>
+            </LinearLayout>
+
+            <RatingBar
+                android:id="@+id/item_card_review_rating"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:numStars="5"
+                android:rating="3"
+                android:stepSize="1.0" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/item_card_review_user_review"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/item_card_review_user_review_margin" />
+    </LinearLayout>
+</android.support.v7.widget.CardView>

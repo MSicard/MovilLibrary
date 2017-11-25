@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <LinearLayout
+                            android:id="@+id/activity_book_detail_basic_info"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/activity_book_detail_basic_info_margin"
+                            android:layout_marginStart="@dimen/activity_book_detail_basic_info_margin"
+                            android:layout_marginEnd="@dimen/activity_book_detail_basic_info_margin"
+                            android:background="@drawable/background_black_borders"
+                            android:gravity="center">
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/activity_book_detail_basic_info_margin_bottom"
+                                android:layout_marginTop="@dimen/activity_book_detail_basic_info_margin_top"
+                                android:gravity="center">
+
+                                <ImageView
+                                    android:id="@+id/activity_book_detail_image"
+                                    android:layout_width="@dimen/activity_book_detail_basic_info_image_size_width"
+                                    android:layout_height="@dimen/activity_book_detail_basic_info_image_size_height"
+                                    android:scaleType="centerInside"
+                                    android:src="@drawable/nombre_del_viento" />
+
+                                <TextView
+                                    android:id="@+id/activity_book_detail_title"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/activity_book_detail_basic_info_title" />
+
+                                <TextView
+                                    android:id="@+id/activity_book_detail_author"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/activity_book_detail_basic_info_author" />
+
+                                <RatingBar
+                                    android:id="@+id/activity_book_detail_rating"
+                                    style="?android:attr/ratingBarStyleSmall"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:numStars="5"
+                                    android:rating="3"
+                                    android:stepSize="1.0" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/activity_book_detail_linear_layout_synopsis"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="@dimen/activity_book_detail_linearlayout_synopsis_marginTop"
+                            android:layout_marginEnd="@dimen/activity_book_detail_linearlayout_synopsis_marginEnd"
+                            android:layout_marginStart="@dimen/activity_book_detail_linearlayout_synopsis_marginStart"
+                            android:background="@drawable/background_black_borders"
+                            app:layout_anchor="@id/activity_book_detail_basic_info"
+                            app:layout_anchorGravity="bottom">
+
+                            <TextView
+                                android:id="@+id/activity_book_detail_synopsis"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="@dimen/activity_book_detail_textview_synopsis_marginTop"
+                                android:layout_marginStart="@dimen/activity_book_detail_textview_synopsis_marginStart"
+                                android:layout_marginEnd="@dimen/activity_book_detail_textview_synopsis_marginEnd"
+                                android:layout_marginBottom="@dimen/activity_book_detail_textview_synopsis_marginBottom"/>
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/activity_book_detail_reviews"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="@dimen/activity_book_detail_reviews_marginTop"
+                    android:layout_marginStart="@dimen/activity_book_detail_reviews_marginStart"
+                    android:text="@string/activity_book_detail_reviews_text"
+                    android:textSize="@dimen/activity_book_detail_reviews_textsize"/>
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/activity_book_detail_add_book"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/white_add"
+                    android:layout_margin="@dimen/activity_book_detail_fab_margin"
+                    android:layout_alignParentEnd="true"
+                    app:fabSize="normal"
+                    app:pressedTranslationZ="@dimen/activity_book_detail_fab_translationZ"
+                    app:backgroundTint="@android:color/holo_red_dark"
+                    app:rippleColor="@android:color/holo_green_dark"
+                    app:useCompatPadding="false"
+                    android:clickable="true"/>
+            </RelativeLayout>
+        </LinearLayout>
+        <Button
+            android:id="@+id/activity_book_detail_btn_bibliografhy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_anchor="@id/activity_book_detail_linear_layout_synopsis"
+            app:layout_anchorGravity="top|center"
+            android:background="@drawable/button_round"
+            android:text="@string/activity_book_detail_bibliografhy_text"/>
+    </android.support.design.widget.CoordinatorLayout>
+</LinearLayout>
