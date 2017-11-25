@@ -20,7 +20,7 @@ import java.util.ArrayList;
  * Created by Maritza on 22/09/2017.
  */
 
-public class AdapterMyBook extends RecyclerView.Adapter<AdapterMyBook.ViewHolder> implements View.OnClickListener{
+public class AdapterMyBook extends RecyclerView.Adapter<AdapterMyBook.ViewHolder> {
 
     private ArrayList<Book> mDataSet;
     private Context context;
@@ -39,11 +39,18 @@ public class AdapterMyBook extends RecyclerView.Adapter<AdapterMyBook.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(AdapterMyBook.ViewHolder holder, int position) {
+    public void onBindViewHolder(AdapterMyBook.ViewHolder holder, final int position) {
         holder.title.setText(mDataSet.get(position).getTitle());
         holder.autor.setText(mDataSet.get(position).getAuthor());
         new DownloadImage(holder.image, mDataSet.get(position).getImage()).execute();
-        holder.image.setOnClickListener(this);
+        holder.image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ActivityMyBookDetail.class);
+                intent.putExtra("book", mDataSet.get(position));
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -51,11 +58,6 @@ public class AdapterMyBook extends RecyclerView.Adapter<AdapterMyBook.ViewHolder
         return mDataSet.size();
     }
 
-    @Override
-    public void onClick(View view) {
-        Intent intent = new Intent(context, ActivityMyBookDetail.class);
-        context.startActivity(intent);
-    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 

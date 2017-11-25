@@ -45,5 +45,6 @@ public class Constants {
 
 
     public static String FIREBASE_USER_BOOK_STATE = "book_state";
+    public static String FIREBASE_USER_BOOK_READING = "reading";
 
 }
