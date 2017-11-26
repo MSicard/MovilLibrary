@@ -30,6 +30,7 @@ import com.iteso.library.common.Constants;
 import com.iteso.library.common.Utils;
 import com.iteso.library.gui.ActivityComments;
 import com.iteso.library.gui.ActivityProfile;
+import com.iteso.library.gui.ActivityProfileFriend;
 
 import org.w3c.dom.Text;
 
@@ -93,7 +94,12 @@ public class AdapterPublication extends RecyclerView.Adapter<AdapterPublication.
                 Intent intent = new Intent(view.getContext(), ActivityComments.class);
                 intent.putExtra("ID", id);
                 intent.putExtra("publication", mDataSet.get(position));
-                ((ActivityProfile)view.getContext()).startActivity(intent);
+                try{
+                    ((ActivityProfile)view.getContext()).startActivity(intent);
+
+                }catch (Exception e){
+                    ((ActivityProfileFriend)view.getContext()).startActivity(intent);
+                }
             }
         });
 
@@ -105,7 +111,7 @@ public class AdapterPublication extends RecyclerView.Adapter<AdapterPublication.
                         .child(Constants.FIREBASE_USER_PUBLICATION)
                         .child(Constants.FIREBASE_USER_PUBLICATION_LIKE)
                         .child(idPub)
-                        .child(id);
+                        .child(Profile.getCurrentProfile().getId());
                 DatabaseReference mRefLike = mDatabaseReference
                         .child(id)
                         .child(Constants.FIREBASE_USER_PUBLICATION)
@@ -165,7 +171,7 @@ public class AdapterPublication extends RecyclerView.Adapter<AdapterPublication.
                     .child(id)
                     .child(Constants.FIREBASE_USER_PUBLICATION)
                     .child(Constants.FIREBASE_USER_PUBLICATION_LIKE)
-                    .child(idPub).child(id);
+                    .child(idPub).child(Profile.getCurrentProfile().getId());
             dataRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {

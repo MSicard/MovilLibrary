@@ -10,7 +10,7 @@
         android:maxLines="1"
         android:inputType="textPersonName"
         android:hint="Type contact name..."/>
-    <ListView android:layout_height="wrap_content"
+    <android.support.v7.widget.RecyclerView android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:id="@+id/fragment_contact_friend_list"
         android:paddingRight="10dp"
