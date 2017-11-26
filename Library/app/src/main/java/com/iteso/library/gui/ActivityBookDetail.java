@@ -51,10 +51,10 @@ public class ActivityBookDetail extends ActivityBase {
         Intent intent = getIntent();
         String isbn = intent.getStringExtra("book");
 
-        DatabaseReference featuredReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_BOOKS)
+        DatabaseReference bookReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_BOOKS)
                 .child(isbn);
 
-        featuredReference.addValueEventListener(new ValueEventListener() {
+        bookReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 book = dataSnapshot.getValue(Book.class);
@@ -88,6 +88,7 @@ public class ActivityBookDetail extends ActivityBase {
             }
         });
 
+
         addBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,7 +98,32 @@ public class ActivityBookDetail extends ActivityBase {
                         .child(book.getIsbn());
 
                 databaseReference.setValue(book);
+                addBook.setVisibility(View.INVISIBLE);
                 Toast.makeText(ActivityBookDetail.this, "'" + book.getTitle() + "' has been add to your books", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        checkIfAdded();
+    }
+
+    private void checkIfAdded(){
+        DatabaseReference checkReference = FirebaseDatabase.getInstance().getReference()
+                .child(Constants.FIREBASE_USER)
+                .child(Profile.getCurrentProfile().getId())
+                .child(Constants.FIREBASE_USER_BOOKS);
+        checkReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.child(book.getIsbn()).exists()){
+                    addBook.setVisibility(View.INVISIBLE);
+                }else{
+                    addBook.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
     }
