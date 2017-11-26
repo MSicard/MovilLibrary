@@ -84,6 +84,7 @@ public class ActivityBookDetail extends ActivityBase {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), ActivityReview.class);
+                intent.putExtra("book", book);
                 startActivity(intent);
             }
         });

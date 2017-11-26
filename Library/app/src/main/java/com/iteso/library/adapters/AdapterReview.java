@@ -11,10 +11,13 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.facebook.login.widget.ProfilePictureView;
 import com.iteso.library.R;
 import com.iteso.library.beans.Review;
+import com.iteso.library.common.DownloadImage;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import static com.iteso.library.common.Utils.getRoundedShape;
 import static com.iteso.library.common.Utils.putTime;
@@ -41,11 +44,11 @@ public class AdapterReview extends RecyclerView.Adapter<AdapterReview.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.image.setImageBitmap(getRoundedShape(BitmapFactory.decodeResource(context.getResources(), mDataSet.get(position).getImage())));
-        holder.userName.setText(mDataSet.get(position).getUserName());
-        holder.date.setText(putTime(mDataSet.get(position).getDate()));
+        holder.image.setProfileId(mDataSet.get(position).getId());
+        holder.userName.setText(mDataSet.get(position).getNickname());
+        holder.date.setText(putTime(new Date(mDataSet.get(position).getDate())));
         holder.rating.setRating(mDataSet.get(position).getRating());
-        holder.userReview.setText(mDataSet.get(position).getUserReview());
+        holder.userReview.setText(mDataSet.get(position).getReview());
     }
 
     @Override
@@ -54,7 +57,7 @@ public class AdapterReview extends RecyclerView.Adapter<AdapterReview.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        private ImageView image;
+        private ProfilePictureView image;
         private TextView userName;
         private TextView date;
         private RatingBar rating;
@@ -63,7 +66,7 @@ public class AdapterReview extends RecyclerView.Adapter<AdapterReview.ViewHolder
         public ViewHolder(View itemView) {
             super(itemView);
 
-            image = (ImageView) itemView.findViewById(R.id.item_card_review_photo);
+            image = (ProfilePictureView) itemView.findViewById(R.id.item_card_review_photo);
             userName = (TextView) itemView.findViewById(R.id.item_card_review_user_name);
             date = (TextView) itemView.findViewById(R.id.item_card_review_time);
             rating = (RatingBar) itemView.findViewById(R.id.item_card_review_rating);
