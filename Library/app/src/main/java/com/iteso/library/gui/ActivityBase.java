@@ -13,6 +13,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,7 +29,13 @@ import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.Profile;
 import com.facebook.login.widget.ProfilePictureView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.iteso.library.R;
+import com.iteso.library.common.Constants;
 import com.iteso.library.common.Utils;
 
 import org.json.JSONObject;
@@ -46,6 +53,7 @@ public abstract class ActivityBase extends AppCompatActivity implements Navigati
     protected TextView mName;
     protected View mNavHeader;
     protected ProfilePictureView picture;
+    protected String nicknameUser;
 
     CallbackManager callbackManager;
     AccessTokenTracker accessTokenTracker;
@@ -169,4 +177,5 @@ public abstract class ActivityBase extends AppCompatActivity implements Navigati
                 (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
     }
+
 }

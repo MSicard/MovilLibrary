@@ -58,8 +58,8 @@ public class FragmentStatistics extends Fragment {
         graphic = (ImageView)view.findViewById(R.id.fragment_statistics_graphic);
         photo = (ProfilePictureView)view.findViewById(R.id.fragment_statistics_image_profile);
         nickname = (TextView)view.findViewById(R.id.fragment_statistics_name);
-
         id = getActivity().getIntent().getExtras().getString("ID");
+        getNickname();
         photo.setProfileId(Profile.getCurrentProfile().getId());
 
         lastMonth.setOnClickListener(new View.OnClickListener() {
@@ -128,12 +128,17 @@ public class FragmentStatistics extends Fragment {
     }
 
     private void getNickname(){
-        DatabaseReference mDataReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
-                .child(id).child(Constants.FIREBASE_USER_INFO).child(Constants.FIREBASE_USER_NICKNAME);
+        DatabaseReference mDataReference = FirebaseDatabase.getInstance()
+                .getReference(Constants.FIREBASE_USER)
+                .child(id)
+                .child(Constants.FIREBASE_USER_INFO)
+                .child(Constants.FIREBASE_USER_NICKNAME);
+
         mDataReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
+                String name = dataSnapshot.getValue(String.class);
+                nickname.setText(name);
             }
 
             @Override

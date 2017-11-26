@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.iteso.library.R;
 
 import java.util.Timer;
@@ -15,6 +17,18 @@ public class ActivitySplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+
+        if(user != null){
+            Intent intent;
+            intent = new Intent(ActivitySplashScreen.this, ActivityHome.class);
+
+            startActivity(intent);
+            finish();
+        }
+
 
         TimerTask task = new TimerTask() {
             @Override

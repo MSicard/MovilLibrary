@@ -18,6 +18,8 @@ import com.iteso.library.beans.LastMonth;
 import com.iteso.library.common.Constants;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -50,11 +52,13 @@ public class ActivityStatisticsBooks extends ActivityBase {
                 getDataMonth();
                 break;
             case R.string.type_reading:
-                mDataReference.child(Constants.FIREBASE_USER_READING);
+                mDataReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER).child(id)
+                        .child(Constants.FIREBASE_USER_STATISTICS).child(Constants.FIREBASE_USER_READING);
                 getData();
                 break;
             case R.string.type_total:
-                mDataReference.child(Constants.FIREBASE_USER_TOTAL);
+                mDataReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER).child(id)
+                        .child(Constants.FIREBASE_USER_STATISTICS).child(Constants.FIREBASE_USER_TOTAL);
                 getData();
                 break;
         }
@@ -106,16 +110,17 @@ public class ActivityStatisticsBooks extends ActivityBase {
         mDataReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                GenericTypeIndicator<List<Map<String,Object>>> t = new GenericTypeIndicator<List<Map<String,Object>>>(){};
-                List<Map<String, Object>> value = dataSnapshot.getValue(t);
-               /* for(int i = 0; i < value.size(); i++){
+                GenericTypeIndicator<Map<String,Object>> t = new GenericTypeIndicator<Map<String,Object>>(){};
+                Map<String, Object> values = dataSnapshot.getValue(t);
+               for(Map.Entry<String, Object>value : values.entrySet()){
                     DatabaseReference bookReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_BOOKS)
-                            .child(value.get(i).get());
+                            .child(value.getValue().toString());
                     bookReference.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             Book book = dataSnapshot.getValue(Book.class);
                             mDataSet.add(book);
+                            mAdapter.notifyDataSetChanged();
                         }
 
                         @Override
@@ -123,7 +128,8 @@ public class ActivityStatisticsBooks extends ActivityBase {
 
                         }
                     });
-                }*/
+                }
+                mAdapter.notifyDataSetChanged();
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
