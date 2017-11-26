@@ -41,6 +41,7 @@
         <activity android:name=".gui.ActivityComments" />
         <activity android:name=".gui.ActivityStatisticsBooks" />
         <activity android:name=".gui.ActivitySearchResults"></activity>
+        <activity android:name=".gui.ActivityMusicPlayer"/>
     </application>
 
 </manifest>
