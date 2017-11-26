@@ -15,7 +15,6 @@
             android:layout_height="wrap_content">
             <com.facebook.login.widget.ProfilePictureView
                 android:layout_marginTop="10dp"
-                android:src="@drawable/profile"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:id="@+id/fragment_statistics_image_profile"/>

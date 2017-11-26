@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/nombre_del_viento"/>
+            android:src="@drawable/no_image"/>
         <LinearLayout
             android:gravity="center"
             android:layout_width="match_parent"

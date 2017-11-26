@@ -115,13 +115,13 @@ public class ActivityBookDetail extends ActivityBase {
         checkReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot != null){
-                    if(dataSnapshot.child(book.getIsbn()).exists()){
+                try {
+                    if (dataSnapshot.child(book.getIsbn()).exists()) {
                         addBook.setVisibility(View.INVISIBLE);
-                    }else{
+                    } else {
                         addBook.setVisibility(View.VISIBLE);
                     }
-                }
+                }catch(Exception e){}
             }
 
             @Override

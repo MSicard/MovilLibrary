@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_categorized_books_image_view_height"
             android:layout_margin="@dimen/item_categorized_books_image_view_margin"
-            android:src="@drawable/nombre_del_viento"
+            android:src="@drawable/no_image"
             android:scaleType="centerInside"/>
         <TextView
             android:id="@+id/activity_home_categorized_book_title"

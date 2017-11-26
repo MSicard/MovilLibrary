@@ -18,7 +18,7 @@
             android:layout_width="@dimen/item_card_statistics_book_image_size_width"
             android:layout_height="match_parent"
             android:scaleType="centerInside"
-            android:src="@drawable/yorobot" />
+            android:src="@drawable/no_image" />
 
         <LinearLayout
             android:orientation="vertical"
