@@ -30,10 +30,9 @@ import java.util.ArrayList;
 
 public class FragmentMyFriends extends Fragment {
 
-    private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mlayoutManager;
     private EditText search;
-    private ListView listView;
+    private RecyclerView recyclerView;
     private ArrayList mDataSet;
     private AdapterFriends adapter;
 
@@ -41,15 +40,18 @@ public class FragmentMyFriends extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my_friends, container, false);
-        listView = (ListView) view.findViewById(R.id.fragment_contact_friend_list);
+        recyclerView = (RecyclerView) view.findViewById(R.id.fragment_contact_friend_list);
         search = (EditText)view.findViewById(R.id.fragment_contact_friend_search);
 
+        recyclerView.setHasFixedSize(true);
         mlayoutManager = new LinearLayoutManager(getActivity());
-        getFriendsFromFacebook();
+        recyclerView.setLayoutManager(mlayoutManager);
+
         mDataSet = new ArrayList();
         adapter = new AdapterFriends(getActivity(), mDataSet);
-        listView.setAdapter(adapter);
+        recyclerView.setAdapter(adapter);
 
+        getFriendsFromFacebook();
         return view;
     }
 
@@ -59,7 +61,6 @@ public class FragmentMyFriends extends Fragment {
             public void onCompleted(JSONObject object, GraphResponse response) {
                 try{
                     JSONArray data = object.getJSONObject("friends").getJSONArray("data");
-                    mDataSet = new ArrayList();
                     for(int i = 0; i < data.length(); i++){
                         JSONObject dataObj = data.getJSONObject(i);
                         JSONObject dataPicture = dataObj.getJSONObject("picture").getJSONObject("data");

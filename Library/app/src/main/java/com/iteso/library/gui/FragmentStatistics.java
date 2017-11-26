@@ -40,7 +40,6 @@ public class FragmentStatistics extends Fragment {
     protected TextView tv_lastMonth;
     protected TextView tv_reading;
     protected TextView tv_totalRead;
-    protected ImageView graphic;
     protected ProfilePictureView photo;
     protected TextView nickname;
     private String id;
@@ -55,12 +54,11 @@ public class FragmentStatistics extends Fragment {
         tv_lastMonth = (TextView)view.findViewById(R.id.fragment_statistics_int_last_month);
         tv_reading = (TextView)view.findViewById(R.id.fragment_statistics_int_reading);
         tv_totalRead = (TextView)view.findViewById(R.id.fragment_statistics_int_total_read);
-        graphic = (ImageView)view.findViewById(R.id.fragment_statistics_graphic);
         photo = (ProfilePictureView)view.findViewById(R.id.fragment_statistics_image_profile);
         nickname = (TextView)view.findViewById(R.id.fragment_statistics_name);
         id = getActivity().getIntent().getExtras().getString("ID");
         getNickname();
-        photo.setProfileId(Profile.getCurrentProfile().getId());
+        photo.setProfileId(id);
 
         lastMonth.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,7 +70,11 @@ public class FragmentStatistics extends Fragment {
                     Intent intent = new Intent(view.getContext(), ActivityStatisticsBooks.class);
                     intent.putExtra("TYPE", R.string.type_month);
                     intent.putExtra("ID", id);
-                    ((ActivityProfile) view.getContext()).startActivity(intent);
+                    try{
+                        ((ActivityProfile) view.getContext()).startActivity(intent);
+                    }catch (Exception e){
+                        ((ActivityProfileFriend) view.getContext()).startActivity(intent);
+                    }
                 }
             }
         });
@@ -87,7 +89,11 @@ public class FragmentStatistics extends Fragment {
                     Intent intent = new Intent(view.getContext(), ActivityStatisticsBooks.class);
                     intent.putExtra("TYPE", R.string.type_reading);
                     intent.putExtra("ID", id);
-                    ((ActivityProfile)view.getContext()).startActivity(intent);
+                    try{
+                        ((ActivityProfile) view.getContext()).startActivity(intent);
+                    }catch (Exception e){
+                        ((ActivityProfileFriend) view.getContext()).startActivity(intent);
+                    }
                 }
             }
         });
@@ -102,13 +108,17 @@ public class FragmentStatistics extends Fragment {
                     Intent intent = new Intent(view.getContext(), ActivityStatisticsBooks.class);
                     intent.putExtra("TYPE", R.string.type_total);
                     intent.putExtra("ID", id);
-                    ((ActivityProfile) view.getContext()).startActivity(intent);
+                    try{
+                        ((ActivityProfile) view.getContext()).startActivity(intent);
+                    }catch (Exception e){
+                        ((ActivityProfileFriend) view.getContext()).startActivity(intent);
+                    }
                 }
             }
         });
 
         DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
-                .child(Profile.getCurrentProfile().getId()).child(Constants.FIREBASE_USER_STATE);
+                .child(id).child(Constants.FIREBASE_USER_STATE);
         mDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

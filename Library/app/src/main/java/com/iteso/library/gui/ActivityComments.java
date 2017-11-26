@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.Profile;
 import com.facebook.login.widget.ProfilePictureView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -53,6 +54,7 @@ public class ActivityComments extends ActivityBase {
     private EditText comment;
     private TextView time;
     private TextView publication;
+    private String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +77,7 @@ public class ActivityComments extends ActivityBase {
         //Agregar el tiempo
         mRecyclerView = (RecyclerView) findViewById(R.id.activity_comments_recycler);
         mRecyclerView.setHasFixedSize(true);
-
+        getNickname();
         getDataProfile();
         mDataSet = new ArrayList<>();
         getData();
@@ -90,9 +92,9 @@ public class ActivityComments extends ActivityBase {
             @Override
             public void onClick(View v) {
                 if(!comment.getText().toString().equals("")){
-                    Comment msg = new Comment(id,
+                    Comment msg = new Comment(Profile.getCurrentProfile().getId(),
                             comment.getText().toString(),
-                            nickname.getText().toString(),
+                            name,
                             new Timestamp(System.currentTimeMillis()).getTime());
                     DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
                             .child(id).child(Constants.FIREBASE_USER_PUBLICATION);
@@ -150,6 +152,26 @@ public class ActivityComments extends ActivityBase {
                         (String)value.get(Constants.FIREBASE_USER_IMAGE),
                         (String)value.get(Constants.FIREBASE_USER_NICKNAME));
                 updateProfile(user);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void getNickname(){
+        DatabaseReference mDataReference = FirebaseDatabase.getInstance()
+                .getReference(Constants.FIREBASE_USER)
+                .child(Profile.getCurrentProfile().getId())
+                .child(Constants.FIREBASE_USER_INFO)
+                .child(Constants.FIREBASE_USER_NICKNAME);
+
+        mDataReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                name = dataSnapshot.getValue(String.class);
             }
 
             @Override

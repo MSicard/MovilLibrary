@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
@@ -28,121 +28,123 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
         <LinearLayout
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/fragment_statistics_background_linearlayout"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal"
+            android:orientation="vertical"
+            android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:layout_margin="10dp"
-                android:orientation="vertical"
-                android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:textSize="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
-                <TextView
-                    android:text="Last month"
-                    android:id="@+id/fragment_statistics_last_month"
-                    android:layout_width="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:layout_marginLeft="20dp"
-                    android:text="2"
-                    android:id="@+id/fragment_statistics_int_last_month"
+                android:text="See your statistics"/>
+            <LinearLayout
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/fragment_statistics_background_linearlayout"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_margin="10dp"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                    <TextView
+                        android:text="Last month"
+                        android:id="@+id/fragment_statistics_last_month"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_marginLeft="20dp"
+                        android:text="2"
+                        android:id="@+id/fragment_statistics_int_last_month"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <ImageView
+                    android:layout_marginRight="5dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_chevron_right_black_24dp"
+                    android:id="@+id/fragment_statistics_button_last_month"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
-            <ImageView
-                android:layout_marginRight="5dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_chevron_right_black_24dp"
-                android:id="@+id/fragment_statistics_button_last_month"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/fragment_statistics_background_linearlayout"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
             <LinearLayout
-                android:layout_margin="10dp"
-                android:orientation="vertical"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-                <TextView
-                    android:text="Reading"
-                    android:id="@+id/fragment_statistics_reading"
-                    android:layout_width="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:layout_marginLeft="20dp"
-                    android:text="2"
-                    android:id="@+id/fragment_statistics_int_reading"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/fragment_statistics_background_linearlayout"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_margin="10dp"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                    <TextView
+                        android:text="Reading"
+                        android:id="@+id/fragment_statistics_reading"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_marginLeft="20dp"
+                        android:text="2"
+                        android:id="@+id/fragment_statistics_int_reading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <ImageView
+                    android:layout_gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/ic_chevron_right_black_24dp"
+                    android:id="@+id/fragment_statistics_button_reading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
-            <ImageView
-                android:layout_gravity="center"
-                android:layout_marginRight="5dp"
-                android:src="@drawable/ic_chevron_right_black_24dp"
-                android:id="@+id/fragment_statistics_button_reading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/fragment_statistics_background_linearlayout"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
             <LinearLayout
-                android:layout_margin="10dp"
-                android:orientation="vertical"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-                <TextView
-                    android:text="Total read"
-                    android:id="@+id/fragment_statistics_total_read"
-                    android:layout_width="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:layout_marginLeft="20dp"
-                    android:text="2"
-                    android:id="@+id/fragment_statistics_int_total_read"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/fragment_statistics_background_linearlayout"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_margin="10dp"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                    <TextView
+                        android:text="Total read"
+                        android:id="@+id/fragment_statistics_total_read"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_marginLeft="20dp"
+                        android:text="2"
+                        android:id="@+id/fragment_statistics_int_total_read"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <ImageView
+                    android:layout_marginRight="5dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_chevron_right_black_24dp"
+                    android:id="@+id/fragment_statistics_button_total_read"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
-            <ImageView
-                android:layout_marginRight="5dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_chevron_right_black_24dp"
-                android:id="@+id/fragment_statistics_button_total_read"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
         </LinearLayout>
-        <TextView
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:text="Reading Average"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <ImageView
-            android:id="@+id/fragment_statistics_graphic"
-            android:layout_margin="10dp"
-            android:src="@drawable/book"
-            android:layout_width="match_parent"
-            android:layout_height="250dp" />
+
     </LinearLayout>
-</ScrollView>
+</LinearLayout>

@@ -1,8 +1,11 @@
 package com.iteso.library.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +13,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.login.widget.ProfilePictureView;
 import com.iteso.library.R;
 import com.iteso.library.beans.Friend;
+import com.iteso.library.gui.ActivityProfile;
+import com.iteso.library.gui.ActivityProfileFriend;
 
 import java.util.ArrayList;
 
@@ -19,55 +25,65 @@ import java.util.ArrayList;
  * Created by Maritza on 09/11/2017.
  */
 
-public class AdapterFriends extends ArrayAdapter<Friend>{
+public class AdapterFriends extends RecyclerView.Adapter<AdapterFriends.ViewHolder>{
 
-    private ArrayList mDataSet;
+    private ArrayList<Friend> mDataSet;
     private Context context;
 
-    public AdapterFriends(Context context, ArrayList data){
-        super(context, R.layout.fragment_my_friends, data);
-        mDataSet = data;
+    public AdapterFriends(Context context, ArrayList<Friend> data){
+        this.mDataSet = data;
         this.context = context;
     }
 
-    private static class ViewHolder {
-        TextView txtName;
-        TextView id;
-        ImageView photo;
-    }
 
-    private int lastPosition = -1;
-
-    @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        Friend friend = getItem(position);
-        ViewHolder viewHolder;
-
-        final View result;
-        if(convertView != null){
-            viewHolder = new ViewHolder();
-            LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.item_friend, parent, false);
-            viewHolder.txtName = (TextView)convertView.findViewById(R.id.contact_list_item_1);
-            viewHolder.id = (TextView)convertView.findViewById(R.id.contact_list_position);
-            viewHolder.photo = (ImageView)convertView.findViewById(R.id.contact_list_image);
-
-            result = convertView;
-            convertView.setTag(viewHolder);
-        }else{
-            viewHolder = (ViewHolder) convertView.getTag();
-            result=convertView;
-        }
-
-        viewHolder.txtName.setText(friend.getName());
-        viewHolder.id.setText(friend.getId());
-        //Poner la imagen
-        return convertView;
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_friend, parent, false);
+        AdapterFriends.ViewHolder vh = new AdapterFriends.ViewHolder(view);
+        return vh;
     }
 
     @Override
-    public int getCount() {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
+        holder.txtName.setText(mDataSet.get(position).getName());
+        holder.photo.setProfileId(mDataSet.get(position).getId());
+        holder.id.setText(mDataSet.get(position).getId());
+        holder.card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ActivityProfileFriend.class);
+                intent.putExtra("ID", mDataSet.get(position).getId());
+                ((ActivityProfile)v.getContext()).startActivity(intent);
+            }
+        });
+    }
+
+
+    @Override
+    public int getItemCount() {
         return mDataSet.size();
     }
+
+
+
+
+    public static class ViewHolder extends RecyclerView.ViewHolder{
+
+        TextView txtName;
+        TextView id;
+        ProfilePictureView photo;
+        CardView card;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            txtName = (TextView)itemView.findViewById(R.id.contact_list_item_1);
+            id = (TextView)itemView.findViewById(R.id.contact_list_position);
+            photo = (ProfilePictureView) itemView.findViewById(R.id.contact_list_image);
+            card = (CardView)itemView.findViewById(R.id.contact_list_card);
+
+        }
+
+
+    }
+
 }
