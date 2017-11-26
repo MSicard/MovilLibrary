@@ -32,6 +32,7 @@ import com.iteso.library.beans.MyBookDetail;
 import com.iteso.library.beans.UserState;
 import com.iteso.library.common.Constants;
 import com.iteso.library.common.DownloadImage;
+import com.iteso.library.common.DownloadPDF;
 
 import java.sql.Timestamp;
 
@@ -124,6 +125,8 @@ public class ActivityMyBookDetail extends ActivityBase {
             public void onClick(View v) {
                 book.setDownload(!book.isDownload());
                 reference.setValue(book);
+                DownloadPDF downloadPDF = new DownloadPDF(b.getUrl(), b.getIsbn());
+                downloadPDF.execute();
             }
         });
 
