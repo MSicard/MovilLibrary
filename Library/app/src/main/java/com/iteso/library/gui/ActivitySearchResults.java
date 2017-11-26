@@ -1,11 +1,9 @@
 package com.iteso.library.gui;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -13,7 +11,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.iteso.library.R;
-import com.iteso.library.adapters.AdapterStatisticBook;
+import com.iteso.library.adapters.AdapterSearchResults;
 import com.iteso.library.beans.Book;
 import com.iteso.library.common.Constants;
 
@@ -62,7 +60,7 @@ public class ActivitySearchResults extends ActivityBase {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new AdapterStatisticBook(this, mDataSet);
+        mAdapter = new AdapterSearchResults(this, mDataSet);
         mRecyclerView.setAdapter(mAdapter);
     }
 }
