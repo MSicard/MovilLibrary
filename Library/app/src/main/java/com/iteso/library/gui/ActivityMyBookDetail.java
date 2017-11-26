@@ -47,6 +47,7 @@ public class ActivityMyBookDetail extends ActivityBase {
     protected Button mUpdate;
     protected Button mOpen;
     protected Button mBibliography;
+    protected ImageButton mAudio;
 
     protected Book b;
 
@@ -86,7 +87,7 @@ public class ActivityMyBookDetail extends ActivityBase {
         mAutor = (TextView)findViewById(R.id.activity_my_book_detail_autor);
         mRating = (RatingBar)findViewById(R.id.activity_my_book_detail_rating);
         mCoverPage = (ImageView)findViewById(R.id.activity_my_book_detail_cover_page);
-
+        mAudio = (ImageButton)findViewById(R.id.activity_my_book_detail_audio);
         mTitle.setText(b.getTitle());
         mAutor.setText(b.getAuthor());
         mRating.setRating(b.getRating());
@@ -94,7 +95,11 @@ public class ActivityMyBookDetail extends ActivityBase {
 
         getUserState();
 
-
+        mOpen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
         mDownload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

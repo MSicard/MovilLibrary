@@ -7,17 +7,31 @@
     android:gravity="bottom"
     android:orientation="vertical"
     android:padding="10dp">
-    <LinearLayout
+    <FrameLayout
+        android:layout_gravity="center"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
         <ImageView
+            android:id="@+id/activity_music_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:src="@drawable/nombre_del_viento"/>
-    </LinearLayout>
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ProgressBar
+                android:id="@+id/activity_music_progressbar"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:visibility="visible" />
+        </LinearLayout>
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -69,18 +83,11 @@
             android:src="@android:drawable/ic_media_rew"/>
 
         <ImageButton
-            android:id="@+id/activity_music_pause"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.25"
-            android:src="@android:drawable/ic_media_pause"/>
-
-        <ImageButton
             android:id="@+id/activity_music_play"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.25"
-            android:src="@android:drawable/ic_media_play"/>
+            android:src="@android:drawable/ic_media_pause"/>
 
         <ImageButton
             android:id="@+id/activity_music_forward"

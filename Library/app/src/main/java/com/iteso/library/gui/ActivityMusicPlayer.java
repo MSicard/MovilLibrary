@@ -2,57 +2,136 @@ package com.iteso.library.gui;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.iteso.library.R;
+import com.iteso.library.beans.Book;
+import com.iteso.library.common.DownloadImage;
+
+import java.io.IOException;
 
 public class ActivityMusicPlayer extends ActivityBase implements View.OnClickListener, MediaPlayer.OnCompletionListener, MediaPlayer.OnBufferingUpdateListener, MediaPlayer.OnPreparedListener{
-    protected ImageButton forward, backward, pause, play;
+    protected ImageButton forward, backward, play;
     private MediaPlayer mediaPlayer;
+    protected ProgressBar progressBar;
+    private boolean wasPlaying = false;
+    private boolean isPrepared = false;
+    private final Handler handler = new Handler();
+    private ImageView image;
+    private int mediaFileLengthInMilliseconds;
+    private TextView name;
+
+
+    protected SeekBar seek;
+    private Book book;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music_player);
         forward = (ImageButton)findViewById(R.id.activity_music_forward);
         backward = (ImageButton)findViewById(R.id.activity_music_backward);
-        pause = (ImageButton)findViewById(R.id.activity_music_pause);
         play = (ImageButton)findViewById(R.id.activity_music_play);
-        //mediaPlayer = MediaPlayer
-        
-        play.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mediaPlayer.start();
-            }
-        });
+        image = (ImageView)findViewById(R.id.activity_music_image);
+        progressBar = (ProgressBar)findViewById(R.id.activity_music_progressbar);
+        seek = (SeekBar)findViewById(R.id.activity_music_seekbar);
+        seek.setMax(99);
+        name = (TextView)findViewById(R.id.activity_music_name);
 
-        pause.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mediaPlayer.pause();
-            }
-        });
+        name.setText(book.getTitle());
+        play.setOnClickListener(this);
+        new DownloadImage(image, book.getUrl()).execute();
+
+        book = getIntent().getExtras().getParcelable("BOOK");
+
+        if (mediaPlayer == null){
+            mediaPlayer = new MediaPlayer();
+            mediaPlayer.setOnBufferingUpdateListener(this);
+            mediaPlayer.setOnCompletionListener(this);
+            mediaPlayer.setOnPreparedListener(this);
+        }
+
     }
 
     @Override
     public void onBufferingUpdate(MediaPlayer mp, int percent) {
+        seek.setSecondaryProgress(percent);
 
     }
 
     @Override
     public void onCompletion(MediaPlayer mp) {
+        play.setImageResource(android.R.drawable.ic_media_play);
 
     }
 
     @Override
     public void onPrepared(MediaPlayer mp) {
-
+        isPrepared = true;
+        progressBar.setVisibility(View.GONE);
+        play.setImageResource(android.R.drawable.ic_media_pause);
+        play.setVisibility(View.VISIBLE);
+        mediaPlayer.start();
+        mediaFileLengthInMilliseconds = mediaPlayer.getDuration(); // gets the song length in milliseconds from URL
+        primarymSeekBarProgressUpdater();
     }
 
     @Override
     public void onClick(View v) {
+        try {
+            if(mediaPlayer != null) {
+                if (!mediaPlayer.isPlaying()) {
 
+                    if(!isPrepared) {
+                        progressBar.setVisibility(View.VISIBLE);
+                        resetMediaPlayer();
+                    }else {
+                        play.setImageResource(android.R.drawable.ic_media_pause);
+                        mediaPlayer.start();
+                        primarymSeekBarProgressUpdater();
+                    }
+                    wasPlaying = false;
+                } else {
+                    wasPlaying = true;
+                    mediaPlayer.pause();
+                    play.setImageResource(android.R.drawable.ic_media_play);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void primarymSeekBarProgressUpdater() {
+        seek.setProgress((int) (((float) mediaPlayer.getCurrentPosition() / mediaFileLengthInMilliseconds) * 100)); // This math construction give a percentage of "was playing"/"song length"
+        if (mediaPlayer.isPlaying()) {
+            Runnable notification = new Runnable() {
+                public void run() {
+                    primarymSeekBarProgressUpdater();
+                }
+            };
+            handler.postDelayed(notification, 1000);
+        }
+    }
+
+    public void resetMediaPlayer(){
+        isPrepared = false;
+        if(mediaPlayer != null)
+            try {
+                mediaPlayer.stop();
+                mediaPlayer.reset();
+                mediaPlayer.setDataSource(book.getUrl()); // setup song from http://www.hrupin.com/wp-content/uploads/mp3/testsong_20_sec.mp3 URL to mediaplayer data source
+                if(!wasPlaying || !isPrepared)
+                    mediaPlayer.prepareAsync(); // you must call this method after setup the datasource in setDataSource method. After calling prepare() the instance of MediaPlayer starts load data from URL to internal buffer.
+                seek.setProgress(0);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
     }
 }
