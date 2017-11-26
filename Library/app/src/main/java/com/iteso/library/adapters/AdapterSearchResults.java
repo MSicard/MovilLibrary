@@ -21,22 +21,21 @@ import com.iteso.library.beans.Book;
 import com.iteso.library.common.Constants;
 import com.iteso.library.common.DownloadImage;
 import com.iteso.library.gui.ActivityBookDetail;
-import com.iteso.library.gui.ActivityMyBookDetail;
+import com.iteso.library.gui.ActivityHome;
 import com.iteso.library.gui.ActivitySearchResults;
-import com.iteso.library.gui.ActivityStatisticsBooks;
 
 import java.util.ArrayList;
 
 /**
- * Created by Desarrollo on 26/10/2017.
+ * Created by Desarrollo on 25/11/2017.
  */
 
-public class AdapterStatisticBook extends RecyclerView.Adapter<AdapterStatisticBook.ViewHolder> {
+public class AdapterSearchResults extends RecyclerView.Adapter<AdapterSearchResults.ViewHolder> {
     private ArrayList<Book> mDataSet;
     private Context context;
     private Book book;
 
-    public AdapterStatisticBook(Context context, ArrayList<Book> myDataSet) {
+    public AdapterSearchResults(Context context, ArrayList<Book> myDataSet) {
         this.mDataSet = myDataSet;
         this.context = context;
     }
@@ -76,9 +75,9 @@ public class AdapterStatisticBook extends RecyclerView.Adapter<AdapterStatisticB
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), ActivityMyBookDetail.class);
-                intent.putExtra("book", book);
-                ((ActivityStatisticsBooks) view.getContext()).startActivity(intent);
+                Intent intent = new Intent(view.getContext(), ActivityBookDetail.class);
+                intent.putExtra("book", mDataSet.get(position).getIsbn());
+                ((ActivitySearchResults) view.getContext()).startActivity(intent);
             }
         });
     }
