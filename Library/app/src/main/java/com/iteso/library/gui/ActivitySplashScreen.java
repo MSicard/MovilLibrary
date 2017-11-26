@@ -27,21 +27,20 @@ public class ActivitySplashScreen extends AppCompatActivity {
 
             startActivity(intent);
             finish();
+        }else{
+            TimerTask task = new TimerTask() {
+                @Override
+                public void run() {
+                    Intent intent;
+                    intent = new Intent(ActivitySplashScreen.this, ActivityLogin.class);
+
+                    startActivity(intent);
+                    finish();
+                }
+            };
+
+            Timer timer = new Timer();
+            timer.schedule(task, 2500);
         }
-
-
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-                Intent intent;
-                intent = new Intent(ActivitySplashScreen.this, ActivityLogin.class);
-
-                startActivity(intent);
-                finish();
-            }
-        };
-
-        Timer timer = new Timer();
-        timer.schedule(task, 2500);
     }
 }
