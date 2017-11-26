@@ -43,6 +43,17 @@ public class AdapterStatisticBook extends RecyclerView.Adapter<AdapterStatisticB
     }
 
     @Override
+<<<<<<< HEAD
+=======
+
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        holder.title.setText(mDataSet.get(position).getTitle());
+        holder.author.setText(mDataSet.get(position).getAuthor());
+        new DownloadImage(holder.image, mDataSet.get(position).getImage()).execute();
+        holder.rating.setRating(mDataSet.get(position).getRating());               // Cambiar por el de la BD
+        holder.synapsis.setText(mDataSet.get(position).getSynopsis());
+
+>>>>>>> 298b4db4ac3de7825bffa6640c2c3146812ae79a
     public void onBindViewHolder(final ViewHolder holder, int position) {
         DatabaseReference mDataReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_BOOKS)
                 .child(mDataSet.get(position).getIsbn());
@@ -61,12 +72,15 @@ public class AdapterStatisticBook extends RecyclerView.Adapter<AdapterStatisticB
 
             }
         });
+<<<<<<< HEAD
 
 
         DownloadImage downloadImage = new DownloadImage(holder.image, mDataSet.get(position).getImage());
         downloadImage.execute();
         holder.title.setText(mDataSet.get(position).getTitle());
         holder.author.setText(mDataSet.get(position).getAuthor());
+=======
+>>>>>>> 298b4db4ac3de7825bffa6640c2c3146812ae79a
     }
 
     @Override
