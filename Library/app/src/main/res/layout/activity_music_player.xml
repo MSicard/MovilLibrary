@@ -34,25 +34,26 @@
     </FrameLayout>
 
     <LinearLayout
+        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/activity_music_current"
+            android:layout_margin="10dp"
+            android:id="@+id/activity_music_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0 min 0 seg"
-            android:textSize="18sp"/>
+            android:textSize="22sp"/>
 
         <TextView
-            android:id="@+id/activity_music_name"
-            android:layout_width="0dp"
+            android:id="@+id/activity_music_author"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:gravity="center"
-            android:text="Song name"
+            android:layout_marginBottom="20dp"
             android:textSize="18sp"/>
 
         <TextView
@@ -70,31 +71,18 @@
         android:layout_marginTop="10dp"/>
 
     <LinearLayout
+        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/activity_music_backward"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.25"
-            android:src="@android:drawable/ic_media_rew"/>
-
-        <ImageButton
             android:id="@+id/activity_music_play"
-            android:layout_width="0dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.25"
-            android:src="@android:drawable/ic_media_pause"/>
+            android:src="@android:drawable/ic_media_play"/>
 
-        <ImageButton
-            android:id="@+id/activity_music_forward"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.25"
-            android:src="@android:drawable/ic_media_ff"/>
     </LinearLayout>
 
 </LinearLayout>

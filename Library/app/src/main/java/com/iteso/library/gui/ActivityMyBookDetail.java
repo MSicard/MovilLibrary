@@ -1,6 +1,7 @@
 package com.iteso.library.gui;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -88,18 +89,34 @@ public class ActivityMyBookDetail extends ActivityBase {
         mRating = (RatingBar)findViewById(R.id.activity_my_book_detail_rating);
         mCoverPage = (ImageView)findViewById(R.id.activity_my_book_detail_cover_page);
         mAudio = (ImageButton)findViewById(R.id.activity_my_book_detail_audio);
+
+        if(b.getAudio() != null){
+            mAudio.setVisibility(View.VISIBLE);
+            mAudio.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(ActivityMyBookDetail.this, ActivityMusicPlayer.class);
+                    intent.putExtra("book", b);
+                    startActivity(intent);
+                }
+            });
+        }
+
         mTitle.setText(b.getTitle());
         mAutor.setText(b.getAuthor());
         mRating.setRating(b.getRating());
-        new DownloadImage(mCoverPage, b.getUrl()).execute();
+        new DownloadImage(mCoverPage, b.getImage()).execute();
 
         getUserState();
 
         mOpen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
             }
         });
+
+
         mDownload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

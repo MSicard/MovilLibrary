@@ -16,6 +16,9 @@ import com.iteso.library.beans.Book;
 import com.iteso.library.common.DownloadImage;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class ActivityMusicPlayer extends ActivityBase implements View.OnClickListener, MediaPlayer.OnCompletionListener, MediaPlayer.OnBufferingUpdateListener, MediaPlayer.OnPreparedListener{
     protected ImageButton forward, backward, play;
@@ -26,7 +29,9 @@ public class ActivityMusicPlayer extends ActivityBase implements View.OnClickLis
     private final Handler handler = new Handler();
     private ImageView image;
     private int mediaFileLengthInMilliseconds;
-    private TextView name;
+    private TextView author;
+    private TextView title;
+    private TextView duration;
 
 
     protected SeekBar seek;
@@ -35,20 +40,21 @@ public class ActivityMusicPlayer extends ActivityBase implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music_player);
-        forward = (ImageButton)findViewById(R.id.activity_music_forward);
-        backward = (ImageButton)findViewById(R.id.activity_music_backward);
         play = (ImageButton)findViewById(R.id.activity_music_play);
         image = (ImageView)findViewById(R.id.activity_music_image);
         progressBar = (ProgressBar)findViewById(R.id.activity_music_progressbar);
         seek = (SeekBar)findViewById(R.id.activity_music_seekbar);
+        author = (TextView)findViewById(R.id.activity_music_author);
+        title = (TextView)findViewById(R.id.activity_music_title);
+        duration = (TextView)findViewById(R.id.activity_music_duration);
+
+        book = getIntent().getExtras().getParcelable("book");
         seek.setMax(99);
-        name = (TextView)findViewById(R.id.activity_music_name);
-
-        name.setText(book.getTitle());
+        title.setText(book.getTitle());
+        author.setText(book.getAuthor());
         play.setOnClickListener(this);
-        new DownloadImage(image, book.getUrl()).execute();
+        new DownloadImage(image, book.getImage()).execute();
 
-        book = getIntent().getExtras().getParcelable("BOOK");
 
         if (mediaPlayer == null){
             mediaPlayer = new MediaPlayer();
@@ -56,6 +62,29 @@ public class ActivityMusicPlayer extends ActivityBase implements View.OnClickLis
             mediaPlayer.setOnCompletionListener(this);
             mediaPlayer.setOnPreparedListener(this);
         }
+        Date minutes = new Date(mediaPlayer.getDuration() / 1000);
+        String pattern = "MM:SS";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        duration.setText(simpleDateFormat.format(minutes));
+
+        seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if(mediaPlayer != null && fromUser){
+                    mediaPlayer.seekTo((int) (((float) mediaPlayer.getCurrentPosition() / mediaFileLengthInMilliseconds) * 100));
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
 
     }
 
@@ -126,7 +155,7 @@ public class ActivityMusicPlayer extends ActivityBase implements View.OnClickLis
             try {
                 mediaPlayer.stop();
                 mediaPlayer.reset();
-                mediaPlayer.setDataSource(book.getUrl()); // setup song from http://www.hrupin.com/wp-content/uploads/mp3/testsong_20_sec.mp3 URL to mediaplayer data source
+                mediaPlayer.setDataSource(book.getAudio()); // setup song from http://www.hrupin.com/wp-content/uploads/mp3/testsong_20_sec.mp3 URL to mediaplayer data source
                 if(!wasPlaying || !isPrepared)
                     mediaPlayer.prepareAsync(); // you must call this method after setup the datasource in setDataSource method. After calling prepare() the instance of MediaPlayer starts load data from URL to internal buffer.
                 seek.setProgress(0);
