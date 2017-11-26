@@ -147,4 +147,6 @@ public class FragmentStatistics extends Fragment {
             }
         });
     }
+
+    //http://theandroidlibrary.com/Category/Graphic-5
 }

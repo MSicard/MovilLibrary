@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/item_card_review_info_margin">
 
-            <ImageView
+            <com.facebook.login.widget.ProfilePictureView
                 android:id="@+id/item_card_review_photo"
                 android:layout_width="@dimen/item_card_review_info_image_size_width"
                 android:layout_height="@dimen/item_card_review_info_image_size_height"/>

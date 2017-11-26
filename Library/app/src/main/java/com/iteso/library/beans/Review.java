@@ -1,63 +1,66 @@
 package com.iteso.library.beans;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 /**
  * Created by Desarrollo on 26/10/2017.
  */
 
 public class Review {
-    private int image;
-    private String userName;
-    private Date date;
-    private int rating;
-    private String userReview;
+    private String nickname;
+    private String id;
+    private long date;
+    private long rating;
+    private String review;
 
-    public Review(int image, String userName, Date date, int rating, String userReview) {
-        this.image = image;
-        this.userName = userName;
+    public Review() {
+    }
+
+    public Review(String nickname, String id, long date, long rating, String review) {
+        this.nickname = nickname;
+        this.id = id;
         this.date = date;
         this.rating = rating;
-        this.userReview = userReview;
+        this.review = review;
     }
 
-    public int getImage() {
-        return image;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setImage(int image) {
-        this.image = image;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getId() {
+        return id;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public Date getDate() {
+    public long getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(long date) {
         this.date = date;
     }
 
-    public int getRating() {
+    public long getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(long rating) {
         this.rating = rating;
     }
 
-    public String getUserReview() {
-        return userReview;
+    public String getReview() {
+        return review;
     }
 
-    public void setUserReview(String userReview) {
-        this.userReview = userReview;
+    public void setReview(String review) {
+        this.review = review;
     }
 }
