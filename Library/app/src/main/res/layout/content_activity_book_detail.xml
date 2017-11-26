@@ -60,7 +60,7 @@
                                     android:layout_width="@dimen/activity_book_detail_basic_info_image_size_width"
                                     android:layout_height="@dimen/activity_book_detail_basic_info_image_size_height"
                                     android:scaleType="centerInside"
-                                    android:src="@drawable/nombre_del_viento" />
+                                    android:src="@drawable/no_image" />
 
                                 <TextView
                                     android:id="@+id/activity_book_detail_title"

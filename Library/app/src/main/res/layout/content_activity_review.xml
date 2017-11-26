@@ -44,7 +44,7 @@
                         android:layout_height="@dimen/activity_review_book_image_size_height"
                         android:layout_centerInParent="true"
                         android:scaleType="centerInside"
-                        android:src="@drawable/nombre_del_viento"/>
+                        android:src="@drawable/no_image"/>
 
                     <LinearLayout
                         android:layout_width="@dimen/activity_review_book_image_size_width"

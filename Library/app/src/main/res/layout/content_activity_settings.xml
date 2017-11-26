@@ -33,7 +33,6 @@
             <com.facebook.login.widget.ProfilePictureView
                 android:id="@+id/activity_settings_profile_image"
                 android:layout_marginTop="@dimen/activity_settings_image_marginTop"
-                android:src="@drawable/profile"
                 android:layout_width="@dimen/activity_settings_image_size_width"
                 android:layout_height="@dimen/activity_settings_image_size_height" />
             <TextView

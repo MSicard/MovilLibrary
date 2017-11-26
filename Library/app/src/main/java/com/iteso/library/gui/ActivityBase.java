@@ -87,7 +87,7 @@ public abstract class ActivityBase extends AppCompatActivity implements Navigati
     private void loadNavHeader() {
         if(AccessToken.getCurrentAccessToken() == null){
             Bitmap photo = BitmapFactory.decodeResource(this.getResources(),
-                    R.drawable.profile);
+                    R.drawable.no_image);
             //mandar a login :)
             mName.setText("Ravi Tamada");
         }

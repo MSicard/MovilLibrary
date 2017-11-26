@@ -18,7 +18,7 @@
             android:layout_width="@dimen/item_featured_books_image_view_width"
             android:layout_height="match_parent"
             android:scaleType="centerInside"
-            android:src="@drawable/yorobot" />
+            android:src="@drawable/no_image" />
 
         <LinearLayout
             android:layout_width="match_parent"

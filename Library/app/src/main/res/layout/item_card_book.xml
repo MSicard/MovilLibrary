@@ -11,7 +11,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
-                android:src="@drawable/nombre_del_viento"
+                android:src="@drawable/no_image"
                 android:id="@+id/fragment_my_books_card_book_image"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/item_card_book_image_height"
