@@ -20,6 +20,7 @@ public class ActivityMusicPlayer extends ActivityBase implements View.OnClickLis
         pause = (ImageButton)findViewById(R.id.activity_music_pause);
         play = (ImageButton)findViewById(R.id.activity_music_play);
         //mediaPlayer = MediaPlayer
+        
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
