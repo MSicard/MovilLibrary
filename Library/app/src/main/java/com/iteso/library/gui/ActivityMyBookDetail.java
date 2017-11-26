@@ -1,10 +1,18 @@
 package com.iteso.library.gui;
 
+import android.Manifest;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -17,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.Profile;
 import com.google.firebase.database.DataSnapshot;
@@ -34,14 +43,16 @@ import com.iteso.library.common.Constants;
 import com.iteso.library.common.DownloadImage;
 import com.iteso.library.common.DownloadPDF;
 
+import java.io.File;
 import java.sql.Timestamp;
+
+import static com.iteso.library.common.Constants.MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE;
 
 /**
  * Created by Maritza on 01/10/2017.
  */
 
 public class ActivityMyBookDetail extends ActivityBase {
-
     protected ImageButton mDownload;
     protected TextView mNumberPages;
     protected TextView mPercentage;
@@ -115,7 +126,17 @@ public class ActivityMyBookDetail extends ActivityBase {
         mOpen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                File pdfFile = new File(Environment.getExternalStorageDirectory() + "/Download/" + b.getIsbn() +".pdf");
+                Uri path = Uri.fromFile(pdfFile);
+                Intent pdfIntent = new Intent(Intent.ACTION_VIEW);
+                pdfIntent.setDataAndType(path, "application/pdf");
+                pdfIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
+                try{
+                    startActivity(pdfIntent);
+                }catch(ActivityNotFoundException e){
+                    Toast.makeText(v.getContext(), "No Application available to view PDF", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -123,10 +144,27 @@ public class ActivityMyBookDetail extends ActivityBase {
         mDownload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                book.setDownload(!book.isDownload());
-                reference.setValue(book);
-                DownloadPDF downloadPDF = new DownloadPDF(b.getUrl(), b.getIsbn());
-                downloadPDF.execute();
+                if(ContextCompat.checkSelfPermission(ActivityMyBookDetail.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+                    if(mDownload.isActivated())
+                        // Download
+                        new DownloadPDF(ActivityMyBookDetail.this, b.getUrl(), b.getIsbn(), reference, book).execute();
+                    else{
+                        // Delete book
+                        String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
+                        File folder = new File(extStorageDirectory, "Download");
+                        folder.mkdir();
+
+                        File pdfFile = new File(folder, b.getIsbn() + ".pdf");
+                        pdfFile.delete();
+                        book.setDownload(false);
+                        Toast.makeText(ActivityMyBookDetail.this, "'" + b.getTitle() + "' has been deleted from your device", Toast.LENGTH_LONG).show();
+
+                    }
+
+                    reference.setValue(book);
+                }else{
+                    Toast.makeText(ActivityMyBookDetail.this, "Storage permission is required to download files", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -273,10 +311,12 @@ public class ActivityMyBookDetail extends ActivityBase {
         mPercentage.setText(String.valueOf(percentage));
         if(book.isDownload()){
             mDownload.setActivated(false);
+            mOpen.setEnabled(true);
             mDownload.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPurple)));
         }
         else {
             mDownload.setActivated(true);
+            mOpen.setEnabled(false);
             mDownload.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorGray)));
         }
     }
@@ -298,5 +338,15 @@ public class ActivityMyBookDetail extends ActivityBase {
 
     private void checkIfAdded(){
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (ContextCompat.checkSelfPermission(ActivityMyBookDetail.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+                ActivityCompat.requestPermissions(ActivityMyBookDetail.this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+        }
     }
 }

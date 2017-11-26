@@ -50,4 +50,6 @@ public class Constants {
     public static String FIREBASE_USER_STATISTICS = "statistics";
     public static String FIREBASE_BOOK_REVIEW = "review";
 
+    public static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 0;
+
 }

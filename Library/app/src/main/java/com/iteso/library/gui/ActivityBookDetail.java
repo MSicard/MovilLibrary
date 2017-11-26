@@ -100,7 +100,7 @@ public class ActivityBookDetail extends ActivityBase {
 
                 databaseReference.setValue(book);
                 addBook.setVisibility(View.INVISIBLE);
-                Toast.makeText(ActivityBookDetail.this, "'" + book.getTitle() + "' has been add to your books", Toast.LENGTH_LONG).show();
+                Toast.makeText(ActivityBookDetail.this, "'" + book.getTitle() + "' has been added to your books", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -115,10 +115,12 @@ public class ActivityBookDetail extends ActivityBase {
         checkReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.child(book.getIsbn()).exists()){
-                    addBook.setVisibility(View.INVISIBLE);
-                }else{
-                    addBook.setVisibility(View.VISIBLE);
+                if(dataSnapshot != null){
+                    if(dataSnapshot.child(book.getIsbn()).exists()){
+                        addBook.setVisibility(View.INVISIBLE);
+                    }else{
+                        addBook.setVisibility(View.VISIBLE);
+                    }
                 }
             }
 
