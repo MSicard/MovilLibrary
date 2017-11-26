@@ -23,6 +23,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.iteso.library.R;
 import com.iteso.library.beans.Book;
@@ -61,6 +62,7 @@ public class ActivityMyBookDetail extends ActivityBase {
     DatabaseReference reference;
     DatabaseReference referenceState;
     private UserState state;
+    private boolean add = true;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -72,9 +74,9 @@ public class ActivityMyBookDetail extends ActivityBase {
 
         b = getIntent().getExtras().getParcelable("book");
 
+
         reference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
                 .child(Profile.getCurrentProfile().getId()).child(Constants.FIREBASE_USER_BOOK_STATE).child(b.getIsbn());
-
 
         mDownload = (ImageButton)findViewById(R.id.activity_my_book_detail_download);
         mNumberPages = (TextView)findViewById(R.id.activity_my_book_detail_read_pages);
@@ -133,7 +135,13 @@ public class ActivityMyBookDetail extends ActivityBase {
                             .child(Profile.getCurrentProfile().getId()).child(Constants.FIREBASE_USER_STATISTICS)
                             .child(Constants.FIREBASE_USER_BOOK_READING).child(b.getIsbn());
                     refReading.setValue(b.getIsbn());
-                    state.setReading(state.getReading() + 1);
+                    checkIfAdded();
+                    if(add){
+                        add = false;
+                    }else{
+                        state.setReading(state.getReading() + 1);
+                        add = false;
+                    }
                 }
                 else{
                     DatabaseReference refReading = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
@@ -141,6 +149,7 @@ public class ActivityMyBookDetail extends ActivityBase {
                             .child(Constants.FIREBASE_USER_BOOK_READING).child(b.getIsbn());
                     refReading.removeValue();
                     state.setReading(state.getReading() - 1);
+                    add = false;
                 }
                 book.setReading(isChecked);
                 reference.setValue(book);
@@ -283,4 +292,8 @@ public class ActivityMyBookDetail extends ActivityBase {
         });
     }
 
+
+    private void checkIfAdded(){
+
+    }
 }
