@@ -67,12 +67,10 @@ public class AdapterStatisticBook extends RecyclerView.Adapter<AdapterStatisticB
 
             }
         });
-
         DownloadImage downloadImage = new DownloadImage(holder.image, mDataSet.get(position).getImage());
         downloadImage.execute();
         holder.title.setText(mDataSet.get(position).getTitle());
         holder.author.setText(mDataSet.get(position).getAuthor());
-
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
