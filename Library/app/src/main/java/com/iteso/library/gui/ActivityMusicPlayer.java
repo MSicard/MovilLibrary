@@ -1,9 +1,9 @@
 package com.iteso.library.gui;
 
+import android.app.Activity;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -17,10 +17,9 @@ import com.iteso.library.common.DownloadImage;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
-public class ActivityMusicPlayer extends ActivityBase implements View.OnClickListener, MediaPlayer.OnCompletionListener, MediaPlayer.OnBufferingUpdateListener, MediaPlayer.OnPreparedListener{
+public class ActivityMusicPlayer extends Activity implements View.OnClickListener, MediaPlayer.OnCompletionListener, MediaPlayer.OnBufferingUpdateListener, MediaPlayer.OnPreparedListener{
     protected ImageButton forward, backward, play;
     private MediaPlayer mediaPlayer;
     protected ProgressBar progressBar;
@@ -32,6 +31,7 @@ public class ActivityMusicPlayer extends ActivityBase implements View.OnClickLis
     private TextView author;
     private TextView title;
     private TextView duration;
+    private Runnable notification;
 
 
     protected SeekBar seek;
@@ -71,7 +71,7 @@ public class ActivityMusicPlayer extends ActivityBase implements View.OnClickLis
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if(mediaPlayer != null && fromUser){
-                    mediaPlayer.seekTo((int) (((float) mediaPlayer.getCurrentPosition() / mediaFileLengthInMilliseconds) * 100));
+                    mediaPlayer.seekTo((progress * mediaFileLengthInMilliseconds) / 100);
                 }
             }
 
@@ -138,14 +138,16 @@ public class ActivityMusicPlayer extends ActivityBase implements View.OnClickLis
     }
 
     private void primarymSeekBarProgressUpdater() {
-        seek.setProgress((int) (((float) mediaPlayer.getCurrentPosition() / mediaFileLengthInMilliseconds) * 100)); // This math construction give a percentage of "was playing"/"song length"
-        if (mediaPlayer.isPlaying()) {
-            Runnable notification = new Runnable() {
-                public void run() {
-                    primarymSeekBarProgressUpdater();
-                }
-            };
-            handler.postDelayed(notification, 1000);
+        if(mediaPlayer != null){
+            seek.setProgress((int) (((float) mediaPlayer.getCurrentPosition() / mediaFileLengthInMilliseconds) * 100)); // This math construction give a percentage of "was playing"/"song length"
+            if (mediaPlayer.isPlaying()) {
+                notification = new Runnable() {
+                    public void run() {
+                        primarymSeekBarProgressUpdater();
+                    }
+                };
+                handler.postDelayed(notification, 1000);
+            }
         }
     }
 
@@ -162,5 +164,30 @@ public class ActivityMusicPlayer extends ActivityBase implements View.OnClickLis
             } catch (IOException e) {
                 e.printStackTrace();
             }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(mediaPlayer.isPlaying()){
+            mediaPlayer.pause();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(mediaPlayer.isPlaying()){
+            mediaPlayer.stop();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(mediaPlayer.isPlaying()){
+            mediaPlayer.stop();
+        }
+        mediaPlayer = null;
     }
 }
