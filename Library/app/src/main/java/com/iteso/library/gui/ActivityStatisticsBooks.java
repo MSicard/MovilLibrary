@@ -13,6 +13,7 @@ import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 import com.iteso.library.R;
 import com.iteso.library.adapters.AdapterSearchResults;
+import com.iteso.library.adapters.AdapterStatisticBook;
 import com.iteso.library.beans.Book;
 import com.iteso.library.beans.LastMonth;
 import com.iteso.library.common.Constants;
@@ -67,7 +68,7 @@ public class ActivityStatisticsBooks extends ActivityBase {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new AdapterSearchResults(this, mDataSet);
+        mAdapter = new AdapterStatisticBook(this, mDataSet);
         mRecyclerView.setAdapter(mAdapter);
 
     }
