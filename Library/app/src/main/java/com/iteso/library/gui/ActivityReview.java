@@ -46,6 +46,9 @@ public class ActivityReview extends ActivityBase {
     private TextView title;
     private ImageView image;
     private String nickname;
+    private long summmationRating;
+    private boolean userExists;
+    private Review userReview;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -83,6 +86,8 @@ public class ActivityReview extends ActivityBase {
             public void onClick(View v) {
                 if(Utils.isConnectedWifi(ActivityReview.this) || Utils.isConnectedMobile(ActivityReview.this)){
                     if(!review.getText().toString().equals("")){
+                        updateRating();
+
                         Review msg = new Review(nickname,
                                 Profile.getCurrentProfile().getId(),
                                 new Timestamp(System.currentTimeMillis()).getTime(),
@@ -120,6 +125,54 @@ public class ActivityReview extends ActivityBase {
             }
         });
 
+    }
+
+    public void updateRating(){
+        /* This action should not be performed every time a user gives a review, this should be done
+            every three days for example. For demonstration purposes we do it in this way.
+         */
+
+        DatabaseReference userReviewReference = FirebaseDatabase.getInstance().getReference()
+                .child(Constants.FIREBASE_BOOK_REVIEW)
+                .child(book.getIsbn());
+        DatabaseReference bookReference = FirebaseDatabase.getInstance().getReference()
+                .child(Constants.FIREBASE_BOOKS)
+                .child(book.getIsbn());
+        bookReference.setValue(book);
+
+        summmationRating = (long )mDataSet.size() * book.getRating();
+
+        userReviewReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.child(Profile.getCurrentProfile().getId()).exists()){
+                    userExists = true;
+                    userReview = dataSnapshot.child(Profile.getCurrentProfile().getId()).getValue(Review.class);
+                }
+
+                else
+                    userExists = false;
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        int nUsers;
+        if(userExists){
+            summmationRating = summmationRating - userReview.getRating() + (long)rating.getRating();
+            nUsers = mDataSet.size();
+        } else{
+            summmationRating += (long) rating.getRating();
+            if(mDataSet.size() == 0)
+                nUsers = 1;
+            else
+                nUsers = mDataSet.size() + 1;
+        }
+        book.setRating(summmationRating / nUsers);
+        bookReference.setValue(book);
     }
 
     public void getData(){

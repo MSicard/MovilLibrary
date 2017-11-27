@@ -21,6 +21,7 @@ import com.iteso.library.beans.Book;
 import com.iteso.library.common.Constants;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ActivityHome extends ActivityBase implements SearchView.OnQueryTextListener{
     private RecyclerView.Adapter featuredBooksAdapter;
@@ -121,7 +122,6 @@ public class ActivityHome extends ActivityBase implements SearchView.OnQueryText
         featuredBooksRecyclerView = (RecyclerView) findViewById(R.id.activity_home_recycler_featured_books);
         featuredBooksRecyclerView.setHasFixedSize(true);
 
-        // Para propósito de pruebas
         featuredBooksDataSet = new ArrayList<>();
 
         DatabaseReference featuredReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_BOOKS_CATEGORY)
@@ -143,6 +143,8 @@ public class ActivityHome extends ActivityBase implements SearchView.OnQueryText
 
             }
         });
+
+        Collections.sort(featuredBooksDataSet);
 
         featuredBooksLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         featuredBooksRecyclerView.setLayoutManager(featuredBooksLayoutManager);
