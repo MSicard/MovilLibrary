@@ -121,7 +121,6 @@ public class ActivityHome extends ActivityBase implements SearchView.OnQueryText
         featuredBooksRecyclerView = (RecyclerView) findViewById(R.id.activity_home_recycler_featured_books);
         featuredBooksRecyclerView.setHasFixedSize(true);
 
-        // Para propósito de pruebas
         featuredBooksDataSet = new ArrayList<>();
 
         DatabaseReference featuredReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_BOOKS_CATEGORY)
