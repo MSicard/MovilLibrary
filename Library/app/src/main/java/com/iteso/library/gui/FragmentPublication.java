@@ -16,6 +16,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.facebook.Profile;
 import com.facebook.login.widget.ProfilePictureView;
@@ -65,14 +66,20 @@ public class FragmentPublication extends Fragment {
             @Override
             public void onClick(View v) {
                 ((ActivityBase)getActivity()).closeSoftKeyBoard();
-               if(!comment.getText().toString().equals("")){
-                   Publication publication = new Publication(0, 0, comment.getText().toString(), new Timestamp(System.currentTimeMillis()).getTime());
-                   DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
-                           .child(id).child(Constants.FIREBASE_USER_PUBLICATION).child(Constants.FIREBASE_USER_PUBLICATION_INFO);
-                   publication.setId(mDatabaseReference.push().getKey());
-                   mDatabaseReference.child(publication.getId()).setValue(publication);
-                   comment.setText("");
+                if(Utils.isConnectedMobile(getActivity()) || Utils.isConnectedWifi(getActivity())){
+                    if(!comment.getText().toString().equals("")){
+                        Publication publication = new Publication(0, 0, comment.getText().toString(), new Timestamp(System.currentTimeMillis()).getTime());
+                        DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
+                                .child(id).child(Constants.FIREBASE_USER_PUBLICATION).child(Constants.FIREBASE_USER_PUBLICATION_INFO);
+                        publication.setId(mDatabaseReference.push().getKey());
+                        mDatabaseReference.child(publication.getId()).setValue(publication);
+                        comment.setText("");
+                    }
+                }else{
+                    Toast.makeText(getActivity(), "Sorry :( You need internet. Please connect", Toast.LENGTH_LONG).show();
+
                 }
+
             }
         });
         RecyclerView mRecyclerView = (RecyclerView)view.findViewById(R.id.fragment_publications_recycler_view);

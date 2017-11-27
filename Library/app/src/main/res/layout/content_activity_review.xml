@@ -61,6 +61,8 @@
                             android:gravity="center">
 
                             <TextView
+                                android:layout_margin="3dp"
+                                android:gravity="center"
                                 android:id="@+id/activity_review_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"

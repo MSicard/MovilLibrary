@@ -51,6 +51,7 @@
                 android:layout_height="wrap_content"
                 android:text="See your statistics"/>
             <LinearLayout
+                android:id="@+id/fragment_statistics_ll_lastmonth"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:background="@drawable/fragment_statistics_background_linearlayout"
@@ -88,6 +89,7 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/fragment_statistics_ll_reading"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:background="@drawable/fragment_statistics_background_linearlayout"
@@ -125,6 +127,7 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/fragment_statistics_ll_total"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:background="@drawable/fragment_statistics_background_linearlayout"

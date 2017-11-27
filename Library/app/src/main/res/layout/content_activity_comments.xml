@@ -49,17 +49,27 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/activity_comments_info_margin">
-
-                            <com.facebook.login.widget.ProfilePictureView
-                                android:id="@+id/activity_comments_user_photo"
-                                android:layout_width="@dimen/activity_comments_info_image_size_width"
-                                android:layout_height="@dimen/activity_comments_info_image_size_height"/>
+                            <FrameLayout
+                                android:id="@+id/activity_comments_frame"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+                                <com.facebook.login.widget.ProfilePictureView
+                                    android:id="@+id/activity_comments_user_photo"
+                                    android:layout_width="@dimen/activity_comments_info_image_size_width"
+                                    android:layout_height="@dimen/activity_comments_info_image_size_height"/>
+                                <ImageView
+                                    android:layout_width="@dimen/activity_comments_info_image_size_width"
+                                    android:layout_height="@dimen/activity_comments_info_image_size_height"
+                                    android:src="@drawable/subtractedcircle_white"
+                                    android:contentDescription="@null" />
+                            </FrameLayout>
                             <LinearLayout
                                 android:orientation="vertical"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_toRightOf="@id/activity_comments_user_photo"
-                                android:layout_margin="@dimen/activity_comments_info_user_date_margin">                                <TextView
+                                android:layout_toRightOf="@id/activity_comments_frame"
+                                android:layout_margin="@dimen/activity_comments_info_user_date_margin">
+                                <TextView
                                     android:id="@+id/activity_comments_user_name"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"/>

@@ -119,6 +119,8 @@ public class AdapterPublication extends RecyclerView.Adapter<AdapterPublication.
                         .child(Constants.FIREBASE_USER_PUBLICATION_INFO)
                         .child(idPub)
                         .child(Constants.FIREBASE_USER_PUBLICATION_COUNT_LIKES);
+                mRef.keepSynced(true);
+                mRefLike.keepSynced(true);
                 if(holder.likeButton){
                     mRef.removeValue();
                     mDataSet.get(position).setLikes(mDataSet.get(position).getLikes() - 1);

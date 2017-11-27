@@ -333,6 +333,7 @@ public class FragmentProfile extends Fragment implements OnClickListener{
     public void getData(){
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
                 .child(id).child(Constants.FIREBASE_USER_INFO);
+        reference.keepSynced(true);
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

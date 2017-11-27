@@ -12,10 +12,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.login.widget.ProfilePictureView;
 import com.iteso.library.R;
 import com.iteso.library.beans.Friend;
+import com.iteso.library.common.Utils;
+import com.iteso.library.gui.ActivityComments;
 import com.iteso.library.gui.ActivityProfile;
 import com.iteso.library.gui.ActivityProfileFriend;
 
@@ -51,13 +54,20 @@ public class AdapterFriends extends RecyclerView.Adapter<AdapterFriends.ViewHold
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ActivityProfileFriend.class);
-                intent.putExtra("ID", mDataSet.get(position).getId());
-                try{
-                    ((ActivityProfile) v.getContext()).startActivity(intent);
-                }catch (Exception e){
-                    ((ActivityProfileFriend) v.getContext()).startActivity(intent);
+                if(Utils.isConnectedMobile(context) || Utils.isConnectedWifi(context)){
+                    Intent intent = new Intent(v.getContext(), ActivityProfileFriend.class);
+                    intent.putExtra("ID", mDataSet.get(position).getId());
+                    try{
+                        ((ActivityProfile) v.getContext()).startActivity(intent);
+                    }catch (Exception e){
+                        ((ActivityProfileFriend) v.getContext()).startActivity(intent);
+                    }
+                }else{
+                    Toast.makeText(context,
+                            "Sorry :( You need internet. Please connect",
+                            Toast.LENGTH_LONG).show();
                 }
+
             }
         });
     }

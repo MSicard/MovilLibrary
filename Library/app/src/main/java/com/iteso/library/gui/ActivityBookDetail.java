@@ -21,6 +21,7 @@ import com.iteso.library.R;
 import com.iteso.library.beans.Book;
 import com.iteso.library.common.Constants;
 import com.iteso.library.common.DownloadImage;
+import com.iteso.library.common.Utils;
 
 public class ActivityBookDetail extends ActivityBase {
     private ImageView image;
@@ -93,14 +94,17 @@ public class ActivityBookDetail extends ActivityBase {
         addBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
-                        .child(Profile.getCurrentProfile().getId())
-                        .child(Constants.FIREBASE_USER_BOOKS)
-                        .child(book.getIsbn());
+                if(Utils.isConnectedMobile(ActivityBookDetail.this) || Utils.isConnectedWifi(ActivityBookDetail.this)){
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
+                            .child(Profile.getCurrentProfile().getId())
+                            .child(Constants.FIREBASE_USER_BOOKS)
+                            .child(book.getIsbn());
 
-                databaseReference.setValue(book);
-                addBook.setVisibility(View.INVISIBLE);
-                Toast.makeText(ActivityBookDetail.this, "'" + book.getTitle() + "' has been added to your books", Toast.LENGTH_LONG).show();
+                    databaseReference.setValue(book);
+                    addBook.setVisibility(View.INVISIBLE);
+                    Toast.makeText(ActivityBookDetail.this, "'" + book.getTitle() + "' has been added to your books", Toast.LENGTH_LONG).show();
+                }
+                Toast.makeText(ActivityBookDetail.this, "Sorry :( You need internet. Please connect", Toast.LENGTH_LONG).show();
             }
         });
 

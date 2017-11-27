@@ -99,6 +99,7 @@
                             app:layout_anchorGravity="bottom">
 
                             <TextView
+                                android:gravity="center"
                                 android:textColor="@android:color/black"
                                 android:id="@+id/activity_book_detail_synopsis"
                                 android:layout_width="match_parent"

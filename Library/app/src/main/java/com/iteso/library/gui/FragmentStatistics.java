@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +43,11 @@ public class FragmentStatistics extends Fragment {
     protected TextView tv_totalRead;
     protected ProfilePictureView photo;
     protected TextView nickname;
+    protected LinearLayout months;
+    protected LinearLayout totals;
+    protected LinearLayout readings;
+
+
     private String id;
 
     @Nullable
@@ -56,11 +62,16 @@ public class FragmentStatistics extends Fragment {
         tv_totalRead = (TextView)view.findViewById(R.id.fragment_statistics_int_total_read);
         photo = (ProfilePictureView)view.findViewById(R.id.fragment_statistics_image_profile);
         nickname = (TextView)view.findViewById(R.id.fragment_statistics_name);
+        months = (LinearLayout)view.findViewById(R.id.fragment_statistics_ll_lastmonth);
+        totals = (LinearLayout)view.findViewById(R.id.fragment_statistics_ll_total);
+        readings = (LinearLayout)view.findViewById(R.id.fragment_statistics_ll_reading);
+
+
         id = getActivity().getIntent().getExtras().getString("ID");
         getNickname();
         photo.setProfileId(id);
 
-        lastMonth.setOnClickListener(new View.OnClickListener() {
+        months.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(tv_reading.getText().equals("0")){
@@ -79,7 +90,7 @@ public class FragmentStatistics extends Fragment {
             }
         });
 
-        reading.setOnClickListener(new View.OnClickListener() {
+        readings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(tv_reading.getText().equals("0")){
@@ -98,7 +109,7 @@ public class FragmentStatistics extends Fragment {
             }
         });
 
-        totalRead.setOnClickListener(new View.OnClickListener() {
+        totals.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(tv_reading.getText().equals("0")){
