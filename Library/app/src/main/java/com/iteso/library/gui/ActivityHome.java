@@ -33,13 +33,91 @@ public class ActivityHome extends ActivityBase implements SearchView.OnQueryText
     private ArrayList<Book> computingBooksDataSet;
     private RecyclerView computingBooksRecyclerView;
 
+    private RecyclerView.Adapter mathBooksAdapter;
+    private RecyclerView.LayoutManager mathBooksLayoutManager;
+    private ArrayList<Book> mathBooksDataSet;
+    private RecyclerView mathBooksRecyclerView;
+
+    private RecyclerView.Adapter philosophyBooksAdapter;
+    private RecyclerView.LayoutManager philosophyBooksLayoutManager;
+    private ArrayList<Book> philosophyBooksDataSet;
+    private RecyclerView philosophyBooksRecyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         onCreateDrawer();
 
-        // ------------------------ Libros destacados -------------------------- //
+        loadFeaturedBooks();
+        loadComputingBooks();
+        loadMathBooks();
+        loadPhilosophyBooks();
+    }
+
+    private void loadPhilosophyBooks() {
+        philosophyBooksRecyclerView = (RecyclerView) findViewById(R.id.activity_home_recycler_philosophy_books);
+        philosophyBooksRecyclerView.setHasFixedSize(true);
+        philosophyBooksDataSet = new ArrayList<>();
+
+        DatabaseReference philosophyReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_BOOKS_CATEGORY)
+                .child(Constants.FIREBASE_BOOKS_CATEGORY_PHILOSOPHY);
+        philosophyReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot != null) philosophyBooksDataSet.clear();
+                for(DataSnapshot data : dataSnapshot.getChildren()){
+                    Book book = data.getValue(Book.class);
+                    philosophyBooksDataSet.add(book);
+                }
+                philosophyBooksAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        philosophyBooksLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        philosophyBooksRecyclerView.setLayoutManager(philosophyBooksLayoutManager);
+
+        philosophyBooksAdapter = new AdapterCategorizedBook(this, philosophyBooksDataSet);
+        philosophyBooksRecyclerView.setAdapter(philosophyBooksAdapter);
+    }
+
+    private void loadMathBooks() {
+        mathBooksRecyclerView = (RecyclerView) findViewById(R.id.activity_home_recycler_math_books);
+        mathBooksRecyclerView.setHasFixedSize(true);
+        mathBooksDataSet = new ArrayList<>();
+
+        DatabaseReference mathReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_BOOKS_CATEGORY)
+                .child(Constants.FIREBASE_BOOKS_CATEGORY_MATH);
+        mathReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot != null) mathBooksDataSet.clear();
+                for(DataSnapshot data : dataSnapshot.getChildren()){
+                    Book book = data.getValue(Book.class);
+                    mathBooksDataSet.add(book);
+                }
+                mathBooksAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mathBooksLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        mathBooksRecyclerView.setLayoutManager(mathBooksLayoutManager);
+
+        mathBooksAdapter = new AdapterCategorizedBook(this, mathBooksDataSet);
+        mathBooksRecyclerView.setAdapter(mathBooksAdapter);
+    }
+
+    private void loadFeaturedBooks() {
         featuredBooksRecyclerView = (RecyclerView) findViewById(R.id.activity_home_recycler_featured_books);
         featuredBooksRecyclerView.setHasFixedSize(true);
 
@@ -71,11 +149,10 @@ public class ActivityHome extends ActivityBase implements SearchView.OnQueryText
 
         featuredBooksAdapter = new AdapterFeaturedBook(this, featuredBooksDataSet);
         featuredBooksRecyclerView.setAdapter(featuredBooksAdapter);
+    }
 
-
-
-        // ------------------------ Libros categoria -------------------------- //
-        computingBooksRecyclerView = (RecyclerView) findViewById(R.id.activity_home_recycler_categorized_books);
+    private void loadComputingBooks() {
+        computingBooksRecyclerView = (RecyclerView) findViewById(R.id.activity_home_recycler_computing_books);
         computingBooksRecyclerView.setHasFixedSize(true);
         computingBooksDataSet = new ArrayList<>();
 

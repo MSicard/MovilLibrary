@@ -40,7 +40,7 @@ public class Constants {
     public static String FIREBASE_BOOKS_CATEGORY = "books_category";
     public static String FIREBASE_BOOKS_CATEGORY_FEATURED = "featured";
     public static String FIREBASE_BOOKS_CATEGORY_COMPUTING = "computing";
-    public static String FIREBASE_BOOKS_CATEGORY_FHILOSOPHY = "philosofhy";
+    public static String FIREBASE_BOOKS_CATEGORY_PHILOSOPHY = "philosophy";
     public static String FIREBASE_BOOKS_CATEGORY_MATH = "math";
 
 
