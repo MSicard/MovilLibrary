@@ -29,6 +29,7 @@ import com.iteso.library.beans.Comment;
 import com.iteso.library.beans.Publication;
 import com.iteso.library.beans.User;
 import com.iteso.library.common.Constants;
+import com.iteso.library.common.Utils;
 
 import org.w3c.dom.Text;
 
@@ -76,6 +77,7 @@ public class ActivityComments extends ActivityBase {
         time = (TextView) findViewById(R.id.activity_comments_time);
 
         publication.setText(pub.getMessage());
+        time.setText(Utils.putTime(new Date(pub.getTime())));
         //Agregar el tiempo
         mRecyclerView = (RecyclerView) findViewById(R.id.activity_comments_recycler);
         mRecyclerView.setHasFixedSize(true);
@@ -93,30 +95,36 @@ public class ActivityComments extends ActivityBase {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!comment.getText().toString().equals("")){
-                    Comment msg = new Comment(Profile.getCurrentProfile().getId(),
-                            comment.getText().toString(),
-                            name,
-                            new Timestamp(System.currentTimeMillis()).getTime());
-                    DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
-                            .child(id).child(Constants.FIREBASE_USER_PUBLICATION);
-                    msg.setIdComment(mDatabaseReference.push().getKey());
-                    DatabaseReference mCommentReference = mDatabaseReference
-                            .child(Constants.FIREBASE_USER_PUBLICATION_COMMENTS)
-                            .child(pub.getId())
-                            .child(msg.getIdComment());
-                    mCommentReference.setValue(msg);
-                    comment.setText("");
-                    comment.clearFocus();
+                if(Utils.isConnectedMobile(ActivityComments.this) || Utils.isConnectedWifi(ActivityComments.this)){
+                    if(!comment.getText().toString().equals("")){
+                        Comment msg = new Comment(Profile.getCurrentProfile().getId(),
+                                comment.getText().toString(),
+                                name,
+                                new Timestamp(System.currentTimeMillis()).getTime());
+                        DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
+                                .child(id).child(Constants.FIREBASE_USER_PUBLICATION);
+                        msg.setIdComment(mDatabaseReference.push().getKey());
+                        DatabaseReference mCommentReference = mDatabaseReference
+                                .child(Constants.FIREBASE_USER_PUBLICATION_COMMENTS)
+                                .child(pub.getId())
+                                .child(msg.getIdComment());
+                        mCommentReference.setValue(msg);
+                        comment.setText("");
+                        comment.clearFocus();
 
-                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    inputMethodManager.hideSoftInputFromWindow(comment.getWindowToken(), 0);
+                        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        inputMethodManager.hideSoftInputFromWindow(comment.getWindowToken(), 0);
 
 
-                    DatabaseReference mPublicationReference = mDatabaseReference.child(Constants.FIREBASE_USER_PUBLICATION_INFO)
-                            .child(pub.getId()).child(Constants.FIREBASE_USER_PUBLICATION_COUNT_COMMENT);
-                    pub.setComments(pub.getComments() + 1);
-                    mPublicationReference.setValue(pub.getComments());
+                        DatabaseReference mPublicationReference = mDatabaseReference.child(Constants.FIREBASE_USER_PUBLICATION_INFO)
+                                .child(pub.getId()).child(Constants.FIREBASE_USER_PUBLICATION_COUNT_COMMENT);
+                        pub.setComments(pub.getComments() + 1);
+                        mPublicationReference.setValue(pub.getComments());
+                    }
+                }else{
+                    Toast.makeText(ActivityComments.this,
+                            "Sorry :( You need internet. Please connect",
+                            Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -145,6 +153,7 @@ public class ActivityComments extends ActivityBase {
     public void updateProfile(User user){
         userPhoto.setProfileId(user.getImage());
         nickname.setText(user.getNickname());
+
     }
 
     public void getDataProfile(){

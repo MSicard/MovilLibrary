@@ -45,6 +45,7 @@
                 android:textSize="@dimen/item_card_statistics_book_info_author_textsize" />
 
             <RatingBar
+                android:layout_gravity="center"
                 android:id="@+id/item_card_statistics_book_rating"
                 style="?android:attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"

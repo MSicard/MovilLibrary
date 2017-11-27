@@ -222,6 +222,7 @@ public class ActivityMyBookDetail extends ActivityBase {
 
     private void getState(){
         DatabaseReference reference1 = reference;
+        reference1.keepSynced(true);
         reference1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

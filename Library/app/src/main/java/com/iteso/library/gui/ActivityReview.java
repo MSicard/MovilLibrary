@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.Profile;
 import com.google.firebase.database.DataSnapshot;
@@ -28,6 +29,7 @@ import com.iteso.library.beans.Comment;
 import com.iteso.library.beans.Review;
 import com.iteso.library.common.Constants;
 import com.iteso.library.common.DownloadImage;
+import com.iteso.library.common.Utils;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -79,21 +81,28 @@ public class ActivityReview extends ActivityBase {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!review.getText().toString().equals("")){
-                    Review msg = new Review(nickname,
-                            Profile.getCurrentProfile().getId(),
-                            new Timestamp(System.currentTimeMillis()).getTime(),
-                            (long) rating.getRating(), review.getText().toString());
-                    DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_BOOK_REVIEW)
-                            .child(book.getIsbn())
-                            .child(Profile.getCurrentProfile().getId());
-                    mDatabaseReference.setValue(msg);
-                    review.setText("");
-                    review.clearFocus();
+                if(Utils.isConnectedWifi(ActivityReview.this) || Utils.isConnectedMobile(ActivityReview.this)){
+                    if(!review.getText().toString().equals("")){
+                        Review msg = new Review(nickname,
+                                Profile.getCurrentProfile().getId(),
+                                new Timestamp(System.currentTimeMillis()).getTime(),
+                                (long) rating.getRating(), review.getText().toString());
+                        DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_BOOK_REVIEW)
+                                .child(book.getIsbn())
+                                .child(Profile.getCurrentProfile().getId());
+                        mDatabaseReference.setValue(msg);
+                        review.setText("");
+                        review.clearFocus();
 
-                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    inputMethodManager.hideSoftInputFromWindow(review.getWindowToken(), 0);
+                        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        inputMethodManager.hideSoftInputFromWindow(review.getWindowToken(), 0);
+                    }
+                }else{
+                    Toast.makeText(ActivityReview.this,
+                            "Sorry :( You need internet. Please connect",
+                            Toast.LENGTH_LONG).show();
                 }
+
             }
         });
 

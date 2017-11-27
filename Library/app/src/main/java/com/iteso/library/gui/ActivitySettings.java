@@ -91,6 +91,7 @@ public class ActivitySettings extends ActivityBase {
 
     public void updateGUI(){
         DatabaseReference ref = mDatabaseReference;
+        ref.keepSynced(true);
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
