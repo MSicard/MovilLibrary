@@ -100,7 +100,10 @@
                 android:id="@+id/activity_comments_comment"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:lines="1"
+                android:inputType="textShortMessage|textCapWords"
+                android:imeOptions="actionDone"/>
 
             <ImageButton
                 android:id="@+id/activity_comments_send_comment"
