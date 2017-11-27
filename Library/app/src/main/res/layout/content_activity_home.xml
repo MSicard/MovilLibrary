@@ -28,7 +28,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorGray">
+                android:background="@color/colorGray"
                 android:layout_margin="@dimen/activity_home_main_linear_layout_margin"
                 android:orientation="vertical">
                 <LinearLayout
@@ -50,7 +50,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/activity_home_category_marginTop"
-                    android:background="@drawable/background_black_borders"
                     android:orientation="vertical">
 
                     <TextView
@@ -73,11 +72,10 @@
                 </LinearLayout>
 
                 <LinearLayout
-                     android:background="@color/colorGray"
+                    android:background="@color/colorGray"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/activity_home_category_marginTop"
-                    android:background="@drawable/background_black_borders"
                     android:orientation="vertical">
 
                     <TextView
@@ -104,7 +102,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/activity_home_category_marginTop"
-                    android:background="@drawable/background_black_borders"
                     android:orientation="vertical">
 
                     <TextView
