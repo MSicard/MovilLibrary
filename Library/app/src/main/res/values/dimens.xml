@@ -151,7 +151,7 @@
     <dimen name="item_card_comment_user_comment_margin">20dp</dimen>
 
     <dimen name="item_card_statistics_book_height">200dp</dimen>
-    <dimen name="item_card_statistics_book_margin">3dp</dimen>
+    <dimen name="item_card_statistics_book_margin">4dp</dimen>
     <dimen name="item_card_statistics_book_corner_radius">4dp</dimen>
     <dimen name="item_card_statistics_book_content_margin">5dp</dimen>
     <dimen name="item_card_statistics_book_image_size_width">150dp</dimen>

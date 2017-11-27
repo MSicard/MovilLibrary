@@ -99,6 +99,7 @@ public class AdapterPublication extends RecyclerView.Adapter<AdapterPublication.
 
                 }catch (Exception e){
                     ((ActivityProfileFriend)view.getContext()).startActivity(intent);
+
                 }
             }
         });

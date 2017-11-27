@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LinearLayout android:layout_height="match_parent"
     android:layout_width="match_parent"
+    android:background="@color/colorGray"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:padding="5dp">
-    <EditText android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:id="@+id/fragment_contact_friend_search"
-        android:imeOptions="actionSearch"
-        android:maxLines="1"
-        android:inputType="textPersonName"
-        android:hint="Type contact name..."/>
-    <android.support.v7.widget.RecyclerView android:layout_height="wrap_content"
+    <android.support.v7.widget.RecyclerView android:layout_height="0dp"
+        android:layout_weight="1"
         android:layout_width="match_parent"
         android:id="@+id/fragment_contact_friend_list"
         android:paddingRight="10dp"
         android:paddingLeft="10dp"
         android:descendantFocusability="blocksDescendants"
         android:scrollbarStyle="outsideInset"/>
+    <Button
+        android:textColor="@android:color/white"
+        android:background="@drawable/button_round"
+        android:text="Invita a tus amigos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>

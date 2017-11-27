@@ -7,18 +7,29 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <LinearLayout
-            android:background="@color/cardview_dark_background"
+            android:background="@color/colorGray"
             android:orientation="vertical"
             android:layout_gravity="center"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <com.facebook.login.widget.ProfilePictureView
-                android:layout_marginTop="10dp"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:id="@+id/fragment_statistics_image_profile"/>
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <com.facebook.login.widget.ProfilePictureView
+                    android:layout_marginTop="10dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:id="@+id/fragment_statistics_image_profile"/>
+                <ImageView
+                    android:layout_marginTop="10dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/subtractedcircle"
+                    android:contentDescription="@null" />
+            </FrameLayout>
             <TextView
+                android:textColor="@color/colorPurple"
                 android:id="@+id/fragment_statistics_name"
                 android:textSize="28sp"
                 android:layout_marginBottom="10dp"
@@ -33,6 +44,7 @@
             android:layout_height="0dp"
             android:layout_weight="1">
             <TextView
+                android:textColor="@color/colorPurple"
                 android:textSize="20dp"
                 android:layout_marginLeft="10dp"
                 android:layout_width="match_parent"
@@ -47,19 +59,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <LinearLayout
+                    android:gravity="center"
                     android:layout_margin="10dp"
                     android:orientation="vertical"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
                     <TextView
+                        android:textColor="@color/colorPurple"
                         android:text="Last month"
                         android:id="@+id/fragment_statistics_last_month"
                         android:layout_width="wrap_content"
                         android:layout_weight="1"
                         android:layout_height="wrap_content" />
                     <TextView
-                        android:layout_marginLeft="20dp"
+                        android:textColor="@color/colorLila"
                         android:text="2"
                         android:id="@+id/fragment_statistics_int_last_month"
                         android:layout_width="wrap_content"
@@ -82,19 +96,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <LinearLayout
+                    android:gravity="center"
                     android:layout_margin="10dp"
                     android:orientation="vertical"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
                     <TextView
+                        android:textColor="@color/colorPurple"
                         android:text="Reading"
                         android:id="@+id/fragment_statistics_reading"
                         android:layout_width="wrap_content"
                         android:layout_weight="1"
                         android:layout_height="wrap_content" />
                     <TextView
-                        android:layout_marginLeft="20dp"
+                        android:textColor="@color/colorLila"
                         android:text="2"
                         android:id="@+id/fragment_statistics_int_reading"
                         android:layout_width="wrap_content"
@@ -117,19 +133,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <LinearLayout
+                    android:gravity="center"
                     android:layout_margin="10dp"
                     android:orientation="vertical"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
                     <TextView
+                        android:textColor="@color/colorPurple"
                         android:text="Total read"
                         android:id="@+id/fragment_statistics_total_read"
                         android:layout_width="wrap_content"
                         android:layout_weight="1"
                         android:layout_height="wrap_content" />
                     <TextView
-                        android:layout_marginLeft="20dp"
+                        android:textColor="@color/colorLila"
                         android:text="2"
                         android:id="@+id/fragment_statistics_int_total_read"
                         android:layout_width="wrap_content"

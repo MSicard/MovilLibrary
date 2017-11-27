@@ -28,6 +28,8 @@
             android:layout_toEndOf="@id/item_card_statistics_book_image">
 
             <TextView
+                android:gravity="center"
+                android:textColor="@color/colorPurple"
                 android:id="@+id/item_card_statistics_book_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -35,6 +37,8 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:gravity="center"
+                android:textColor="@color/colorLila"
                 android:id="@+id/item_card_statistics_book_author"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -50,6 +54,7 @@
                 android:stepSize="1.0" />
 
             <TextView
+                android:textColor="@android:color/black"
                 android:id="@+id/item_card_statistics_book_synapsis"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

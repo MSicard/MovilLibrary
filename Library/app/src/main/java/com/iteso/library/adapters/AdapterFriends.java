@@ -53,7 +53,11 @@ public class AdapterFriends extends RecyclerView.Adapter<AdapterFriends.ViewHold
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ActivityProfileFriend.class);
                 intent.putExtra("ID", mDataSet.get(position).getId());
-                ((ActivityProfile)v.getContext()).startActivity(intent);
+                try{
+                    ((ActivityProfile) v.getContext()).startActivity(intent);
+                }catch (Exception e){
+                    ((ActivityProfileFriend) v.getContext()).startActivity(intent);
+                }
             }
         });
     }

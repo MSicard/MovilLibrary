@@ -18,7 +18,7 @@
                 android:scaleType="fitXY"/>
             <TextView
                 android:textSize="@dimen/item_card_book_title_size"
-                android:textColor="@android:color/black"
+                android:textColor="@color/colorPurple"
                 android:gravity="center"
                 android:singleLine="false"
                 android:maxLines="2"
@@ -27,6 +27,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/fragment_my_books_card_book_title"/>
             <TextView
+                android:textColor="@color/colorLila"
                 android:layout_gravity="center"
                 android:singleLine="false"
                 android:maxLines="2"

@@ -15,7 +15,4 @@
     <ProgressBar
         android:layout_width="@dimen/activity_splash_screen_progressbar_size_width"
         android:layout_height="@dimen/activity_splash_screen_progressbar_size_height"/>
-
-
-
 </LinearLayout>

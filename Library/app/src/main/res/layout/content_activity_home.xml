@@ -31,7 +31,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/background_black_borders">
+                android:background="@color/colorGray">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/activity_home_recycler_featured_books"
@@ -49,10 +49,11 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/background_black_borders"
+                android:background="@color/colorGray"
                 android:layout_marginTop="@dimen/activity_home_category_marginTop">
 
                 <TextView
+                    android:textColor="@color/colorPurple"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/activity_home_text_category_marginTop"

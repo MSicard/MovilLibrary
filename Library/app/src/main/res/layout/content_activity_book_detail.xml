@@ -44,7 +44,7 @@
                             android:layout_marginTop="@dimen/activity_book_detail_basic_info_margin"
                             android:layout_marginStart="@dimen/activity_book_detail_basic_info_margin"
                             android:layout_marginEnd="@dimen/activity_book_detail_basic_info_margin"
-                            android:background="@drawable/background_black_borders"
+                            android:background="@color/colorGray"
                             android:gravity="center">
 
                             <LinearLayout
@@ -63,12 +63,15 @@
                                     android:src="@drawable/no_image" />
 
                                 <TextView
+                                    android:textSize="22sp"
+                                    android:textColor="@color/colorPurple"
                                     android:id="@+id/activity_book_detail_title"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/activity_book_detail_basic_info_title" />
 
                                 <TextView
+                                    android:textColor="@color/colorLila"
                                     android:id="@+id/activity_book_detail_author"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -92,11 +95,11 @@
                             android:layout_marginTop="@dimen/activity_book_detail_linearlayout_synopsis_marginTop"
                             android:layout_marginEnd="@dimen/activity_book_detail_linearlayout_synopsis_marginEnd"
                             android:layout_marginStart="@dimen/activity_book_detail_linearlayout_synopsis_marginStart"
-                            android:background="@drawable/background_black_borders"
                             app:layout_anchor="@id/activity_book_detail_basic_info"
                             app:layout_anchorGravity="bottom">
 
                             <TextView
+                                android:textColor="@android:color/black"
                                 android:id="@+id/activity_book_detail_synopsis"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
@@ -114,6 +117,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:textColor="@color/colorBlue"
                     android:id="@+id/activity_book_detail_reviews"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -132,8 +136,8 @@
                     android:layout_alignParentEnd="true"
                     app:fabSize="normal"
                     app:pressedTranslationZ="@dimen/activity_book_detail_fab_translationZ"
-                    app:backgroundTint="@android:color/holo_red_dark"
-                    app:rippleColor="@android:color/holo_green_dark"
+                    app:backgroundTint="@color/colorBlue"
+                    app:rippleColor="@color/colorPurple"
                     app:useCompatPadding="false"
                     android:clickable="true"/>
             </RelativeLayout>
@@ -144,6 +148,7 @@
             android:layout_height="wrap_content"
             app:layout_anchor="@id/activity_book_detail_linear_layout_synopsis"
             app:layout_anchorGravity="top|center"
+            android:textColor="@android:color/white"
             android:background="@drawable/button_round"
             android:text="@string/activity_book_detail_bibliografhy_text"/>
     </android.support.design.widget.CoordinatorLayout>

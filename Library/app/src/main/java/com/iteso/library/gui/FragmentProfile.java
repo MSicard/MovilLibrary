@@ -71,11 +71,6 @@ public class FragmentProfile extends Fragment implements OnClickListener{
         mNameB = (ImageView)view.findViewById(R.id.fragment_profile_change_name);
         mFavoriteBooksB = (ImageView) view.findViewById(R.id.fragment_profile_change_favorite_books);
         mAboutMeB = (ImageView)view.findViewById(R.id.fragment_profile_change_about);
-        if(id != Profile.getCurrentProfile().getId()){
-            mNameB.setVisibility(View.GONE);
-            mFavoriteBooksB.setVisibility(View.GONE);
-            mAboutMeB.setVisibility(View.GONE);
-        }
         mNameB.setOnClickListener(this);
         mFavoriteBooksB.setOnClickListener(this);
         mAboutMeB.setOnClickListener(this);
@@ -327,7 +322,11 @@ public class FragmentProfile extends Fragment implements OnClickListener{
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         id = getActivity().getIntent().getStringExtra("ID");
-
+        if(!id.equals(Profile.getCurrentProfile().getId())){
+            mNameB.setVisibility(View.GONE);
+            mFavoriteBooksB.setVisibility(View.GONE);
+            mAboutMeB.setVisibility(View.GONE);
+        }
         getData();
     }
 
