@@ -206,10 +206,11 @@ public class Book implements Parcelable, Comparable<Book>{
 
     @Override
     public int compareTo(@NonNull Book book) {
+        // Logic is inverted in order to sort them from best to worse
         if(rating < book.getRating())
-            return -1;
-        if(rating > book.getRating())
             return 1;
+        if(rating > book.getRating())
+            return -1;
         return 0;
     }
 }

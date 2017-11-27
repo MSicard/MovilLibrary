@@ -44,6 +44,8 @@ public class ActivityHome extends ActivityBase implements SearchView.OnQueryText
     private ArrayList<Book> philosophyBooksDataSet;
     private RecyclerView philosophyBooksRecyclerView;
 
+    ArrayList<Book> books;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,17 +125,25 @@ public class ActivityHome extends ActivityBase implements SearchView.OnQueryText
         featuredBooksRecyclerView.setHasFixedSize(true);
 
         featuredBooksDataSet = new ArrayList<>();
+        books = new ArrayList<>();
 
-        DatabaseReference featuredReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_BOOKS_CATEGORY)
-                .child(Constants.FIREBASE_BOOKS_CATEGORY_FEATURED);
+        DatabaseReference featuredReference = FirebaseDatabase.getInstance().getReference()
+                .child(Constants.FIREBASE_BOOKS);
 
         featuredReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot != null) featuredBooksDataSet.clear();
+                if(dataSnapshot != null){
+                    books.clear();
+                    featuredBooksDataSet.clear();
+                }
                 for(DataSnapshot data : dataSnapshot.getChildren()){
                     Book book = data.getValue(Book.class);
-                    featuredBooksDataSet.add(book);
+                    books.add(book);
+                }
+                Collections.sort(books);
+                for(int i = 0; i < 3; i++){
+                    featuredBooksDataSet.add(books.get(i));
                 }
                 featuredBooksAdapter.notifyDataSetChanged();
             }
@@ -143,8 +153,6 @@ public class ActivityHome extends ActivityBase implements SearchView.OnQueryText
 
             }
         });
-
-        Collections.sort(featuredBooksDataSet);
 
         featuredBooksLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         featuredBooksRecyclerView.setLayoutManager(featuredBooksLayoutManager);
