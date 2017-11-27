@@ -2,6 +2,7 @@ package com.iteso.library.beans;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import java.util.HashMap;
 
@@ -9,7 +10,7 @@ import java.util.HashMap;
  * Created by Maritza on 22/09/2017.
  */
 
-public class Book implements Parcelable{
+public class Book implements Parcelable, Comparable<Book>{
     protected String title;
     protected String author;
     protected String synopsis;
@@ -201,5 +202,14 @@ public class Book implements Parcelable{
         dest.writeLong(rating);
         dest.writeString(url);
         dest.writeString(audio);
+    }
+
+    @Override
+    public int compareTo(@NonNull Book book) {
+        if(rating < book.getRating())
+            return -1;
+        if(rating > book.getRating())
+            return 1;
+        return 0;
     }
 }

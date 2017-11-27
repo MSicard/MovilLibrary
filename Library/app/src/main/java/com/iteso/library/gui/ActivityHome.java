@@ -21,6 +21,7 @@ import com.iteso.library.beans.Book;
 import com.iteso.library.common.Constants;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ActivityHome extends ActivityBase implements SearchView.OnQueryTextListener{
     private RecyclerView.Adapter featuredBooksAdapter;
@@ -142,6 +143,8 @@ public class ActivityHome extends ActivityBase implements SearchView.OnQueryText
 
             }
         });
+
+        Collections.sort(featuredBooksDataSet);
 
         featuredBooksLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         featuredBooksRecyclerView.setLayoutManager(featuredBooksLayoutManager);
