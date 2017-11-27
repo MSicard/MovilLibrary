@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="@color/colorGray"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <android.support.design.widget.AppBarLayout
@@ -58,9 +59,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_toRightOf="@id/activity_comments_user_photo"
-                                android:layout_margin="@dimen/activity_comments_info_user_date_margin">
-
-                                <TextView
+                                android:layout_margin="@dimen/activity_comments_info_user_date_margin">                                <TextView
                                     android:id="@+id/activity_comments_user_name"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"/>
@@ -72,7 +71,6 @@
                                     android:textSize="@dimen/activity_comments_info_date_textsize"/>
                             </LinearLayout>
                         </RelativeLayout>
-
                         <TextView
                             android:id="@+id/activity_comments_publication"
                             android:layout_width="match_parent"

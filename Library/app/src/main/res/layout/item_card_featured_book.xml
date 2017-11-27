@@ -28,6 +28,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:textColor="@color/colorPurple"
                 android:id="@+id/activity_home_featured_book_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -35,6 +36,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:textColor="@color/colorLila"
                 android:id="@+id/activity_home_featured_book_author"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -50,6 +52,7 @@
                 android:stepSize="1.0" />
 
             <TextView
+                android:textColor="@android:color/black"
                 android:id="@+id/activity_home_featured_book_synapsis"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

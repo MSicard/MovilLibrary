@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_margin="@dimen/fragment_publications_margin"
+    android:background="@color/colorGray"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <android.support.v7.widget.RecyclerView
@@ -25,13 +26,23 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <com.facebook.login.widget.ProfilePictureView
-                    android:id="@+id/fragment_publication_photo"
-                    android:layout_margin="@dimen/fragment_publications_margin"
-                    android:layout_width="@dimen/fragment_publications_image_width"
-                    android:layout_height="@dimen/fragment_publications_image_height" />
-
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <com.facebook.login.widget.ProfilePictureView
+                        android:id="@+id/fragment_publication_photo"
+                        android:layout_margin="@dimen/fragment_publications_margin"
+                        android:layout_width="@dimen/fragment_publications_image_width"
+                        android:layout_height="@dimen/fragment_publications_image_height" />
+                    <ImageView
+                        android:layout_margin="@dimen/fragment_publications_margin"
+                        android:layout_width="@dimen/fragment_publications_image_width"
+                        android:layout_height="@dimen/fragment_publications_image_height"
+                        android:src="@drawable/subtractedcircle_white"
+                        android:contentDescription="@null" />
+                </FrameLayout>
                 <EditText
+                    android:textColor="@color/colorPurple"
                     android:id="@+id/fragment_publication_comment"
                     android:layout_width="262dp"
                     android:layout_height="wrap_content"
@@ -40,10 +51,12 @@
                     android:inputType="textImeMultiLine" />
             </LinearLayout>
             <View
-                android:background="@android:color/darker_gray"
+                android:background="@color/colorLila"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"/>
             <Button
+                android:textColor="@android:color/white"
+                android:background="@drawable/button_round"
                 android:id="@+id/fragment_publication_publish"
                 android:layout_margin="@dimen/fragment_publications_publish_margin"
                 android:text="@string/fragment_publications_publish"

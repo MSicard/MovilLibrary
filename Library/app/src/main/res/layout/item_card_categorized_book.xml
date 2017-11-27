@@ -19,6 +19,8 @@
             android:src="@drawable/no_image"
             android:scaleType="centerInside"/>
         <TextView
+            android:gravity="center"
+            android:textColor="@color/colorPurple"
             android:id="@+id/activity_home_categorized_book_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

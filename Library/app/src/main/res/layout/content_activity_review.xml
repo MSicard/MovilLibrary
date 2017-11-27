@@ -57,7 +57,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignBottom="@id/activity_review_book_image"
                             android:layout_centerHorizontal="true"
-                            android:background="@android:color/darker_gray"
+                            android:background="@drawable/button_round"
                             android:gravity="center">
 
                             <TextView

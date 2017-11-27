@@ -49,16 +49,15 @@ public class ActivityProfile extends ActivityBase {
             switch(position){
                 case 0: return new FragmentProfile();
                 case 1: return new FragmentStatistics();
-                case 2: return new FragmentNotifications();
-                case 3: return new FragmentPublication();
-                case 4: return new FragmentMyFriends();
+                case 2: return new FragmentPublication();
+                case 3: return new FragmentMyFriends();
             }
             return null;
         }
 
         @Override
         public int getCount() {
-            return 5;
+            return 4;
         }
 
         @Override
@@ -67,9 +66,8 @@ public class ActivityProfile extends ActivityBase {
             switch (position){
                 case 0: return getString(R.string.activity_profile_profile);
                 case 1: return getString(R.string.activity_profile_statistics);
-                case 2: return getString(R.string.activity_profile_notifications);
-                case 3: return getString(R.string.activity_profile_publications);
-                case 4: return getString(R.string.activity_profile_friends);
+                case 2: return getString(R.string.activity_profile_publications);
+                case 3: return getString(R.string.activity_profile_friends);
             }
             return null;
         }

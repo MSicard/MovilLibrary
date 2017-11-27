@@ -30,11 +30,13 @@
                 android:layout_margin="@dimen/item_card_review_info_user_time_margin">
 
                 <TextView
+                    android:textColor="@color/colorPurple"
                     android:id="@+id/item_card_review_user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
+                    android:textColor="@color/colorLila"
                     android:id="@+id/item_card_review_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -53,6 +55,7 @@
         </RelativeLayout>
 
         <TextView
+            android:textColor="@android:color/black"
             android:id="@+id/item_card_review_user_review"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

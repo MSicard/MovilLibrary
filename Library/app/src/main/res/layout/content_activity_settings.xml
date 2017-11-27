@@ -23,18 +23,30 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/activity_settings_background">
+        android:background="@color/colorGray">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center">
-            <com.facebook.login.widget.ProfilePictureView
-                android:id="@+id/activity_settings_profile_image"
-                android:layout_marginTop="@dimen/activity_settings_image_marginTop"
-                android:layout_width="@dimen/activity_settings_image_size_width"
-                android:layout_height="@dimen/activity_settings_image_size_height" />
+            <FrameLayout
+                android:layout_centerHorizontal="true"
+                android:id="@+id/fragment_profile_frame"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <com.facebook.login.widget.ProfilePictureView
+                    android:id="@+id/activity_settings_profile_image"
+                    android:layout_marginTop="@dimen/activity_settings_image_marginTop"
+                    android:layout_width="@dimen/activity_settings_image_size_width"
+                    android:layout_height="@dimen/activity_settings_image_size_height" />
+                <ImageView
+                    android:layout_marginTop="@dimen/activity_settings_image_marginTop"
+                    android:layout_width="@dimen/activity_settings_image_size_width"
+                    android:layout_height="@dimen/activity_settings_image_size_height"
+                    android:src="@drawable/subtractedcircle"
+                    android:contentDescription="@null" />
+            </FrameLayout>
             <TextView
                 android:id="@+id/activity_settings_username"
                 android:layout_width="wrap_content"
@@ -64,7 +76,7 @@
             android:layout_marginBottom="@dimen/activity_settings_option_title_marginBottom"
             android:text="@string/activity_settings_privacy"
             android:textSize="@dimen/activity_settings_option_title_textsize"
-            android:textColor="@color/activity_settings_option_title"
+            android:textColor="@color/colorPurple"
             android:textStyle="bold"/>
 
         <View
@@ -128,7 +140,7 @@
             android:layout_marginBottom="@dimen/activity_settings_option_title_marginBottom"
             android:text="Notifications"
             android:textSize="@dimen/activity_settings_option_title_textsize"
-            android:textColor="@color/activity_settings_option_title"
+            android:textColor="@color/colorPurple"
             android:textStyle="bold"/>
 
         <View

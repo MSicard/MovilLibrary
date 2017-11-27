@@ -31,7 +31,6 @@ import java.util.ArrayList;
 public class FragmentMyFriends extends Fragment {
 
     private RecyclerView.LayoutManager mlayoutManager;
-    private EditText search;
     private RecyclerView recyclerView;
     private ArrayList mDataSet;
     private AdapterFriends adapter;
@@ -41,7 +40,6 @@ public class FragmentMyFriends extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my_friends, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.fragment_contact_friend_list);
-        search = (EditText)view.findViewById(R.id.fragment_contact_friend_search);
 
         recyclerView.setHasFixedSize(true);
         mlayoutManager = new LinearLayoutManager(getActivity());

@@ -42,9 +42,11 @@ import com.iteso.library.beans.UserState;
 import com.iteso.library.common.Constants;
 import com.iteso.library.common.DownloadImage;
 import com.iteso.library.common.DownloadPDF;
+import com.iteso.library.common.Utils;
 
 import java.io.File;
 import java.sql.Timestamp;
+import java.util.Date;
 
 import static com.iteso.library.common.Constants.MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE;
 
@@ -176,7 +178,6 @@ public class ActivityMyBookDetail extends ActivityBase {
                             .child(Profile.getCurrentProfile().getId()).child(Constants.FIREBASE_USER_STATISTICS)
                             .child(Constants.FIREBASE_USER_BOOK_READING).child(b.getIsbn());
                     refReading.setValue(b.getIsbn());
-                    checkIfAdded();
                     if(add){
                         add = false;
                     }else{
@@ -305,10 +306,10 @@ public class ActivityMyBookDetail extends ActivityBase {
     public void updateGUI(){
         mNumberPages.setText(String.valueOf(book.getPagesRead()));
         if(book.getStartDate() == 0) mStartDate.setText("No has empezado el libro");
-        mStartDate.setText(String.valueOf(book.getStartDate()));
+        mStartDate.setText(Utils.putTime(new Date(book.getStartDate())));
         mActualReading.setChecked(book.isReading());
-        int percentage = ((int)book.getPagesRead()/(int)b.getPages()) *100;
-        mPercentage.setText(String.valueOf(percentage));
+        float percentage = ((float)book.getPagesRead()/(float)b.getPages())*(float)100;
+        mPercentage.setText(String.valueOf((int)percentage) + "%");
         if(book.isDownload()){
             mDownload.setActivated(false);
             mOpen.setEnabled(true);
@@ -336,9 +337,6 @@ public class ActivityMyBookDetail extends ActivityBase {
     }
 
 
-    private void checkIfAdded(){
-
-    }
 
     @Override
     protected void onResume() {

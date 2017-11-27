@@ -28,9 +28,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/colorGray">
                 android:layout_margin="@dimen/activity_home_main_linear_layout_margin"
                 android:orientation="vertical">
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -45,9 +45,8 @@
                     </android.support.v7.widget.RecyclerView>
 
                 </LinearLayout>
-
-
                 <LinearLayout
+                    android:background="@color/colorGray"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/activity_home_category_marginTop"
@@ -55,6 +54,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                       android:textColor="@color/colorPurple"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/activity_home_text_category_marginTop"
@@ -73,6 +73,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                     android:background="@color/colorGray"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/activity_home_category_marginTop"
@@ -80,6 +81,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:textColor="@color/colorPurple"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/activity_home_text_category_marginTop"
@@ -98,6 +100,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:background="@color/colorGray"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/activity_home_category_marginTop"
@@ -105,6 +108,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:textColor="@color/colorPurple"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/activity_home_text_category_marginTop"
