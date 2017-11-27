@@ -12,6 +12,7 @@
         android:layout_weight="1">
     </android.support.v7.widget.RecyclerView>
     <android.support.v7.widget.CardView
+        android:id="@+id/fragment_publication_card"
         android:layout_margin="@dimen/fragment_publications_margin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
