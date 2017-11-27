@@ -1,5 +1,6 @@
 package com.iteso.library.gui;
 
+import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -105,6 +107,12 @@ public class ActivityComments extends ActivityBase {
                             .child(msg.getIdComment());
                     mCommentReference.setValue(msg);
                     comment.setText("");
+                    comment.clearFocus();
+
+                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(comment.getWindowToken(), 0);
+
+
                     DatabaseReference mPublicationReference = mDatabaseReference.child(Constants.FIREBASE_USER_PUBLICATION_INFO)
                             .child(pub.getId()).child(Constants.FIREBASE_USER_PUBLICATION_COUNT_COMMENT);
                     pub.setComments(pub.getComments() + 1);
