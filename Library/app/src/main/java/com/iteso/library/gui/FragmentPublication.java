@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.facebook.Profile;
 import com.facebook.login.widget.ProfilePictureView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -49,6 +51,7 @@ public class FragmentPublication extends Fragment {
     private ProfilePictureView photo;
     private  ArrayList mDataSet;
     private String id;
+    private CardView card;
 
 
     @Override
@@ -57,7 +60,7 @@ public class FragmentPublication extends Fragment {
         publish = (Button)view.findViewById(R.id.fragment_publication_publish);
         comment = (EditText)view.findViewById(R.id.fragment_publication_comment);
         photo = (ProfilePictureView) view.findViewById(R.id.fragment_publication_photo);
-
+        card = (CardView)view.findViewById(R.id.fragment_publication_card);
         publish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,7 +75,6 @@ public class FragmentPublication extends Fragment {
                 }
             }
         });
-
         RecyclerView mRecyclerView = (RecyclerView)view.findViewById(R.id.fragment_publications_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mlayoutManager = new LinearLayoutManager(getActivity());
@@ -81,7 +83,6 @@ public class FragmentPublication extends Fragment {
         mDataSet = new ArrayList();
         mAdapter = new AdapterPublication(getActivity(), mDataSet);
         mRecyclerView.setAdapter(mAdapter);
-
         return view;
     }
 
@@ -92,6 +93,10 @@ public class FragmentPublication extends Fragment {
         photo.setProfileId(id);
         mAdapter.setId(id);
         getData();
+        String idM = Profile.getCurrentProfile().getId();
+        if(!id.equals(idM)){
+            card.setVisibility(View.GONE);
+        }
     }
 
     public void getData(){
