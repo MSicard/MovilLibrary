@@ -24,73 +24,100 @@
         android:layout_height="match_parent"
         android:layout_margin="@dimen/activity_review_parent_margin">
 
-        <android.support.v7.widget.CardView
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
-            <LinearLayout
-                android:orientation="vertical"
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/activity_review_book_info_marginTop">
-
-                    <ImageView
-                        android:id="@+id/activity_review_book_image"
-                        android:layout_width="@dimen/activity_review_book_image_size_width"
-                        android:layout_height="@dimen/activity_review_book_image_size_height"
-                        android:layout_centerInParent="true"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/no_image"/>
-
-                    <LinearLayout
-                        android:layout_width="@dimen/activity_review_book_image_size_width"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBottom="@id/activity_review_book_image"
-                        android:layout_centerHorizontal="true"
-                        android:background="@drawable/button_round"
-                        android:gravity="center">
-
-                        <TextView
-                            android:layout_gravity="center"
-                            android:id="@+id/activity_review_title"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@android:color/white"/>
-                    </LinearLayout>
-                </RelativeLayout>
-
                 <LinearLayout
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/activity_review_commentbar_marginTop">
-                    <EditText
-                        android:id="@+id/activity_review_user_review"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"/>
+                    android:layout_height="wrap_content">
 
-                    <ImageButton
-                        android:id="@+id/activity_review_send_review"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/send_button"
-                        android:background="@android:color/transparent" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/activity_review_book_info_marginTop">
 
+                        <ImageView
+                            android:id="@+id/activity_review_book_image"
+                            android:layout_width="@dimen/activity_review_book_image_size_width"
+                            android:layout_height="@dimen/activity_review_book_image_size_height"
+                            android:layout_centerInParent="true"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/no_image"/>
+
+                        <LinearLayout
+                            android:layout_width="@dimen/activity_review_book_image_size_width"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBottom="@id/activity_review_book_image"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/button_round"
+                            android:gravity="center">
+
+                            <TextView
+                                android:id="@+id/activity_review_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@android:color/white"/>
+                        </LinearLayout>
+                    </RelativeLayout>
                 </LinearLayout>
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
+            </android.support.v7.widget.CardView>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/activity_review_recycler"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/activity_review_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/activity_review_recycler_margin">
+            </android.support.v7.widget.RecyclerView>
+
+        </LinearLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="@dimen/activity_review_recycler_margin">
-        </android.support.v7.widget.RecyclerView>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_review_commentbar_marginTop">
+            <RatingBar
+                android:id="@+id/activity_review_user_rating"
+                style="?android:attr/ratingBarStyleIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:rating="3"
+                android:stepSize="1.0"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:layout_centerHorizontal="true"/>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/activity_review_user_rating">
+
+                <EditText
+                    android:id="@+id/activity_review_user_review"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:lines="1"
+                    android:inputType="textShortMessage|textCapWords"
+                    android:imeOptions="actionDone"/>
+
+                <ImageButton
+                    android:id="@+id/activity_review_send_review"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/send_button"
+                    android:background="@android:color/transparent" />
+            </LinearLayout>
+        </RelativeLayout>
 
     </LinearLayout>
 </LinearLayout>

@@ -42,6 +42,8 @@
     <string name="activity_login_button_login">Iniciar sesión con Facebook</string>
 
     <string name="activity_home_category_computing">Computing</string>
+    <string name="activity_home_category_math">Math</string>
+    <string name="activity_home_category_philosophy">Philosophy</string>
 
     <string name="activity_book_detail_basic_info_title">Title</string>
     <string name="activity_book_detail_basic_info_author">Author</string>
