@@ -21,56 +21,107 @@
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
         </android.support.design.widget.AppBarLayout>
 
-
-        <LinearLayout
-            android:orientation="vertical"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="@dimen/activity_home_main_linear_layout_margin">
-            
+            android:layout_height="wrap_content">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/background_black_borders">
+                android:layout_margin="@dimen/activity_home_main_linear_layout_margin"
+                android:orientation="vertical">
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/activity_home_recycler_featured_books"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/activity_home_featured_books_margin">
+                    android:background="@drawable/background_black_borders">
 
-                </android.support.v7.widget.RecyclerView>
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/activity_home_recycler_featured_books"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/activity_home_featured_books_margin">
 
-            </LinearLayout>
+                    </android.support.v7.widget.RecyclerView>
+
+                </LinearLayout>
 
 
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/background_black_borders"
-                android:layout_marginTop="@dimen/activity_home_category_marginTop">
-
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/activity_home_text_category_marginTop"
-                    android:text="@string/activity_home_category_computing"
-                    android:textSize="@dimen/activity_home_category_textSize"
-                    android:textStyle="bold"/>
+                    android:layout_marginTop="@dimen/activity_home_category_marginTop"
+                    android:background="@drawable/background_black_borders"
+                    android:orientation="vertical">
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/activity_home_recycler_categorized_books"
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/activity_home_text_category_marginTop"
+                        android:text="@string/activity_home_category_computing"
+                        android:textSize="@dimen/activity_home_category_textSize"
+                        android:textStyle="bold" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/activity_home_recycler_computing_books"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/activity_home_category_recycler_margin">
+
+                    </android.support.v7.widget.RecyclerView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_home_category_marginTop"
+                    android:background="@drawable/background_black_borders"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/activity_home_text_category_marginTop"
+                        android:text="@string/activity_home_category_math"
+                        android:textSize="@dimen/activity_home_category_textSize"
+                        android:textStyle="bold" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/activity_home_recycler_math_books"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/activity_home_category_recycler_margin">
+
+                    </android.support.v7.widget.RecyclerView>
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="@dimen/activity_home_category_recycler_margin">
+                    android:layout_marginTop="@dimen/activity_home_category_marginTop"
+                    android:background="@drawable/background_black_borders"
+                    android:orientation="vertical">
 
-                </android.support.v7.widget.RecyclerView>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/activity_home_text_category_marginTop"
+                        android:text="@string/activity_home_category_philosophy"
+                        android:textSize="@dimen/activity_home_category_textSize"
+                        android:textStyle="bold" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/activity_home_recycler_philosophy_books"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/activity_home_category_recycler_margin">
+
+                    </android.support.v7.widget.RecyclerView>
+                </LinearLayout>
 
             </LinearLayout>
-        </LinearLayout>
-
-
+        </ScrollView>
     </LinearLayout>
 </LinearLayout>
