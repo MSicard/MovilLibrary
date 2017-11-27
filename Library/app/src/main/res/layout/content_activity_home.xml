@@ -28,13 +28,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorGray">
                 android:layout_margin="@dimen/activity_home_main_linear_layout_margin"
                 android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/background_black_borders">
+                    android:background="@color/colorGray">
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/activity_home_recycler_featured_books"
@@ -50,7 +49,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/activity_home_category_marginTop"
-                    android:background="@drawable/background_black_borders"
                     android:orientation="vertical">
 
                     <TextView
@@ -63,6 +61,7 @@
                         android:textStyle="bold" />
 
                     <android.support.v7.widget.RecyclerView
+                        android:background="@color/colorGrayLow"
                         android:id="@+id/activity_home_recycler_computing_books"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -71,13 +70,11 @@
                     </android.support.v7.widget.RecyclerView>
 
                 </LinearLayout>
-
                 <LinearLayout
-                     android:background="@color/colorGray"
+                    android:background="@color/colorGray"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/activity_home_category_marginTop"
-                    android:background="@drawable/background_black_borders"
                     android:orientation="vertical">
 
                     <TextView
@@ -104,7 +101,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/activity_home_category_marginTop"
-                    android:background="@drawable/background_black_borders"
                     android:orientation="vertical">
 
                     <TextView
