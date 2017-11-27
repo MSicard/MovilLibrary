@@ -1,13 +1,18 @@
 package com.iteso.library.gui;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.facebook.Profile;
@@ -34,11 +39,13 @@ public class ActivityReview extends ActivityBase {
     private RecyclerView mRecyclerView;
     private Book book;
     private ImageButton send;
+    private RatingBar rating;
     private EditText review;
     private TextView title;
     private ImageView image;
     private String nickname;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +53,7 @@ public class ActivityReview extends ActivityBase {
         onCreateDrawer();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         send = (ImageButton)findViewById(R.id.activity_review_send_review);
+        rating = (RatingBar) findViewById(R.id.activity_review_user_rating);
         review = (EditText)findViewById(R.id.activity_review_user_review);
         title = (TextView)findViewById(R.id.activity_review_title);
         image = (ImageView)findViewById(R.id.activity_review_book_image);
@@ -75,14 +83,34 @@ public class ActivityReview extends ActivityBase {
                     Review msg = new Review(nickname,
                             Profile.getCurrentProfile().getId(),
                             new Timestamp(System.currentTimeMillis()).getTime(),
-                            0, review.getText().toString());
+                            (long) rating.getRating(), review.getText().toString());
                     DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_BOOK_REVIEW)
-                            .child(book.getIsbn());
-                    mDatabaseReference.push().setValue(msg);
+                            .child(book.getIsbn())
+                            .child(Profile.getCurrentProfile().getId());
+                    mDatabaseReference.setValue(msg);
                     review.setText("");
+                    review.clearFocus();
+
+                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(review.getWindowToken(), 0);
                 }
             }
         });
+
+        rating.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction() == MotionEvent.ACTION_UP){
+                    float touchPositionX = motionEvent.getX();
+                    float width = rating.getWidth();
+                    float starsf = (touchPositionX / width) * 5.0f;
+                    int stars = (int)starsf + 1;
+                    rating.setRating(stars);
+                }
+                return true;
+            }
+        });
+
     }
 
     public void getData(){
