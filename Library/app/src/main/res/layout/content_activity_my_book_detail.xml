@@ -139,7 +139,7 @@
                     android:layout_height="@dimen/activity_my_book_detail_open_bttn_height"
                     android:layout_marginBottom="@dimen/activity_my_book_detail_open_margin"
                     android:layout_marginTop="@dimen/activity_my_book_detail_open_margin"
-                    android:background="@drawable/button_round"
+                    android:background="@drawable/button_round_selector"
                     android:text="Open" />
 
                 <ImageButton

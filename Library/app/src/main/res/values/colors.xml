@@ -11,6 +11,7 @@
     <color name="colorLila">#816C99</color>
     <color name="colorGray">#B1C1C0</color>
     <color name="colorBlue">#73A6AD</color>
+    <color name="colorBlueAlpha">#4f73a6ad</color>
     <color name="colorSky">#BBEFD4</color>
     <color name="colorGrayLow">#ecb1c1c0</color>
 
