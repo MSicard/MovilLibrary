@@ -76,6 +76,8 @@ public class AdapterPublication extends RecyclerView.Adapter<AdapterPublication.
         holder.name.setText(name);
         holder.comment.setText(mDataSet.get(position).getMessage());
         holder.countComments.setText(String.valueOf(mDataSet.get(position).getComments()));
+        if(mDataSet.get(position).getComments() == 0) holder.publicationComment.setImageResource(R.drawable.ic_comment_gray_24dp);
+        else holder.publicationComment.setImageResource(R.drawable.ic_comment_black_24dp);
         holder.countLikes.setText(String.valueOf(mDataSet.get(position).getLikes()));
         holder.photo.setProfileId(id);
         holder.idPublication.setText(idPub);
@@ -118,12 +120,12 @@ public class AdapterPublication extends RecyclerView.Adapter<AdapterPublication.
                 if(holder.likeButton){
                     mRef.removeValue();
                     mDataSet.get(position).setLikes(mDataSet.get(position).getLikes() - 1);
-                    holder.like.setBackgroundTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.colorGray)));
+                    holder.like.setImageResource(R.drawable.ic_favorite_black_24dp);
                 }
                 else{
                     mRef.setValue(true);
                     mDataSet.get(position).setLikes(mDataSet.get(position).getLikes() + 1);
-                    holder.like.setBackgroundTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.colorPurple)));
+                    holder.like.setImageResource(R.drawable.ic_favorite_blue_24dp);
                 }
                 mRefLike.setValue(mDataSet.get(position).getLikes());
                 holder.getColorLikeButton(id, idPub);
@@ -174,11 +176,11 @@ public class AdapterPublication extends RecyclerView.Adapter<AdapterPublication.
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if(dataSnapshot.getValue() == null){
                         likeButton = false;
-                        like.setBackgroundColor(ContextCompat.getColor(context,R.color.colorGray   ));
+                        like.setImageResource(R.drawable.ic_favorite_black_24dp);
                     }
                     else{
                         likeButton = true;
-                        like.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPurple));
+                        like.setImageResource(R.drawable.ic_favorite_blue_24dp);
                     }
                 }
                 @Override

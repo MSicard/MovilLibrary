@@ -339,11 +339,12 @@ public class ActivityMyBookDetail extends ActivityBase {
         float percentage = ((float)book.getPagesRead()/(float)b.getPages())*(float)100;
         mPercentage.setText(String.valueOf((int)percentage) + "%");
         if(book.isDownload()){
+            mDownload.setImageResource(R.drawable.ic_delete_black_24dp);
             mDownload.setActivated(false);
             mOpen.setEnabled(true);
-            mDownload.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPurple)));
         }
         else {
+            mDownload.setImageResource(R.drawable.ic_file_download_blue_24dp);
             mDownload.setActivated(true);
             mOpen.setEnabled(false);
             mDownload.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorGray)));
