@@ -1,21 +1,16 @@
 package com.iteso.library.gui;
 
-import android.app.Dialog;
-import android.app.DialogFragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,7 +18,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.AccessToken;
 import com.facebook.Profile;
 import com.facebook.login.widget.ProfilePictureView;
 import com.google.firebase.database.DataSnapshot;
@@ -33,15 +27,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 import com.iteso.library.R;
-import com.iteso.library.adapters.AdapterListDialog;
 import com.iteso.library.beans.User;
 import com.iteso.library.common.Constants;
-import com.iteso.library.common.Utils;
 
-import java.io.FileDescriptor;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -59,6 +47,7 @@ public class FragmentProfile extends Fragment implements OnClickListener{
     protected ImageView mFavoriteBooksB;
     protected ImageView mAboutMeB;
     protected String id;
+    private User user;
 
     @Nullable
     @Override
@@ -91,52 +80,51 @@ public class FragmentProfile extends Fragment implements OnClickListener{
 
     //CREACION DE DIALOGOS
 
-    public static class FavoriteBooksDialog extends DialogFragment{
-        private Context context;
-        private ListView list;
-        private EditText newBook;
-        private Button save;
+    private ListView lv;
+    public void createDialogFavorite(){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View convertView = (View) inflater.inflate(R.layout.dialog_favorite_books, null);
+        alertDialog.setView(convertView);
+        lv = (ListView) convertView.findViewById(R.id.dialog_favorite_list);
+        Button add = (Button)convertView.findViewById(R.id.dialog_favorite_book_save);
+        final EditText favorite = (EditText)convertView.findViewById(R.id.dialog_favorite_book_edit_text);
 
-        private ArrayList dataSet;
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_multiple_choice,user.getFavoriteBooks());
+        lv.setAdapter(adapter);
+        lv.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        lv.setDivider(null);
 
-            Bundle bundle = getArguments();
-            if (bundle != null) {
-                dataSet = getArguments().getStringArrayList("values");
+        add.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                DatabaseReference reference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER).child(Profile.getCurrentProfile().getId())
+                        .child(Constants.FIREBASE_USER_INFO).child(Constants.FIREBASE_USER_FAVORITE_BOOKS);
+                user.getFavoriteBooks().add(favorite.getText().toString());
+                reference.setValue(user.getFavoriteBooks());
+                adapter.notifyDataSetChanged();
             }
-            else dataSet = null;
+        });
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            View view = LayoutInflater.from(context).inflate(R.layout.dialog_favorite_books, null);
-            list = (ListView)view.findViewById(R.id.dialog_favorite_list);
-            newBook = (EditText)view.findViewById(R.id.dialog_favorite_book_edit_text);
-            save = (Button)view.findViewById(R.id.dialog_favorite_book_save);
-            AdapterListDialog adapter = new AdapterListDialog(context, dataSet);
-            list.setAdapter(adapter);
-            builder.setView(view);
-
-            builder.setPositiveButton("CHANGE", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    Bundle bundle = new Bundle();
-                    bundle.putStringArrayList("values", dataSet);
-                    getFragmentManager().beginTransaction();
+        alertDialog.setPositiveButton("DELETE", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                SparseBooleanArray positions = lv.getCheckedItemPositions();
+                for(int i = 0; i < user.getFavoriteBooks().size(); i++){
+                    if(positions.get(i)){
+                        user.getFavoriteBooks().remove(i);
+                    }
                 }
-            }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.dismiss();
-                }
-            });
-            return builder.create();
-        }
+                DatabaseReference reference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER).child(Profile.getCurrentProfile().getId())
+                        .child(Constants.FIREBASE_USER_INFO).child(Constants.FIREBASE_USER_FAVORITE_BOOKS);
+                reference.setValue(user.getFavoriteBooks());
+                adapter.notifyDataSetChanged();
+            }
+        });
+        alertDialog.setNegativeButton("Cancel", null);
 
-        @Override
-        public void onAttach(Context context) {
-            super.onAttach(context);
-            this.context = context;
-        }
+        alertDialog.show();
 
     }
 
@@ -205,112 +193,7 @@ public class FragmentProfile extends Fragment implements OnClickListener{
                 createDialogName(mName);
                 break;
             case R.id.fragment_profile_change_favorite_books:
-                ArrayList array = new ArrayList();
-                array.add("hola");
-                array.add("asdfas");
-                array.add("holasfda");
-                Bundle bundle = new Bundle();
-                bundle.putStringArrayList("values", array);
-
-                FavoriteBooksDialog dialog = new FavoriteBooksDialog();
-                dialog.setArguments(bundle);
-                FragmentManager fm = new FragmentManager() {
-                    @Override
-                    public FragmentTransaction beginTransaction() {
-                        return null;
-                    }
-
-                    @Override
-                    public boolean executePendingTransactions() {
-                        return false;
-                    }
-
-                    @Override
-                    public android.app.Fragment findFragmentById(int id) {
-                        return null;
-                    }
-
-                    @Override
-                    public android.app.Fragment findFragmentByTag(String tag) {
-                        return null;
-                    }
-
-                    @Override
-                    public void popBackStack() {
-
-                    }
-
-                    @Override
-                    public boolean popBackStackImmediate() {
-                        return false;
-                    }
-
-                    @Override
-                    public void popBackStack(String name, int flags) {
-
-                    }
-
-                    @Override
-                    public boolean popBackStackImmediate(String name, int flags) {
-                        return false;
-                    }
-
-                    @Override
-                    public void popBackStack(int id, int flags) {
-
-                    }
-
-                    @Override
-                    public boolean popBackStackImmediate(int id, int flags) {
-                        return false;
-                    }
-
-                    @Override
-                    public int getBackStackEntryCount() {
-                        return 0;
-                    }
-
-                    @Override
-                    public BackStackEntry getBackStackEntryAt(int index) {
-                        return null;
-                    }
-
-                    @Override
-                    public void addOnBackStackChangedListener(OnBackStackChangedListener listener) {
-
-                    }
-
-                    @Override
-                    public void removeOnBackStackChangedListener(OnBackStackChangedListener listener) {
-
-                    }
-
-                    @Override
-                    public void putFragment(Bundle bundle, String key, android.app.Fragment fragment) {
-
-                    }
-
-                    @Override
-                    public android.app.Fragment getFragment(Bundle bundle, String key) {
-                        return null;
-                    }
-
-                    @Override
-                    public android.app.Fragment.SavedState saveFragmentInstanceState(android.app.Fragment f) {
-                        return null;
-                    }
-
-                    @Override
-                    public boolean isDestroyed() {
-                        return false;
-                    }
-
-                    @Override
-                    public void dump(String prefix, FileDescriptor fd, PrintWriter writer, String[] args) {
-
-                    }
-                };
-                dialog.show(fm, "hola");
+                createDialogFavorite();
                 break;
             case R.id.fragment_profile_change_about:
                 createDialogAbout(mAboutMe);
@@ -339,7 +222,7 @@ public class FragmentProfile extends Fragment implements OnClickListener{
             public void onDataChange(DataSnapshot dataSnapshot) {
                 GenericTypeIndicator<Map<String,Object>> t = new GenericTypeIndicator<Map<String,Object>>(){};
                 Map<String, Object> value = dataSnapshot.getValue(t);
-                User user = new User((String)value.get(Constants.FIREBASE_USER_ABOUT),
+                user = new User((String)value.get(Constants.FIREBASE_USER_ABOUT),
                         (List)value.get(Constants.FIREBASE_USER_FAVORITE_BOOKS),
                         (String)value.get(Constants.FIREBASE_USER_IMAGE),
                         (String)value.get(Constants.FIREBASE_USER_NICKNAME));

@@ -79,12 +79,6 @@ public class AdapterPublication extends RecyclerView.Adapter<AdapterPublication.
         holder.countLikes.setText(String.valueOf(mDataSet.get(position).getLikes()));
         holder.photo.setProfileId(id);
         holder.idPublication.setText(idPub);
-        if(holder.likeButton){
-            holder.like.setBackgroundColor(ContextCompat.getColor(context,R.color.colorGray   ));
-        }
-        else {
-            holder.like.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPurple));
-        }
 
         holder.time.setText(putTime(new Date(mDataSet.get(position).getTime())));
 
@@ -111,13 +105,13 @@ public class AdapterPublication extends RecyclerView.Adapter<AdapterPublication.
                         .child(id)
                         .child(Constants.FIREBASE_USER_PUBLICATION)
                         .child(Constants.FIREBASE_USER_PUBLICATION_LIKE)
-                        .child(idPub)
+                        .child(mDataSet.get(position).getId())
                         .child(Profile.getCurrentProfile().getId());
                 DatabaseReference mRefLike = mDatabaseReference
                         .child(id)
                         .child(Constants.FIREBASE_USER_PUBLICATION)
                         .child(Constants.FIREBASE_USER_PUBLICATION_INFO)
-                        .child(idPub)
+                        .child(mDataSet.get(position).getId())
                         .child(Constants.FIREBASE_USER_PUBLICATION_COUNT_LIKES);
                 mRef.keepSynced(true);
                 mRefLike.keepSynced(true);
@@ -180,9 +174,11 @@ public class AdapterPublication extends RecyclerView.Adapter<AdapterPublication.
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if(dataSnapshot.getValue() == null){
                         likeButton = false;
+                        like.setBackgroundColor(ContextCompat.getColor(context,R.color.colorGray   ));
                     }
                     else{
                         likeButton = true;
+                        like.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPurple));
                     }
                 }
                 @Override
