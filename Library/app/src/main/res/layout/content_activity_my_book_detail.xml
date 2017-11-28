@@ -148,7 +148,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/activity_my_book_detail_download_margin"
                     android:layout_toRightOf="@id/activity_my_book_detail_open"
-                    android:src="@drawable/ic_file_download_black_24dp" />
+                    android:src="@drawable/ic_file_download_blue_24dp" />
 
                 <ImageButton
                     android:id="@+id/activity_my_book_detail_audio"
