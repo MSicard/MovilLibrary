@@ -74,8 +74,7 @@
             android:layout_gravity="center"
             android:id="@+id/fragment_profile_favorite_books"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="name \n hola \n como estas?"/>
+            android:layout_height="wrap_content"/>
         <TextView
             android:textColor="@color/colorPurple"
             android:layout_marginTop="20dp"

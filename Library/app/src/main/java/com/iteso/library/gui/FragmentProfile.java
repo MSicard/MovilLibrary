@@ -30,6 +30,7 @@ import com.iteso.library.R;
 import com.iteso.library.beans.User;
 import com.iteso.library.common.Constants;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -71,10 +72,13 @@ public class FragmentProfile extends Fragment implements OnClickListener{
         mName.setText(user.getNickname());
         mAboutMe.setText(user.getAbout_me());
         String favorite = "";
-        for(int i = 0; i < user.getFavoriteBooks().size(); i++){
-            favorite += user.getFavoriteBooks().get(i) + "\n";
+
+        if(user.getFavoriteBooks() != null) {
+            for (int i = 0; i < user.getFavoriteBooks().size(); i++) {
+                favorite += user.getFavoriteBooks().get(i) + "\n";
+            }
+            mFavoriteBooks.setText(favorite);
         }
-        mFavoriteBooks.setText(favorite);
         Toast.makeText(getActivity(), user.toString(), Toast.LENGTH_LONG);
     }
 
@@ -222,10 +226,23 @@ public class FragmentProfile extends Fragment implements OnClickListener{
             public void onDataChange(DataSnapshot dataSnapshot) {
                 GenericTypeIndicator<Map<String,Object>> t = new GenericTypeIndicator<Map<String,Object>>(){};
                 Map<String, Object> value = dataSnapshot.getValue(t);
-                user = new User((String)value.get(Constants.FIREBASE_USER_ABOUT),
-                        (List)value.get(Constants.FIREBASE_USER_FAVORITE_BOOKS),
-                        (String)value.get(Constants.FIREBASE_USER_IMAGE),
-                        (String)value.get(Constants.FIREBASE_USER_NICKNAME));
+
+                if(value.get(Constants.FIREBASE_USER_FAVORITE_BOOKS) == null){
+                    List l = new ArrayList();
+                    l.clear();
+                    user = new User((String)value.get(Constants.FIREBASE_USER_ABOUT),
+                            l,
+                            (String)value.get(Constants.FIREBASE_USER_IMAGE),
+                            (String)value.get(Constants.FIREBASE_USER_NICKNAME));
+
+                }else{
+                    user = new User((String)value.get(Constants.FIREBASE_USER_ABOUT),
+                            (List)value.get(Constants.FIREBASE_USER_FAVORITE_BOOKS),
+                            (String)value.get(Constants.FIREBASE_USER_IMAGE),
+                            (String)value.get(Constants.FIREBASE_USER_NICKNAME));
+                }
+
+
                 updateProfile(user);
             }
 
