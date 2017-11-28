@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.provider.Telephony;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,9 +27,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.iteso.library.R;
+import com.iteso.library.beans.Book;
+import com.iteso.library.beans.LastMonth;
 import com.iteso.library.beans.UserState;
 import com.iteso.library.common.Constants;
 import com.iteso.library.common.Utils;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
 
 /**
  * Created by Maritza on 25/09/2017.
@@ -46,7 +52,7 @@ public class FragmentStatistics extends Fragment {
     protected LinearLayout months;
     protected LinearLayout totals;
     protected LinearLayout readings;
-
+    private UserState state;
 
     private String id;
 
@@ -74,8 +80,8 @@ public class FragmentStatistics extends Fragment {
         months.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(tv_reading.getText().equals("0")){
-                    Toast.makeText(getActivity(), "No tienes nuevos libros en el mes", Toast.LENGTH_LONG);
+                if(tv_lastMonth.getText().equals("0")){
+                    Toast.makeText(getActivity(), "No tienes nuevos libros en el mes", Toast.LENGTH_LONG).show();
                 }
                 else {
                     Intent intent = new Intent(view.getContext(), ActivityStatisticsBooks.class);
@@ -94,7 +100,7 @@ public class FragmentStatistics extends Fragment {
             @Override
             public void onClick(View view) {
                 if(tv_reading.getText().equals("0")){
-                    Toast.makeText(getActivity(), "No tienes libros leyendo", Toast.LENGTH_LONG);
+                    Toast.makeText(getActivity(), "No tienes libros leyendo", Toast.LENGTH_LONG).show();
                 }
                 else{
                     Intent intent = new Intent(view.getContext(), ActivityStatisticsBooks.class);
@@ -112,8 +118,8 @@ public class FragmentStatistics extends Fragment {
         totals.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(tv_reading.getText().equals("0")){
-                    Toast.makeText(getActivity(), "No tienes libros terminados", Toast.LENGTH_LONG);
+                if(tv_totalRead.getText().equals("0")){
+                    Toast.makeText(getActivity(), "No tienes libros terminados", Toast.LENGTH_LONG).show();
                 }
                 else {
                     Intent intent = new Intent(view.getContext(), ActivityStatisticsBooks.class);
@@ -133,7 +139,7 @@ public class FragmentStatistics extends Fragment {
         mDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                UserState state = dataSnapshot.getValue(UserState.class);
+                state = dataSnapshot.getValue(UserState.class);
                 tv_lastMonth.setText(String.valueOf(state.getLast_month()));
                 tv_reading.setText(String.valueOf(state.getReading()));
                 tv_totalRead.setText(String.valueOf(state.getTotal()));
@@ -144,7 +150,7 @@ public class FragmentStatistics extends Fragment {
 
             }
         });
-
+        updateMonths();
         return view;
     }
 
@@ -162,6 +168,35 @@ public class FragmentStatistics extends Fragment {
                 nickname.setText(name);
             }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void updateMonths(){
+        DatabaseReference mDataReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER).child(id)
+                .child(Constants.FIREBASE_USER_STATISTICS).child(Constants.FIREBASE_USER_LAST_MONTH);
+        mDataReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getValue() != null){
+                    for(DataSnapshot data : dataSnapshot.getChildren()){
+                        LastMonth month = data.getValue(LastMonth.class);
+                        long timer = new Timestamp(System.currentTimeMillis()).getTime() - month.getTime();
+                        if(timer >= 2592000){
+                            DatabaseReference databaseReferencee = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER).child(id)
+                                    .child(Constants.FIREBASE_USER_STATISTICS).child(Constants.FIREBASE_USER_LAST_MONTH).child(month.getIsbn());
+                            databaseReferencee.removeValue();
+                            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER).child(id)
+                                    .child(Constants.FIREBASE_USER_STATE);
+                            state.setLast_month(state.getLast_month() - 1);
+                            databaseReference.setValue(state);
+                        }
+                    }
+                }
+            }
             @Override
             public void onCancelled(DatabaseError databaseError) {
 

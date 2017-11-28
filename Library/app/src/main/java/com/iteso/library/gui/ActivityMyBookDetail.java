@@ -178,6 +178,7 @@ public class ActivityMyBookDetail extends ActivityBase {
                             .child(Profile.getCurrentProfile().getId()).child(Constants.FIREBASE_USER_STATISTICS)
                             .child(Constants.FIREBASE_USER_BOOK_READING).child(b.getIsbn());
                     refReading.setValue(b.getIsbn());
+                    book.setStartDate(new Timestamp(System.currentTimeMillis()).getTime());
                     if(add){
                         add = false;
                     }else{
@@ -190,7 +191,11 @@ public class ActivityMyBookDetail extends ActivityBase {
                             .child(Profile.getCurrentProfile().getId()).child(Constants.FIREBASE_USER_STATISTICS)
                             .child(Constants.FIREBASE_USER_BOOK_READING).child(b.getIsbn());
                     refReading.removeValue();
-                    state.setReading(state.getReading() - 1);
+                    book.setStartDate(0);
+                    book.setPagesRead(0);
+                    if(state.getReading() > 0){
+                        state.setReading(state.getReading() - 1);
+                    }
                     add = false;
                 }
                 book.setReading(isChecked);
@@ -262,7 +267,10 @@ public class ActivityMyBookDetail extends ActivityBase {
                 if(editText.getText().toString().equals("")) return;
                 tv.setText(editText.getText().toString());
                 book.setPagesRead(Long.parseLong(editText.getText().toString()));
-                book.setReading(true);
+                if(!book.isReading()){
+                    book.setReading(true);
+                    book.setStartDate(new Timestamp(System.currentTimeMillis()).getTime());
+                }
                 reference.setValue(book);
             }
         }).setNegativeButton("DECLLINE", new DialogInterface.OnClickListener() {
@@ -273,32 +281,51 @@ public class ActivityMyBookDetail extends ActivityBase {
         }).setNeutralButton("FINISHED", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                DatabaseReference refTotalISBN = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
+                        .child(Profile.getCurrentProfile().getId()).child(Constants.FIREBASE_USER_STATISTICS).child(Constants.FIREBASE_USER_TOTAL).child(b.getIsbn());
+                refTotalISBN.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.getValue() == null){
+                            DatabaseReference refAddTotal = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
+                                    .child(Profile.getCurrentProfile().getId()).child(Constants.FIREBASE_USER_STATE).child(Constants.FIREBASE_USER_TOTAL);
+                            refAddTotal.setValue(state.getTotal() + 1);
+                            DatabaseReference refAddMonth = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
+                                    .child(Profile.getCurrentProfile().getId()).child(Constants.FIREBASE_USER_STATE)
+                                    .child(Constants.FIREBASE_USER_LAST_MONTH);
+                            refAddMonth.setValue(state.getLast_month() + 1);
 
-                book.setStartDate( new Timestamp(System.currentTimeMillis()).getTime());
-                DatabaseReference refMonth = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
-                        .child(Profile.getCurrentProfile().getId()).child(Constants.FIREBASE_USER_STATISTICS)
-                        .child(Constants.FIREBASE_USER_LAST_MONTH).child(b.getIsbn());
-                LastMonth month = new LastMonth(b.getIsbn(), book.getStartDate());
-                refMonth.setValue(month);
+                            book.setStartDate( new Timestamp(System.currentTimeMillis()).getTime());
+                            DatabaseReference refMonth = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
+                                    .child(Profile.getCurrentProfile().getId()).child(Constants.FIREBASE_USER_STATISTICS)
+                                    .child(Constants.FIREBASE_USER_LAST_MONTH).child(b.getIsbn());
+                            LastMonth month = new LastMonth(b.getIsbn(), new Timestamp(System.currentTimeMillis()).getTime());
+                            refMonth.setValue(month);
+                            DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
+                                    .child(Profile.getCurrentProfile().getId()).child(Constants.FIREBASE_USER_STATISTICS)
+                                    .child(Constants.FIREBASE_USER_TOTAL).child(b.getIsbn());
+                            ref.setValue(b.getIsbn());
+                        }
+                    }
 
-                DatabaseReference refAddMonth = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
-                        .child(Profile.getCurrentProfile().getId()).child(Constants.FIREBASE_USER_STATE)
-                        .child(Constants.FIREBASE_USER_LAST_MONTH);
-                refAddMonth.setValue(state.getLast_month() + 1);
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+
+
 
                 book.setReading(false);
                 book.setStartDate(0);
                 book.setPagesRead(0);
                 reference.setValue(book);
 
-                DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
-                        .child(Profile.getCurrentProfile().getId()).child(Constants.FIREBASE_USER_STATISTICS)
-                        .child(Constants.FIREBASE_USER_TOTAL).child(b.getIsbn());
-                ref.setValue(b.getIsbn());
 
-                DatabaseReference refAddTotal = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
-                        .child(Profile.getCurrentProfile().getId()).child(Constants.FIREBASE_USER_STATE).child(Constants.FIREBASE_USER_TOTAL);
-                refAddTotal.setValue(state.getTotal() + 1);
+                //Saber si el libro ya fue leído :)
+
+
             }
         });
         builder.create().show();
@@ -307,7 +334,7 @@ public class ActivityMyBookDetail extends ActivityBase {
     public void updateGUI(){
         mNumberPages.setText(String.valueOf(book.getPagesRead()));
         if(book.getStartDate() == 0) mStartDate.setText("No has empezado el libro");
-        mStartDate.setText(Utils.putTime(new Date(book.getStartDate())));
+        else mStartDate.setText(Utils.putTime(new Date(book.getStartDate())));
         mActualReading.setChecked(book.isReading());
         float percentage = ((float)book.getPagesRead()/(float)b.getPages())*(float)100;
         mPercentage.setText(String.valueOf((int)percentage) + "%");
