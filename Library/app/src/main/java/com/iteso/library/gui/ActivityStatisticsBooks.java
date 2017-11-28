@@ -80,8 +80,6 @@ public class ActivityStatisticsBooks extends ActivityBase {
                 mDataSet.clear();
                 for(DataSnapshot data : dataSnapshot.getChildren()){
                     LastMonth month = data.getValue(LastMonth.class);
-                    Log.v("month", month.toString());
-                    Log.v("month", data.toString());
                     DatabaseReference referenceBook = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_BOOKS)
                             .child(month.getIsbn());
                     referenceBook.addListenerForSingleValueEvent(new ValueEventListener() {
