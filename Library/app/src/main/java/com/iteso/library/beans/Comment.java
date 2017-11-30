@@ -1,12 +1,14 @@
 package com.iteso.library.beans;
 
+import android.support.annotation.NonNull;
+
 import java.util.Date;
 
 /**
  * Created by Desarrollo on 26/10/2017.
  */
 
-public class Comment {
+public class Comment implements Comparable<Comment>{
    private String id;
    private String message;
    private String nickname;
@@ -61,5 +63,14 @@ public class Comment {
 
     public void setTime(long time) {
         this.time = time;
+    }
+
+    @Override
+    public int compareTo(@NonNull Comment comment) {
+        if(this.getTime() > comment.getTime())
+            return -1;
+        if(this.getTime() < comment.getTime())
+            return 1;
+        return 0;
     }
 }
