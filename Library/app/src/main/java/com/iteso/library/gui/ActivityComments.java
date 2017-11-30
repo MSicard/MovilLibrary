@@ -141,6 +141,7 @@ public class ActivityComments extends ActivityBase {
                    Comment comment = data.getValue(Comment.class);
                    mDataSet.add(comment);
                }
+               Collections.sort(mDataSet);
                mAdapter.notifyDataSetChanged();
            }
 

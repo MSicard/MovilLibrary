@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
@@ -66,12 +67,12 @@ public class ActivityMyBookDetail extends ActivityBase {
     protected ImageButton mAudio;
 
     protected Book b;
+    protected MyBookDetail book;
 
     protected TextView mTitle;
     protected TextView mAutor;
     protected RatingBar mRating;
     protected ImageView mCoverPage;
-    protected MyBookDetail book;
 
     DatabaseReference reference;
     DatabaseReference referenceState;
@@ -82,6 +83,7 @@ public class ActivityMyBookDetail extends ActivityBase {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_book_detail);
+        onCreateDrawer();
 
         referenceState = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
                 .child(Profile.getCurrentProfile().getId()).child(Constants.FIREBASE_USER_STATE);
@@ -91,6 +93,8 @@ public class ActivityMyBookDetail extends ActivityBase {
 
         reference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_USER)
                 .child(Profile.getCurrentProfile().getId()).child(Constants.FIREBASE_USER_BOOK_STATE).child(b.getIsbn());
+
+        getState();
 
         mDownload = (ImageButton)findViewById(R.id.activity_my_book_detail_download);
         mNumberPages = (TextView)findViewById(R.id.activity_my_book_detail_read_pages);
@@ -152,14 +156,23 @@ public class ActivityMyBookDetail extends ActivityBase {
                         new DownloadPDF(ActivityMyBookDetail.this, b.getUrl(), b.getIsbn(), reference, book).execute();
                     else{
                         // Delete book
-                        String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
-                        File folder = new File(extStorageDirectory, "Download");
-                        folder.mkdir();
+                        AlertDialog.Builder builder;
+                        builder = new AlertDialog.Builder(ActivityMyBookDetail.this);
+                        builder.setTitle("Delete book from device")
+                                .setMessage("Are you sure?")
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        deletePDF();
+                                    }
+                                })
+                                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
 
-                        File pdfFile = new File(folder, b.getIsbn() + ".pdf");
-                        pdfFile.delete();
-                        book.setDownload(false);
-                        Toast.makeText(ActivityMyBookDetail.this, "'" + b.getTitle() + "' has been deleted from your device", Toast.LENGTH_LONG).show();
+                                    }
+                                })
+                        .show();
 
                     }
 
@@ -207,8 +220,6 @@ public class ActivityMyBookDetail extends ActivityBase {
                 refAddReading.setValue(state.getReading());
             }
         });
-        onCreateDrawer();
-        getState();
 
         mUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -225,6 +236,30 @@ public class ActivityMyBookDetail extends ActivityBase {
         });
     }
 
+    private void deletePDF(){
+        String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
+        File folder = new File(extStorageDirectory, "Download");
+        folder.mkdir();
+
+        File pdfFile = new File(folder, b.getIsbn() + ".pdf");
+        pdfFile.delete();
+        book.setDownload(false);
+        reference.setValue(book);
+        Toast.makeText(ActivityMyBookDetail.this, "'" + b.getTitle() + "' has been deleted from your device", Toast.LENGTH_LONG).show();
+    }
+
+    private void checkPDF() {
+        String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
+        File pdf = new File(extStorageDirectory, "Download/" + b.getIsbn() + ".pdf");
+
+       if(pdf.exists())
+           book.setDownload(true);
+       else
+           book.setDownload(false);
+
+       reference.setValue(book);
+    }
+
     private void getState(){
         DatabaseReference reference1 = reference;
         reference1.keepSynced(true);
@@ -239,6 +274,7 @@ public class ActivityMyBookDetail extends ActivityBase {
                     book = dataSnapshot.getValue(MyBookDetail.class);
                 }
                 updateGUI();
+                checkPDF();
             }
 
             @Override
@@ -365,8 +401,6 @@ public class ActivityMyBookDetail extends ActivityBase {
         });
     }
 
-
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -375,5 +409,8 @@ public class ActivityMyBookDetail extends ActivityBase {
                         new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                         MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
         }
+
+        if(book != null)
+            checkPDF();
     }
 }

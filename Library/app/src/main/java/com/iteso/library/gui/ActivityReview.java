@@ -46,8 +46,6 @@ public class ActivityReview extends ActivityBase {
     private TextView title;
     private ImageView image;
     private String nickname;
-    private long summmationRating;
-    private boolean userExists;
     private Review userReview;
 
     @SuppressLint("ClickableViewAccessibility")
@@ -125,33 +123,24 @@ public class ActivityReview extends ActivityBase {
             }
         });
 
+        checkUserReview();
+
     }
 
-    public void updateRating(){
-        /* This action should not be performed every time a user gives a review, this should be done
-            every three days for example. For demonstration purposes we do it in this way.
-         */
-
-        DatabaseReference userReviewReference = FirebaseDatabase.getInstance().getReference()
+    private void checkUserReview() {
+        DatabaseReference usersReviewsReference = FirebaseDatabase.getInstance().getReference()
                 .child(Constants.FIREBASE_BOOK_REVIEW)
-                .child(book.getIsbn());
-        DatabaseReference bookReference = FirebaseDatabase.getInstance().getReference()
-                .child(Constants.FIREBASE_BOOKS)
-                .child(book.getIsbn());
-        bookReference.setValue(book);
+                .child(book.getIsbn())
+                .child(Profile.getCurrentProfile().getId());
 
-        summmationRating = (long )mDataSet.size() * book.getRating();
+        userReview = null;
 
-        userReviewReference.addValueEventListener(new ValueEventListener() {
+        usersReviewsReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.child(Profile.getCurrentProfile().getId()).exists()){
-                    userExists = true;
-                    userReview = dataSnapshot.child(Profile.getCurrentProfile().getId()).getValue(Review.class);
-                }
+                if(dataSnapshot != null)
+                    userReview = dataSnapshot.getValue(Review.class);
 
-                else
-                    userExists = false;
             }
 
             @Override
@@ -159,8 +148,24 @@ public class ActivityReview extends ActivityBase {
 
             }
         });
+    }
 
+    public void updateRating(){
+        long summmationRating;
+        boolean userExists;
         int nUsers;
+
+        DatabaseReference bookReference = FirebaseDatabase.getInstance().getReference()
+                .child(Constants.FIREBASE_BOOKS)
+                .child(book.getIsbn());
+
+        summmationRating = (long )mDataSet.size() * book.getRating();
+
+        if(userReview != null)
+            userExists = true;
+        else
+            userExists = false;
+
         if(userExists){
             summmationRating = summmationRating - userReview.getRating() + (long)rating.getRating();
             nUsers = mDataSet.size();

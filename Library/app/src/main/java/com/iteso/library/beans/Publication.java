@@ -10,12 +10,12 @@ import java.util.Date;
  * Created by Maritza on 18/10/2017.
  */
 
-public class Publication implements Comparable, Parcelable{
-    String id;
-    long comments;
-    long likes;
-    String message;
-    long time;
+public class Publication implements Comparable<Publication>, Parcelable{
+    private String id;
+    private long comments;
+    private long likes;
+    private String message;
+    private long time;
 
     public Publication() {
     }
@@ -95,12 +95,7 @@ public class Publication implements Comparable, Parcelable{
         this.time = time;
     }
 
-    //Comparación de tiempo
-    @Override
-    public int compareTo(@NonNull Object o) {
-        if(time > ((Publication)o).getTime()) return 1;
-        else return 0;
-    }
+
 
     @Override
     public int describeContents() {
@@ -114,5 +109,14 @@ public class Publication implements Comparable, Parcelable{
         dest.writeLong(likes);
         dest.writeString(message);
         dest.writeLong(time);
+    }
+
+    @Override
+    public int compareTo(Publication publication) {
+        if(this.getTime() > publication.getTime())
+            return -1;
+        if(this.getTime() < publication.getTime())
+            return 1;
+        return 0;
     }
 }

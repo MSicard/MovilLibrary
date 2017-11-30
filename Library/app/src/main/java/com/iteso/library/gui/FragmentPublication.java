@@ -50,7 +50,7 @@ public class FragmentPublication extends Fragment {
     private Button publish;
     private EditText comment;
     private ProfilePictureView photo;
-    private  ArrayList mDataSet;
+    private  ArrayList<Publication> mDataSet;
     private String id;
     private CardView card;
 
