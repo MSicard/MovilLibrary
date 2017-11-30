@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
@@ -155,14 +156,23 @@ public class ActivityMyBookDetail extends ActivityBase {
                         new DownloadPDF(ActivityMyBookDetail.this, b.getUrl(), b.getIsbn(), reference, book).execute();
                     else{
                         // Delete book
-                        String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
-                        File folder = new File(extStorageDirectory, "Download");
-                        folder.mkdir();
+                        AlertDialog.Builder builder;
+                        builder = new AlertDialog.Builder(ActivityMyBookDetail.this);
+                        builder.setTitle("Delete book from device")
+                                .setMessage("Are you sure?")
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        deletePDF();
+                                    }
+                                })
+                                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
 
-                        File pdfFile = new File(folder, b.getIsbn() + ".pdf");
-                        pdfFile.delete();
-                        book.setDownload(false);
-                        Toast.makeText(ActivityMyBookDetail.this, "'" + b.getTitle() + "' has been deleted from your device", Toast.LENGTH_LONG).show();
+                                    }
+                                })
+                        .show();
 
                     }
 
@@ -224,6 +234,18 @@ public class ActivityMyBookDetail extends ActivityBase {
                 createDialogBibliography(b.toString());
             }
         });
+    }
+
+    private void deletePDF(){
+        String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
+        File folder = new File(extStorageDirectory, "Download");
+        folder.mkdir();
+
+        File pdfFile = new File(folder, b.getIsbn() + ".pdf");
+        pdfFile.delete();
+        book.setDownload(false);
+        reference.setValue(book);
+        Toast.makeText(ActivityMyBookDetail.this, "'" + b.getTitle() + "' has been deleted from your device", Toast.LENGTH_LONG).show();
     }
 
     private void checkPDF() {
