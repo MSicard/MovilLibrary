@@ -2,9 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.iteso.library">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -13,46 +13,64 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <provider android:authorities="com.facebook.app.FacebookContentProvider{223297168208291}"
+        <provider
             android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider{223297168208291}"
             android:exported="true"/>
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id" />
+            android:value="@string/facebook_app_id"/>
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/ic_favorite_black_24dp" />
+            android:resource="@drawable/ic_favorite_black_24dp"/>
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/colorAccent" />
+            android:resource="@color/colorAccent"/>
 
-        <activity android:name=".gui.ActivityProfile"></activity>
+        <activity android:name=".gui.ActivityProfile"/>
         <activity
             android:name=".gui.ActivityMyBookDetail"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".gui.ActivityMyBooks"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"/>
 
-        <activity android:name=".gui.ActivityLogin" />
-        <activity android:name=".gui.ActivityHome" />
-        <activity android:name=".gui.ActivityBookDetail" />
-        <activity android:name=".gui.ActivitySplashScreen">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-            <action android:name="android.intent.action.VIEW" />
-            <category android:name="android.intent.category.DEFAULT" />
-            <category android:name="android.intent.category.BROWSABLE" />
-            <data android:scheme="@string/fb_login_protocol_scheme" />
-        </intent-filter>
+        <activity android:name=".gui.ActivityLogin">
+
         </activity>
-        <activity android:name=".gui.ActivitySettings" />
-        <activity android:name=".gui.ActivityReview" />
-        <activity android:name=".gui.ActivityComments" />
-        <activity android:name=".gui.ActivityStatisticsBooks" />
-        <activity android:name=".gui.ActivitySearchResults"></activity>
+        <activity android:name="com.facebook.FacebookActivity"
+            android:configChanges=
+                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity
+            android:name="com.facebook.CustomTabActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="@string/fb_login_protocol_scheme" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".gui.ActivityHome"/>
+        <activity android:name=".gui.ActivityBookDetail"/>
+        <activity android:name=".gui.ActivitySplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+                <!--<action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="@string/fb_login_protocol_scheme" />-->
+            </intent-filter>
+        </activity>
+        <activity android:name=".gui.ActivitySettings"/>
+        <activity android:name=".gui.ActivityReview"/>
+        <activity android:name=".gui.ActivityComments"/>
+        <activity android:name=".gui.ActivityStatisticsBooks"/>
+        <activity android:name=".gui.ActivitySearchResults"/>
         <activity android:name=".gui.ActivityMusicPlayer"/>
         <activity android:name=".gui.ActivityProfileFriend"/>
 
